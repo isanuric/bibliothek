@@ -1,0 +1,81 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+    <!--&lt;!&ndash;<meta charset="utf-8"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">&ndash;&gt;-->
+    <!--&lt;!&ndash;<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">&ndash;&gt;-->
+    <!--&lt;!&ndash;<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">&ndash;&gt;-->
+    <!--<title>Login</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash;<div th:replace="/header :: header"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">&ndash;&gt;-->
+    <!--&lt;!&ndash;<h2 class="w3-wide w3-center">Login</h2>&ndash;&gt;-->
+    <!--&lt;!&ndash;<p class="w3-opacity w3-center"><i>Enter your username and password</i></p>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="w3-row w3-padding-32">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="w3-col m6 w3-large w3-margin-bottom">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-user-circle" style="width:30px"></i> Username<br>&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-handshake-o" style="width:30px"></i> Password<br>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="w3-col m6">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<form action="/action_page.php" target="_blank">&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<div class="w3-row-padding" style="margin:0 -16px 8px -16px">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<div class="w3-half">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<div class="w3-half">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;<form th:action="@{/login.html}" method="post">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<label for="username">Enter your username</label>:&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="text" id="username" name="username" autofocus="autofocus"/> <br/>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<label for="password">Enter your password</label>:&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="password" id="password" name="password"/> <br/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="submit" value="Log in"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<p th:if="${loginError}" class="error">Wrong user or password</p>-->
+    <!--<form th:action="@{/login.html}" method="post">-->
+        <!--<label for="username">Enter your username</label>:-->
+        <!--<input type="text" id="username" name="username" autofocus="autofocus"/> <br/>-->
+        <!--<label for="password">Enter your password</label>:-->
+        <!--<input type="password" id="password" name="password"/> <br/>-->
+        <!--<input type="submit" value="Log in"/>-->
+    <!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+</head>
+<body>
+<th:block th:include="/header"></th:block>
+
+<h1>Login page</h1>
+<p th:if="${loginError}" class="error">Wrong user or password</p>
+<form th:action="@{/login}" method="post">
+    <label for="username">Username</label>:
+    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <label for="password">Password</label>:
+    <input type="password" id="password" name="password" /> <br />
+    <input type="submit" value="Log in" />
+</form>
+</body>
+</html>
+
+
