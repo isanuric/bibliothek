@@ -66,15 +66,29 @@
 <body>
 <th:block th:include="/header"></th:block>
 
-<h1>Login page</h1>
-<p th:if="${loginError}" class="error">Wrong user or password</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Log in" />
-</form>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h2 class="w3-wide w3-center">CONTACT</h2>
+    <p class="w3-opacity w3-center"><i>Please enter your username and password</i></p>
+    <div class="w3-row w3-padding-32">
+        <div class="w3-col m6 w3-large w3-margin-bottom">
+            <i class="fa fa-user-circle" style="width:30px"></i> Username<br>
+            <i class="fa fa-handshake-o" style="width:30px"></i> Password<br>
+        </div>
+        <div class="w3-col m6">
+            <form th:action="@{/login}" method="post">
+            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+                    <div class="w3-half">
+                        <input class="w3-input w3-border" type="text" id="username" name="username" placeholder="Username">
+                    </div>
+                </div>
+                <input class="w3-input w3-border" type="password" id="password" name="password" placeholder="Message">
+                <button class="w3-button w3-black w3-section w3-right" type="submit">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 
