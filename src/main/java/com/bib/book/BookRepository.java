@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface  BookRepository extends CrudRepository<Book, Integer> {
 
-    @Query("SELECT book FROM Book book WHERE book.status = 1")
+    @Query("SELECT b FROM Book b WHERE b.status = 1")
     Collection<Book> findAllExistBooks();
 
 }

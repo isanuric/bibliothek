@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "book")
+@Table(name = "book002")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 30)
     protected String name;
     private String autor;
 
@@ -33,7 +33,7 @@ public class Book {
 
     private Date timestamp;
 
-    public Book(@Size(min = 2, max = 20) String name, String autor, Integer iban, Integer status) {
+    public Book(@Size(min = 2, max = 30) String name, String autor, Integer iban, Integer status) {
         this.name = name;
         this.autor = autor;
         this.iban = iban;

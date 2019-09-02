@@ -13,11 +13,10 @@
 
     <div class="w3-row w3-left-align">
         <tr th:each="book: ${books}">
-            <td>id </td><td th:text="${book.id}" />,
-            <td>name </td><td th:text="${book.name}" />,
-            <td>autor </td><td th:text="${book.autor}" />,
-            <td>iban </td><td th:text="${book.iban}" />,
-            <td>status </td><td th:text="${book.status}" />,
+            <td th:text="${book.id}" />.
+            <td th:text="${book.name}" />,
+            <td th:text="${book.autor}" />,
+            <td th:text="${book.iban}" />,
             <br>
         </tr>
 
