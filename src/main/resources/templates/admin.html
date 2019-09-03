@@ -10,17 +10,43 @@
 <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
     <h2 class="w3-wide">ADMIN</h2>
     <p class="w3-opacity"><i>Admin page to add new book</i></p>
-    <p class="w3-justify">Today I'm dirty
-        And I want to be pretty
-    </p>
+</div>
 
-    <div class="w3-row w3-padding-32">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="login">
+        <div class="w3-container">
+            <div class="w3-card-4">
+                <div class="w3-container w3-black">
+                    <h2>Add new book</h2>
+                </div>
+
+                <form class="w3-container" th:action="@{/add}" method="post">
+                    <p>
+                        <input class="w3-input" type="text" id="name" name="name" >
+                        <label>Book Name</label></p>
+                    <p>
+                        <input class="w3-input" type="text" id="autor" name="autor" >
+                        <label>Autor</label></p>
+                    <p>
+                        <input class="w3-input" type="text" id="iban" name="iban" >
+                        <label>IBAN</label></p>
+                    <button class="w3-button w3-black w3-section w3-right" type="submit">ADD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--<div class="w3-row w3-padding-32">-->
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+
         <div class="w3-third">
-            <p>Name</p>
-            <img th:src="@{/pic/paris.jpg}" class="w3-round w3-margin-bottom" alt="Random Name" style="width:30%">
+            <p>Stadtbibliothek Stuttgart</p>
+            <img th:src="@{/pic/bib.jpg}" class="w3-round w3-margin-bottom" alt="Random Name" style="width:50%">
         </div>
     </div>
 </div>
 
 </body>
-</html>
+</html>a

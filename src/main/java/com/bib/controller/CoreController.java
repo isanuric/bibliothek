@@ -3,7 +3,6 @@ package com.bib.controller;
 
 import com.bib.book.Book;
 import com.bib.book.BookRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,16 +55,23 @@ public class CoreController {
         return "/error/403";
     }
 
-
     @GetMapping("/all")
     public Iterable<Book> getBooks() {
         return bookRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Book> getByid(@PathVariable Integer id) {
+    @GetMapping("/books/search")
+    public String search() {
+        return "/search";
+    }
+
+    @GetMapping("/books")
+    public String getByid(Model model, @RequestParam Integer id) {
         Assert.notNull(id, "id could not be null.");
-        return bookRepository.findById(id);
+        System.out.println(id);
+        model.addAttribute("bookById", bookRepository.findById(id));
+        return "/search";
+
     }
 
     @GetMapping("/add")
@@ -74,7 +80,7 @@ public class CoreController {
             @RequestParam String autor,
             @RequestParam Integer iban) {
         this.addBook(name, autor, iban);
-        return "Done";
+        return "/admin";
 
     }
 
@@ -84,7 +90,7 @@ public class CoreController {
             @RequestParam String autor,
             @RequestParam Integer iban) {
         this.addBook(name, autor, iban);
-        return "Done";
+        return "/admin";
     }
 
     @DeleteMapping("/delete/{id}")
