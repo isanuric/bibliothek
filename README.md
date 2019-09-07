@@ -2,9 +2,9 @@
 * Spring Boot
 * Spring Security
 * Thymleaf
-* Minikube
 * MySql
 * Docker
+* Minikube
 
 
 # Quick Start
@@ -17,8 +17,11 @@
 
 
 # Branches
-* **master**: used in-memory authentication
-* **jdbc-authentication**: used jdbc authentication 
+* **Branch master**: used in-memory authentication
+* **Branch jdbc-authentication**: used jdbc authentication and Mysql in docker
+
+# MySql
+You can update and customise the tables in /docker directory.
 
 # Deployment
 

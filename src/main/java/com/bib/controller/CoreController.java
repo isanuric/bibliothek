@@ -35,11 +35,6 @@ public class CoreController {
         return "/admin";
     }
 
-    @GetMapping("/user")
-    public String user() {
-        return "/user";
-    }
-
     @GetMapping("/about")
     public String about() {
         return "/about";
