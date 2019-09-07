@@ -1,4 +1,4 @@
-package com.bib.book;
+package com.bib.dao;
 
 
 import java.util.Collection;

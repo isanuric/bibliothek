@@ -1,4 +1,4 @@
-package com.bib.book;
+package com.bib.dao;
 
 
 import java.sql.Date;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "book002")
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -24,6 +24,7 @@ public class Book {
 
     @Size(min = 2, max = 30)
     protected String name;
+
     private String autor;
 
     private Integer iban;

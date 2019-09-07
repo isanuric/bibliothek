@@ -1,8 +1,8 @@
 package com.bib.controller;
 
 
-import com.bib.book.Book;
-import com.bib.book.BookRepository;
+import com.bib.dao.Book;
+import com.bib.dao.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -68,7 +68,6 @@ public class CoreController {
     @GetMapping("/books")
     public String getByid(Model model, @RequestParam Integer id) {
         Assert.notNull(id, "id could not be null.");
-        System.out.println(id);
         model.addAttribute("bookById", bookRepository.findById(id));
         return "/search";
 
