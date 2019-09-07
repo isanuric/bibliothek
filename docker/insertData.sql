@@ -1,4 +1,4 @@
-INSERT INTO book (id,name,autor,iban)
+INSERT INTO book (id,name,autor,isbn)
     VALUES
         (12, "Die Geburt der Tragödie aus dem Geiste der Musik","Friedrich Wilhelm Nietzsche", 97842),
         (13, "Über Wahrheit und Lüge im außermoralischen Sinne","Friedrich Wilhelm Nietzsche", 97843),

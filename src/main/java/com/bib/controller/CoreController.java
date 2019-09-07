@@ -77,8 +77,8 @@ public class CoreController {
     public String addNewBook(
             @RequestParam String name,
             @RequestParam String autor,
-            @RequestParam Integer iban) {
-        this.addBook(name, autor, iban);
+            @RequestParam Long isbn) {
+        this.addBook(name, autor, isbn);
         return "/admin";
 
     }
@@ -87,8 +87,8 @@ public class CoreController {
     public String addNewBookPost(
             @RequestParam String name,
             @RequestParam String autor,
-            @RequestParam Integer iban) {
-        this.addBook(name, autor, iban);
+            @RequestParam Long isbn) {
+        this.addBook(name, autor, isbn);
         return "/admin";
     }
 
@@ -115,21 +115,21 @@ public class CoreController {
      * Add new entity to Repository.
      * @param name
      * @param autor
-     * @param iban
+     * @param isbn
      */
     private void addBook(
             @RequestParam String name,
             @RequestParam String autor,
-            @RequestParam Integer iban) {
+            @RequestParam Long isbn) {
         Assert.notNull(name, "Name could not be null.");
         Assert.notNull(autor, "Autor could not be null.");
-        Assert.notNull(iban, "IBAN could not be null.");
+        Assert.notNull(isbn, "isbn could not be null.");
 
         // create new book
         Book book = new Book();
         book.setName(name);
         book.setAutor(autor);
-        book.setIban(iban);
+        book.setIsbn(isbn);
         book.setStatus(1);
 
         // add to repository

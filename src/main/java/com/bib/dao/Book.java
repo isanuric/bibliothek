@@ -27,17 +27,17 @@ public class Book {
 
     private String autor;
 
-    private Integer iban;
+    private Long isbn;
 
     @Column(name="status")
     private Integer status;
 
     private Date timestamp;
 
-    public Book(@Size(min = 2, max = 30) String name, String autor, Integer iban, Integer status) {
+    public Book(@Size(min = 2, max = 30) String name, String autor, Long isbn, Integer status) {
         this.name = name;
         this.autor = autor;
-        this.iban = iban;
+        this.isbn = isbn;
         this.status = status;
     }
 
