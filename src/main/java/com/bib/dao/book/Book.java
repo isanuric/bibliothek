@@ -1,4 +1,4 @@
-package com.bib.dao;
+package com.bib.dao.book;
 
 
 import java.sql.Date;
@@ -34,11 +34,11 @@ public class Book {
 
     private Date timestamp;
 
-    public Book(@Size(min = 2, max = 30) String name, String autor, Long isbn, Integer status) {
+    public Book(@Size(min = 2, max = 30) String name, String autor, Long isbn) {
         this.name = name;
         this.autor = autor;
         this.isbn = isbn;
-        this.status = status;
+        this.status = 1;
     }
 
 }

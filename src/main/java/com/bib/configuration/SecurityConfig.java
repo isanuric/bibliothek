@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/user")
                 .permitAll()
 
                 .and()
@@ -45,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select email,password,enabled from bib_users where email = ?")
-                .authoritiesByUsernameQuery("select email,authority from authorities where email = ?");
+                .usersByUsernameQuery("select userId,password,enabled from bib_users where userId = ?")
+                .authoritiesByUsernameQuery("select userId,authority from authorities where userId = ?");
     }
 
     @Bean

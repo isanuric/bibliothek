@@ -1,3 +1,8 @@
+
+# Branches
+* **Branch master**: used in-memory authentication
+* **Branch jdbc-authentication**: used jdbc authentication and Mysql in docker
+
 # Scope
 * Spring Boot
 * Spring Security
@@ -15,10 +20,6 @@
 * $ mvn spring-boot:run
 * http://localhost:8080/
 
-
-# Branches
-* **Branch master**: used in-memory authentication
-* **Branch jdbc-authentication**: used jdbc authentication and Mysql in docker
 
 # MySql
 You can update and customise the tables in /docker directory.

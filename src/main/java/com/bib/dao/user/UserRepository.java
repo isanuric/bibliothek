@@ -1,4 +1,4 @@
-package com.bib.dao;
+package com.bib.dao.user;
 
 
 import java.util.Collection;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface  BookRepository extends CrudRepository<Book, Integer> {
+public interface UserRepository extends CrudRepository<User, Integer> {
 
-    @Query("SELECT b FROM Book b WHERE b.status = 1")
-    Collection<Book> findAllExistBooks();
+    @Query("SELECT u FROM User u WHERE u.userId = 1000")
+    Collection<User> findAllExistUsers();
 
 }

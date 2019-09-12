@@ -1,7 +1,7 @@
-INSERT INTO book (id,name,autor,isbn)
+INSERT INTO book (name,autor,isbn)
     VALUES
-        (12, "Die Geburt der Tragödie aus dem Geiste der Musik","Friedrich Wilhelm Nietzsche", 97842),
-        (13, "Über Wahrheit und Lüge im außermoralischen Sinne","Friedrich Wilhelm Nietzsche", 97843),
+        ("Die Geburt der Tragödie aus dem Geiste der Musik","Friedrich Wilhelm Nietzsche", 97842),
+        ("Über Wahrheit und Lüge im außermoralischen Sinne","Friedrich Wilhelm Nietzsche", 97843),
         (14, "Die Philosophie im tragischen Zeitalter der Griechen","Friedrich Wilhelm Nietzsche", 97844),
         (15, "Unzeitgemäße Betrachtungen","Friedrich Wilhelm Nietzsche", 97845),
         (16, "Die Geburt der Tragödie aus dem Geiste der Musik","Friedrich Wilhelm Nietzsche", 97846),

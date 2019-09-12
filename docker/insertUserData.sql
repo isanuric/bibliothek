@@ -1,13 +1,12 @@
-INSERT INTO bib_users (name, email, password, enabled)
+INSERT INTO bib_users (userId, name, email, password, enabled)
   values
-  ('Admin Meier', 'admin@email.com', 'pass', 1),
-  ('User Meier', 'user@email.com', 'pass', 1),
-  ('Markus Meier', 'markus.meier@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1),
-  ('Klaus Fichte', 'klaus.fichte@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1),
-  ('Denise Richards', 'denise.richards@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1);
+  ('1000', 'Admin Meier', 'admin@email.com', 'pass', 1),
+  ('1001', 'User Meier', 'user@email.com', 'pass', 1);
+--   ('Markus Meier', 'markus.meier@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1),
+--   ('Klaus Fichte', 'klaus.fichte@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1),
+--   ('Denise Richards', 'denise.richards@email.com', 'UnVuG9HHgffUDAlk8qfOu', 1);
 
-INSERT INTO authorities (email, authority)
+INSERT INTO authorities (userId, authority)
   values
-  ('admin@email.com', 'ROLE_ADMIN'),
-  ('markus.meier@email.com', 'ROLE_USER'),
-  ('klaus.fichte@email.com', 'ROLE_USER');
+  ('1000', 'ROLE_ADMIN'),
+  ('1001', 'ROLE_USER');
