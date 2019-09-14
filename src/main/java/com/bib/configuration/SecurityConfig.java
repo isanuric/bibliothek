@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/about", "/books/**", "/pic/**").permitAll()
+                .antMatchers("/home", "/about", "/book/**", "/pic/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
@@ -46,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select userId,password,enabled from bib_users where userId = ?")
-                .authoritiesByUsernameQuery("select userId,authority from authorities where userId = ?");
+                .usersByUsernameQuery("select userName,password,enabled from bib_users where userName = ?")
+                .authoritiesByUsernameQuery("select userName,authority from authorities where userName = ?");
     }
 
     @Bean

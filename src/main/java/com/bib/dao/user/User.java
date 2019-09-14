@@ -22,7 +22,7 @@ public class User {
     private Integer userId;
 
     @Size(min = 2, max = 30)
-    protected String name;
+    protected String username;
 
     private Long email;
 
@@ -32,7 +32,7 @@ public class User {
     private Integer enabled;
 
     public User(@Size(min = 2, max = 30) String name, Long email, String password) {
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.password = password;
     }
