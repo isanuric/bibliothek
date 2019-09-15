@@ -31,9 +31,10 @@ public class User {
     @Column(name = "enabled")
     private Integer enabled;
 
-    public User(@Size(min = 2, max = 30) String name, Long email, String password) {
-        this.username = name;
+
+    public User(String username, String password, Long email) {
         this.email = email;
+        this.username = username;
         this.password = password;
     }
 }

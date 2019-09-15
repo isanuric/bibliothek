@@ -29,4 +29,26 @@ public class UserControllerTest extends BaseTest {
             assertTrue(v.getResponseHeaders().getFirst("Location").contains("/user"));
         });
     }
+
+    @Test
+    public void addUserPost() {
+        LinkedMultiValueMap map = new LinkedMultiValueMap();
+        map.add("username", "user02");
+        map.add("password", "pass");
+        webTestClient.post().uri("/user/add")
+                .body(BodyInserters.fromFormData(map))
+                .exchange()
+                .expectStatus().is3xxRedirection()
+                .expectBody().consumeWith(v -> {
+//            System.out.println(v);
+//            assertTrue(v.getResponseCookies().get("JSESSIONID").get(0).getValue().length() == 32);
+//            assertTrue(v.getResponseHeaders().getFirst("Location").contains("/user"));
+        });
+
+        webTestClient.get().uri("/user/getall")
+                .exchange()
+                .expectBody().consumeWith(v -> {
+            System.out.println(v);
+        });
+    }
 }

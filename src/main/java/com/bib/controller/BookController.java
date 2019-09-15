@@ -40,22 +40,29 @@ public class BookController {
         return "/search";
     }
 
-    @GetMapping("/add")
-    public String addNewBook(
-            @RequestParam String name,
-            @RequestParam String autor,
-            @RequestParam Long isbn) {
-        this.addBook(name, autor, isbn);
-        return "/admin";
-
-    }
+//    @GetMapping("/add")
+//    public String addNewBook(
+//            @RequestParam String name,
+//            @RequestParam String autor,
+//            @RequestParam Long isbn) {
+//        Assert.notNull(name, "Name could not be null.");
+//        Assert.notNull(autor, "Autor could not be null.");
+//        Assert.notNull(isbn, "isbn could not be null.");
+//
+//        bookRepository.save(new Book(name, autor, isbn));
+//        return "/admin";
+//    }
 
     @PostMapping("/add")
     public String addNewBookPost(
             @RequestParam String name,
             @RequestParam String autor,
             @RequestParam Long isbn) {
-        this.addBook(name, autor, isbn);
+        Assert.notNull(name, "Name could not be null.");
+        Assert.notNull(autor, "Autor could not be null.");
+        Assert.notNull(isbn, "isbn could not be null.");
+
+        bookRepository.save(new Book(name, autor, isbn));
         return "/admin";
     }
 
@@ -75,20 +82,20 @@ public class BookController {
     }
 
     // ~ Internal Methods
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Add new entity to Repository.
-     */
-    private void addBook(
-            @RequestParam String name,
-            @RequestParam String autor,
-            @RequestParam Long isbn) {
-        Assert.notNull(name, "Name could not be null.");
-        Assert.notNull(autor, "Autor could not be null.");
-        Assert.notNull(isbn, "isbn could not be null.");
-
-        bookRepository.save(new Book(name, autor, isbn));
-    }
+//    // -----------------------------------------------------------------------------------------------------------------
+//
+//    /**
+//     * Add new entity to Repository.
+//     */
+//    private void addBook(
+//            @RequestParam String name,
+//            @RequestParam String autor,
+//            @RequestParam Long isbn) {
+//        Assert.notNull(name, "Name could not be null.");
+//        Assert.notNull(autor, "Autor could not be null.");
+//        Assert.notNull(isbn, "isbn could not be null.");
+//
+//        bookRepository.save(new Book(name, autor, isbn));
+//    }
 
 }
