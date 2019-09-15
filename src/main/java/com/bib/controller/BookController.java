@@ -81,21 +81,4 @@ public class BookController {
         return "/books";
     }
 
-    // ~ Internal Methods
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    /**
-//     * Add new entity to Repository.
-//     */
-//    private void addBook(
-//            @RequestParam String name,
-//            @RequestParam String autor,
-//            @RequestParam Long isbn) {
-//        Assert.notNull(name, "Name could not be null.");
-//        Assert.notNull(autor, "Autor could not be null.");
-//        Assert.notNull(isbn, "isbn could not be null.");
-//
-//        bookRepository.save(new Book(name, autor, isbn));
-//    }
-
 }

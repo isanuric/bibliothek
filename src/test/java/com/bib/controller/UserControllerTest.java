@@ -45,7 +45,7 @@ public class UserControllerTest extends BaseTest {
 //            assertTrue(v.getResponseHeaders().getFirst("Location").contains("/user"));
         });
 
-        webTestClient.get().uri("/user/getall")
+        webTestClient.get().uri("/user/all")
                 .exchange()
                 .expectBody().consumeWith(v -> {
             System.out.println(v);

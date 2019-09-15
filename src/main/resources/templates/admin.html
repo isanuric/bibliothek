@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>admin</title>
 </head>
@@ -19,8 +19,10 @@
                     <h2>Add new book</h2>
                 </div>
 
-                <form class="w3-container" th:action="@{/add}" method="post">
+                <form class="w3-container" th:action="@{/book/add}" method="post">
                     <p>
+                        <label>th:value=${allUsers}</label>
+
                         <input class="w3-input" type="text" id="name" name="name" >
                         <label>Book Name</label></p>
                     <p>
@@ -33,6 +35,11 @@
                 </form>
             </div>
         </div>
+
+        <div class="w3-container">
+        <label>th:value=${allUsers}"</label>
+    </div>
+
     </div>
 
 

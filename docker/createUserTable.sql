@@ -13,4 +13,4 @@ CREATE TABLE authorities (
   FOREIGN KEY (userName) REFERENCES bib_users(userName)
 );
 
-CREATE UNIQUE INDEX ix_auth_userName on authorities (userName,authority);
+CREATE UNIQUE INDEX ix_auth_userName on authorities (userName, authority);

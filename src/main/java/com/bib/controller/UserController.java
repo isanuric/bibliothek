@@ -6,6 +6,7 @@ import com.bib.dao.user.UserRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,9 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        model.addAttribute("allUsers", userRepository.findAllExistUsers());
+
         return "/admin";
     }
 
@@ -55,11 +58,11 @@ public class UserController {
         userRepository.save(new User(username, password, email));
     }
 
-    @GetMapping("/user/getall")
-    public Collection<User> getAll() {
+    @GetMapping("/user/all")
+    public void getAll(Model model) {
         Collection<User> allExistUsers = userRepository.findAllExistUsers();
         System.out.println(allExistUsers);
-        return allExistUsers;
+        model.addAttribute("allUsers", allExistUsers);
     }
 
 
