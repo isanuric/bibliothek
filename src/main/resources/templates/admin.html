@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>admin</title>
 </head>
@@ -7,40 +7,51 @@
 <body>
 <th:block th:include="/header"></th:block>
 
-<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="admin">
     <h2 class="w3-wide">ADMIN</h2>
     <p class="w3-opacity"><i>Admin page to add new book</i></p>
 </div>
 
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="login">
-        <div class="w3-container">
-            <div class="w3-card-4">
-                <div class="w3-container w3-black">
-                    <h2>Add new book</h2>
-                </div>
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="login">
+    <div class="w3-container">
+        <div class="w3-card-4">
+            <div class="w3-container w3-black">
+                <h2>Add new book</h2>
+            </div>
 
-                <form class="w3-container" th:action="@{/add}" method="post">
-                    <p>
-                        <input class="w3-input" type="text" id="name" name="name" >
-                        <label>Book Name</label></p>
-                    <p>
-                        <input class="w3-input" type="text" id="autor" name="autor" >
-                        <label>Autor</label></p>
-                    <p>
-                        <input class="w3-input" type="text" id="iban" name="iban" >
-                        <label>IBAN</label></p>
-                    <button class="w3-button w3-black w3-section w3-right" type="submit">ADD</button>
-                </form>
+            <form class="w3-container" th:action="@{/book/add}" method="post">
+                <p>
+                    <input class="w3-input" type="text" id="name" name="name">
+                    <label>Book Name</label></p>
+                <p>
+                    <input class="w3-input" type="text" id="autor" name="autor">
+                    <label>Autor</label></p>
+                <p>
+                    <input class="w3-input" type="text" id="isbn" name="isbn">
+                    <label>ISBN</label></p>
+                <button class="w3-button w3-black w3-section w3-right" type="submit">ADD</button>
+            </form>
+        </div>
+
+        <br>
+        <div class="w3-card-4">
+            <div class="w3-row w3-left-align">
+                <div class="w3-container w3-black">
+                    <h2>All users</h2>
+                </div>
+                <tr th:each="book: ${allUsers}">
+                    <td th:text="${book.userId}"/>,
+                    <td th:text="${book.username}"/>,
+                    <td th:text="${book.email}"/>.
+                    <br>
+                </tr>
             </div>
         </div>
+
     </div>
 
 
-
-
-    <!--<div class="w3-row w3-padding-32">-->
-    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="pic">
         <div class="w3-third">
             <p>Stadtbibliothek Stuttgart</p>
             <img th:src="@{/pic/bib.jpg}" class="w3-round w3-margin-bottom" alt="Random Name" style="width:50%">

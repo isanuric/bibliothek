@@ -1,31 +1,30 @@
+
+# Branches
+* **Branch master**: used in-memory authentication
+* **Branch jdbc-authentication**: used jdbc authentication and Mysql in docker
+
 # Scope
 * Spring Boot
 * Spring Security
 * Thymleaf
-* Minikube
 * MySql
 * Docker
+* Minikube
 
 
 # Quick Start
-* clone repository
+* Clone repository
+* $ chmod +x run-docker.bash  
+* $ ./run-docker.bash -> (It runs MySQL Database in Docker)
 * $ mvn clean install
-
-
-# MySQL Database in Docker
-MySQL intro: https://dev.mysql.com/doc/refman/8.0/en/tutorial.html
-
-Execute the following commands to build and run mysql-book container:
-* $ docker build -t mysql-book .  
-* $ docker run -d -p 3317:3306 --name mysql-book  -e MYSQL_ROOT_PASSWORD=ZmhyJDMhZmVHc0V0SEc1clR1Mgo= mysql-book
-
-# Branches
-
-# Deployment
-## Spring 
 * $ mvn spring-boot:run
 * http://localhost:8080/
 
+
+# MySql
+You can update and customise the tables in /docker directory.
+
+# Deployment
 
 ## Minikube (Kubernetes v1.14.3)
 * Download latest [minikube](https://kubernetes.io/docs/setup/minikube/) version 
