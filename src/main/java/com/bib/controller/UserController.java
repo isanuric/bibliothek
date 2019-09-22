@@ -40,10 +40,11 @@ public class UserController {
         return "/login";
     }
 
-    @PostMapping("/login")
-    public String loginPost() {
-        return "/user";
-    }
+//    @PostMapping("/login")
+//    public String loginPost() {
+//        System.out.println("POST LOGIN");
+//        return "user";
+//    }
 
     @RequestMapping("/user")
     public String user() {
@@ -54,7 +55,8 @@ public class UserController {
     public void add(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam Long email) {
+            @RequestParam String email) {
+        System.out.println(username + " " + password + " " + email);
         userRepository.save(new User(username, password, email));
     }
 

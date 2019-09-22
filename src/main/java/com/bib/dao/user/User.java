@@ -18,13 +18,15 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
+    @Column(name = "userid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @Size(min = 2, max = 30)
+    @Column(name = "username")
     protected String username;
 
-    private Long email;
+    private String email;
 
     private String password;
 
@@ -32,9 +34,10 @@ public class User {
     private Integer enabled;
 
 
-    public User(String username, String password, Long email) {
+    public User(String username, String password, String email) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.enabled = 1;
     }
 }
