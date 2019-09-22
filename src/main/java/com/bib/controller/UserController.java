@@ -84,13 +84,14 @@ public class UserController {
 //        return "/user";
 //    }
 //
-//    @PostMapping("/change-password")
-//    public String changePasswordPost(
-//            @RequestParam("password-old") String passworOld,
-//            @RequestParam("password-new") String passwordNew) {
-//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        return "/user";
-//    }
+    @PostMapping("/user/change-password")
+    public String changePasswordPost(
+            @RequestParam("password-old") String passworOld,
+            @RequestParam("password-new") String passwordNew) {
+        System.out.println(passworOld + "-> " + passwordNew);
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return "/user";
+    }
 
 
     private String getCurrontUser() {
