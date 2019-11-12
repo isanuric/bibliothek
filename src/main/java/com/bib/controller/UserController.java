@@ -3,7 +3,6 @@ package com.bib.controller;
 
 import com.bib.dao.user.User;
 import com.bib.dao.user.UserRepository;
-import java.security.Principal;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -78,7 +76,7 @@ public class UserController {
         return "/error/403";
     }
 
-//
+    //
 //    @GetMapping("/change-password")
 //    public String changePassword() {
 //        return "/user";
@@ -97,7 +95,7 @@ public class UserController {
     private String getCurrontUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            return  ((UserDetails)principal).getUsername();
+            return ((UserDetails) principal).getUsername();
         } else {
             return principal.toString();
         }

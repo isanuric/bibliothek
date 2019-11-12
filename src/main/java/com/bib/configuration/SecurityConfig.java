@@ -1,6 +1,8 @@
 package com.bib.configuration;
 
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    protected static final String ADMIN_ROLE = "ADMIN";
+
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     @Autowired
     private DataSource dataSource;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -24,18 +37,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home", "/about", "/book/**", "/user/add", "/pic/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**").hasAnyRole(ADMIN_ROLE)
+                .antMatchers("/user/**").hasAnyRole("USER", ADMIN_ROLE)
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/user")
+                .successHandler(authSuccessHandler)
                 .permitAll()
 
                 .and()
                 .logout()
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
 //                .and()
 //                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
@@ -54,4 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+//    @Bean public LogoutSuccessHandler logoutSuccessHandler() {
+//       return new LogoutSuccessHandler();
+//    }
+
 }
