@@ -10,8 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,12 +64,12 @@ public class UserController {
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String email) {
-        
+
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
             model.addAttribute("anyIsEmpty", "username, password or email could not be empty ");
             return "login";
         }
-        
+
         System.out.println(username + " " + password + " " + email);
 
         if (!passwordService.isPasswordScopeCorrect(model, password)) {
@@ -93,12 +91,6 @@ public class UserController {
         return "/error/403";
     }
 
-    //
-//    @GetMapping("/change-password")
-//    public String changePassword() {
-//        return "/user";
-//    }
-//
     @PostMapping("/user/change-password")
     public String changePasswordPost(
             @RequestParam("password-old") String passworOld,

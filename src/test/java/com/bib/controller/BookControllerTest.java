@@ -23,23 +23,6 @@ public class BookControllerTest extends BaseTest {
     }
 
     @Test
-    public void search() {
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "value 1");
-        map.put(2, "value 2");
-        map.put(3, "value 3");
-        map.put(4, "value 4");
-        map.put(5, "value 5");
-        if (!map.isEmpty()) {
-            for (Entry entry : map.entrySet()) {
-                String key = entry.getKey().toString();
-                String v = entry.getValue().toString();
-                map.remove(entry);
-            }
-        }
-    }
-
-    @Test
     public void getByid() {
     }
 
