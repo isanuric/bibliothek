@@ -28,7 +28,6 @@ public class UserController {
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("allUsers", userRepository.findAllExistUsers());
-
         return "/admin";
     }
 

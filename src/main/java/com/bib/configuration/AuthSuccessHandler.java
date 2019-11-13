@@ -19,6 +19,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
+        boolean authenticated = authentication.isAuthenticated();
         Set<String> definedRoles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (definedRoles.contains(SecurityConfig.ROLE_ADMIN)) {
             logger.info("found admin role.");
@@ -27,6 +28,9 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
             logger.info("found user role.");
             response.sendRedirect("/user");
         }
+//            logger.info("role not fund.");
+//            response.sendRedirect("/");
+
 
     }
 

@@ -13,6 +13,9 @@ import org.springframework.web.reactive.function.BodyInserters;
 
 public class UserControllerTest extends BaseTest {
 
+    private static final String USER = "1001";
+    private static final String ADMIN = "1000";
+
     @Test
     public void admin() {
     }
@@ -40,6 +43,39 @@ public class UserControllerTest extends BaseTest {
             System.out.println(v);
             assertTrue(v.getResponseCookies().get("JSESSIONID").get(0).getValue().length() == 32);
             assertTrue(v.getResponseHeaders().getFirst("Location").contains("/user"));
+        });
+    }
+
+    @Test
+    public void redirectToLogin() {
+        LinkedMultiValueMap map = new LinkedMultiValueMap();
+        map.add("username", ADMIN);
+        map.add("password", "pass");
+        webTestClient.post().uri("/admin")
+                .body(BodyInserters.fromFormData(map))
+                .exchange()
+                .expectStatus().is3xxRedirection()
+                .expectBody().consumeWith(v -> {
+            System.out.println(v);
+            assertTrue(v.getResponseCookies().get("JSESSIONID").get(0).getValue().length() == 32);
+            assertTrue(v.getResponseHeaders().getFirst("Location").contains("/login"));
+        });
+    }
+
+    @Test
+    @WithMockUser(value = ADMIN, username = ADMIN, password = "pass", roles = "ADMIN")
+    public void accessToAdmin() {
+        LinkedMultiValueMap map = new LinkedMultiValueMap();
+        map.add("username", ADMIN);
+        map.add("password", "pass");
+        webTestClient.post().uri("/admin")
+//                .body(BodyInserters.fromFormData(map))
+                .exchange()
+                .expectStatus().is3xxRedirection()
+                .expectBody().consumeWith(v -> {
+            System.out.println(v);
+            assertTrue(v.getResponseCookies().get("JSESSIONID").get(0).getValue().length() == 32);
+            assertTrue(v.getResponseHeaders().getFirst("Location").contains("/login"));
         });
     }
 

@@ -26,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthSuccessHandler authSuccessHandler;
 
     @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
+    @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
@@ -37,9 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/admin","/about", "/book/**", "/user/add", "/pic/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole(ROLE_ADMIN)
-                .antMatchers("/user/**").hasAnyRole(ROLE_USER, ROLE_ADMIN)
+                .antMatchers("/home", "/about", "/book/**", "/user/add", "/pic/**").permitAll()
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
 
                 .and()
@@ -48,11 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .defaultSuccessUrl("/user")
                 .loginProcessingUrl("/login")
                 .successHandler(authSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
 
                 .and()
                 .logout()
                 .logoutSuccessHandler(logoutSuccessHandler)
+
                 .permitAll();
 //                .and()
 //                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
