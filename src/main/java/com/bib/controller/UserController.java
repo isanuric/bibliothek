@@ -3,7 +3,7 @@ package com.bib.controller;
 
 import com.bib.dao.user.User;
 import com.bib.dao.user.UserRepository;
-import java.security.Principal;
+import com.bib.service.PasswordService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordService passwordService;
 
     @GetMapping({"/", "/home"})
     public String home() {
@@ -30,7 +32,6 @@ public class UserController {
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("allUsers", userRepository.findAllExistUsers());
-
         return "/admin";
     }
 
@@ -59,10 +60,22 @@ public class UserController {
 
     @PostMapping("/user/add")
     public String add(
+            Model model,
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String email) {
+
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+            model.addAttribute("anyIsEmpty", "username, password or email could not be empty ");
+            return "login";
+        }
+
         System.out.println(username + " " + password + " " + email);
+
+        if (!passwordService.isPasswordScopeCorrect(model, password)) {
+            return "login";
+        }
+
         userRepository.save(new User(username, password, email));
         return "user";
     }
@@ -78,12 +91,6 @@ public class UserController {
         return "/error/403";
     }
 
-//
-//    @GetMapping("/change-password")
-//    public String changePassword() {
-//        return "/user";
-//    }
-//
     @PostMapping("/user/change-password")
     public String changePasswordPost(
             @RequestParam("password-old") String passworOld,
@@ -97,7 +104,7 @@ public class UserController {
     private String getCurrontUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            return  ((UserDetails)principal).getUsername();
+            return ((UserDetails) principal).getUsername();
         } else {
             return principal.toString();
         }

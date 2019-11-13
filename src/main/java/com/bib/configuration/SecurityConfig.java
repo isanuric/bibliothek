@@ -1,6 +1,8 @@
 package com.bib.configuration;
 
 import javax.sql.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String LOGIN = "/login";
+    private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     @Autowired
     private DataSource dataSource;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -30,15 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/user")
+                .loginPage(LOGIN)
+                .loginProcessingUrl(LOGIN)
+                .successHandler(authSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
 
                 .and()
                 .logout()
-                .permitAll();
-//                .and()
-//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .logoutSuccessHandler(logoutSuccessHandler)
+
+                .permitAll()
+
+                .and()
+                .exceptionHandling().accessDeniedPage(LOGIN);
     }
 
     @Autowired
@@ -54,4 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+
 }
