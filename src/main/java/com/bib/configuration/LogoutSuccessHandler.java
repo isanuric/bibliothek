@@ -19,13 +19,13 @@ public class LogoutSuccessHandler implements
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException {
         try {
             if (!isEmpty(authentication) && !isEmpty(authentication.getDetails())) {
                 request.getSession().invalidate();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.debug("exeption: [{}]", e.getMessage());
         }
 
         response.setStatus(HttpServletResponse.SC_OK);

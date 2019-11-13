@@ -55,9 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(logoutSuccessHandler)
 
-                .permitAll();
-//                .and()
-//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .permitAll()
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/login");
     }
 
     @Autowired
@@ -74,8 +75,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-//    @Bean public LogoutSuccessHandler logoutSuccessHandler() {
-//       return new LogoutSuccessHandler();
-//    }
 
 }
