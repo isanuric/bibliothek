@@ -30,7 +30,7 @@ public class UserControllerTest extends BaseTest {
     @Test
     public void loginPost() {
         LinkedMultiValueMap map = new LinkedMultiValueMap();
-        map.add("username", "user");
+        map.add("username", "1000");
         map.add("password", "pass");
         webTestClient.post().uri("/login")
                 .body(BodyInserters.fromFormData(map))

@@ -19,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
-    protected static final String ADMIN_ROLE = "ADMIN";
+    protected static final String ROLE_USER = "ROLE_USER";
+    protected static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     @Autowired
     private AuthSuccessHandler authSuccessHandler;
@@ -36,15 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/about", "/book/**", "/user/add", "/pic/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole(ADMIN_ROLE)
-                .antMatchers("/user/**").hasAnyRole("USER", ADMIN_ROLE)
+                .antMatchers("/home", "/admin","/about", "/book/**", "/user/add", "/pic/**").permitAll()
+                .antMatchers("/admin/**").hasAnyRole(ROLE_ADMIN)
+                .antMatchers("/user/**").hasAnyRole(ROLE_USER, ROLE_ADMIN)
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user")
+//                .defaultSuccessUrl("/user")
+                .loginProcessingUrl("/login")
                 .successHandler(authSuccessHandler)
                 .permitAll()
 
