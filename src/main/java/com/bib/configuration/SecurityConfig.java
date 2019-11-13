@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String LOGIN = "/login";
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
@@ -44,9 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .loginPage("/login")
-//                .defaultSuccessUrl("/user")
-                .loginProcessingUrl("/login")
+                .loginPage(LOGIN)
+                .loginProcessingUrl(LOGIN)
                 .successHandler(authSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .permitAll()
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .and()
-                .exceptionHandling().accessDeniedPage("/login");
+                .exceptionHandling().accessDeniedPage(LOGIN);
     }
 
     @Autowired

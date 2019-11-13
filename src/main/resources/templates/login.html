@@ -37,6 +37,9 @@
             <tr>
                 <label>Or submit now</label>
                 <form th:action="@{/user/add}" method="post">
+                    <div th:text="${pwTooShort}" style="color: red"></div>
+                    <div th:text="${needUppercase}" style="color: red"></div>
+                    <div th:text="${needLowercase}" style="color: red"></div>
                     <div class="w3-row-padding w3-center">
                         <input class="w3-input w3-border" type="text" id="usernameSubmit" name="username" placeholder="Username">
                         <input class="w3-input w3-border" type="password" id="passwordSubmit" name="password" placeholder="Password">

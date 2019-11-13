@@ -3,6 +3,7 @@ package com.bib.controller;
 
 import com.bib.dao.user.User;
 import com.bib.dao.user.UserRepository;
+import com.bib.service.PasswordService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordService passwordService;
 
     @GetMapping({"/", "/home"})
     public String home() {
@@ -56,10 +60,16 @@ public class UserController {
 
     @PostMapping("/user/add")
     public String add(
+            Model model,
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String email) {
         System.out.println(username + " " + password + " " + email);
+
+        if (!passwordService.isPasswordScopeCorrect(model, password)) {
+            return "login";
+        }
+
         userRepository.save(new User(username, password, email));
         return "user";
     }

@@ -25,7 +25,7 @@ public class LogoutSuccessHandler implements
                 request.getSession().invalidate();
             }
         } catch (Exception e) {
-           logger.debug("exeption: [{}]", e.getMessage());
+           logger.debug("exception: [{}]", e.getMessage());
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
