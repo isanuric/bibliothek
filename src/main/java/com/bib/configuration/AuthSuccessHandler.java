@@ -16,87 +16,19 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private static Logger logger = LoggerFactory.getLogger(Logger.class);
 
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
-        boolean authenticated = authentication.isAuthenticated();
         Set<String> definedRoles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (definedRoles.contains(SecurityConfig.ROLE_ADMIN)) {
+        if (definedRoles.contains(ROLE_ADMIN)) {
             logger.info("found admin role.");
             response.sendRedirect("/admin");
-        } else if (definedRoles.contains(SecurityConfig.ROLE_USER)) {
+        } else if (definedRoles.contains(ROLE_USER)) {
             logger.info("found user role.");
             response.sendRedirect("/user");
         }
-//            logger.info("role not fund.");
-//            response.sendRedirect("/");
-
-
     }
-
-//    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-//
-//    @Override
-//    public void onAuthenticationSuccess(HttpServletRequest request,
-//            HttpServletResponse response, Authentication authentication)
-//            throws IOException {
-//
-//        handle(request, response, authentication);
-//        clearAuthenticationAttributes(request);
-//    }
-//
-//    protected void handle(HttpServletRequest request,
-//            HttpServletResponse response, Authentication authentication)
-//            throws IOException {
-//
-//        String targetUrl = determineTargetUrl(authentication);
-//
-//        if (response.isCommitted()) {
-//            logger.debug(
-//                    "Response has already been committed. Unable to redirect to "
-//                            + targetUrl);
-//            return;
-//        }
-//
-//        redirectStrategy.sendRedirect(request, response, targetUrl);
-//    }
-//
-//    protected String determineTargetUrl(Authentication authentication) {
-//        boolean isUser = false;
-//        boolean isAdmin = false;
-//        Collection<? extends GrantedAuthority> authorities
-//                = authentication.getAuthorities();
-//        for (GrantedAuthority grantedAuthority : authorities) {
-//            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-//                isUser = true;
-//                break;
-//            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-//                isAdmin = true;
-//                break;
-//            }
-//        }
-//
-//        if (isUser) {
-//            return "/user";
-//        } else if (isAdmin) {
-//            return "/admin";
-//        } else {
-//            throw new IllegalStateException();
-//        }
-//    }
-//
-//    protected void clearAuthenticationAttributes(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if (session == null) {
-//            return;
-//        }
-//        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-//    }
-//
-//    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-//        this.redirectStrategy = redirectStrategy;
-//    }
-//    protected RedirectStrategy getRedirectStrategy() {
-//        return redirectStrategy;
-//    }
 }

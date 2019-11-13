@@ -19,9 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
-    protected static final String ROLE_USER = "ROLE_USER";
-    protected static final String ROLE_ADMIN = "ROLE_ADMIN";
-
     @Autowired
     private AuthSuccessHandler authSuccessHandler;
 
