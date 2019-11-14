@@ -104,7 +104,7 @@ public class UserControllerTest extends BaseTest {
 
         LinkedMultiValueMap map = new LinkedMultiValueMap();
         map.add("username", "user");
-        map.add("password", "pass");
+        map.add("password", "Testpass1212");
 
         webTestClient.post().uri("/login")
                 .exchange().

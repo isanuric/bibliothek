@@ -18,7 +18,7 @@
 * $ ./run-docker.bash -> (this command runs MySQL Database in Docker)
 * $ mvn clean install
 * $ mvn spring-boot:run
-* http://localhost:8080/
+* http://localhost:8888/
 
 
 # MySql
