@@ -17,9 +17,8 @@
     <div class="w3-container">
         <div class="w3-card-4">
             <div class="w3-container w3-black">
-                <h2>Search by ID</h2>
+                Search by Id
             </div>
-
             <form class="w3-container" th:action="@{/books}" method="GET">
                 <p>
                     <input class="w3-input" type="text" id="id" name="id">
@@ -27,6 +26,23 @@
                 <button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>
             </form>
             <p th:text="${bookById}"></p>
+        </div>
+
+        <div>
+            <div class="w3-container w3-black">
+                Search by Author's name
+            </div>
+            <form class="w3-container" th:action="@{/author/books}" method="GET">
+                <p>
+                    <input class="w3-input" type="text" id="name" name="name">
+                    <label>Author's surname</label></p>
+                <button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>
+            </form>
+            <tr th:each="author: ${booksOfAutor}">
+                <td th:text="${author}"/>
+                <br>
+            </tr>
+            </tr>
         </div>
     </div>
 </div>

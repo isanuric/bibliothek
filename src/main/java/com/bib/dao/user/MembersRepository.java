@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface MembersRepository extends CrudRepository<Members, Integer> {
 
-    @Query("SELECT u FROM User u WHERE u.enabled = 1")
-    Collection<User> findAllExistUsers();
+    @Query("SELECT m FROM Members m WHERE m.enabled = 1")
+    Collection<Members> findAllExistUsers();
 
 }

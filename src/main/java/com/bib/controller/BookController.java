@@ -1,8 +1,11 @@
 package com.bib.controller;
 
 
+import com.bib.configuration.SecurityConfig;
 import com.bib.dao.book.Book;
 import com.bib.dao.book.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/book")
 public class BookController {
+
+    private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
     private BookRepository bookRepository;
@@ -56,13 +61,12 @@ public class BookController {
     @PostMapping("/add")
     public String addNewBookPost(
             @RequestParam String name,
-            @RequestParam String autor,
+            @RequestParam int id,
             @RequestParam Long isbn) {
         Assert.notNull(name, "Name could not be null.");
-        Assert.notNull(autor, "Autor could not be null.");
         Assert.notNull(isbn, "isbn could not be null.");
 
-        bookRepository.save(new Book(name, autor, isbn));
+        bookRepository.save(new Book(id, name));
         return "/admin";
     }
 
@@ -76,9 +80,8 @@ public class BookController {
     // ~
     // -----------------------------------------------------------------------------------------------------------------
     @GetMapping("/current")
-    public String getCurrentBooks(Model model) {
+    public String getAlltBooks(Model model) {
         model.addAttribute("books", bookRepository.findAllExistBooks());
         return "/books";
     }
-
 }

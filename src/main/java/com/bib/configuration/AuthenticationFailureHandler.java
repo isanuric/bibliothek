@@ -1,7 +1,5 @@
 package com.bib.configuration;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -18,8 +16,8 @@ public class AuthenticationFailureHandler implements
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException exception) throws IOException, ServletException {
-        logger.debug("authentication info: [{}]", exception.getMessage());
+            AuthenticationException exception) {
+        logger.info("authentication info: [{}]", exception.getMessage());
 
     }
 }

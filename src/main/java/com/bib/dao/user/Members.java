@@ -7,35 +7,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "bib_users")
-public class User {
+@Table(name = "members")
+public class Members {
+
+    private int enabled;
+
+    //    @Id
+//    @Column(name = "uid")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer userId;
 
     @Id
-    @Column(name = "userid")
+//    @Size(min = 2, max = 30)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-
-    @Size(min = 2, max = 30)
     @Column(name = "username")
     protected String username;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
 
     private String email;
 
     private String password;
 
-    @Column(name = "enabled")
-    private Integer enabled;
-
-
-    public User(String username, String password, String email) {
-        this.email = email;
+    public Members(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.enabled = 1;

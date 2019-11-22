@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN = "/login";
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
@@ -32,13 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    private static final String LOGIN = "/login";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/about", "/book/**", "/user/add", "/pic/**").permitAll()
+                .antMatchers("/home", "/about", "/book/**", "/user/add", "/author/**","/pic/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
@@ -66,8 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select userId,password,enabled from bib_users where userId = ?")
-                .authoritiesByUsernameQuery("select userId,authority from authorities where userId = ?");
+//                .usersByUsernameQuery("select userId,password,enabled from bib_users where userId = ?")
+//                .authoritiesByUsernameQuery("select userId,authority from authorities where userId = ?");
+                .usersByUsernameQuery("select username,password,enabled from bibdb.members where username = ?")
+                .authoritiesByUsernameQuery("select username_ref,role from authorities where username_ref = ?");
     }
 
     @Bean

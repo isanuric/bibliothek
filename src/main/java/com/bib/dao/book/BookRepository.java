@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface  BookRepository extends CrudRepository<Book, Integer> {
 
-    @Query("SELECT b FROM Book b WHERE b.status = 1 ORDER BY b.name")
+    @Query(value = "SELECT * FROM book b ORDER BY b.id", nativeQuery = true)
     Collection<Book> findAllExistBooks();
+
+
 
 }

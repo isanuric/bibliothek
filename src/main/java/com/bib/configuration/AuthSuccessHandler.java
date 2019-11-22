@@ -1,6 +1,7 @@
 package com.bib.configuration;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,10 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         } else if (definedRoles.contains(ROLE_USER)) {
             logger.info("found user role.");
             response.sendRedirect("/user");
+        } else {
+            logger.info("User is not authorized.");
+//            throw new AuthorizationServiceException("Your are not authorized to access to this page.");
+            throw new AccessDeniedException("authenticated, but not authorized.");
         }
     }
 }

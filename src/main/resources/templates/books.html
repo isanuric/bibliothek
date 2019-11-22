@@ -14,9 +14,7 @@
     <div class="w3-row w3-left-align">
         <tr th:each="book: ${books}">
             <td th:text="${book.id}" />.
-            <td th:text="${book.name}" />,
-            <td th:text="${book.autor}" />,
-            <td th:text="${book.isbn}" />
+            <td th:text="${book.name}" />
             <br>
         </tr>
 

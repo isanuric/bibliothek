@@ -39,10 +39,11 @@
                 <div class="w3-container w3-black">
                     <h2>All users</h2>
                 </div>
-                <tr th:each="book: ${allUsers}">
-                    <td th:text="${book.userId}"/>,
-                    <td th:text="${book.username}"/>,
-                    <td th:text="${book.email}"/>.
+                <tr th:each="user: ${allUsers}">
+                    <td th:text="${user.username}"/>,
+                    <td th:text="${user.name}"/>,
+                    <td th:text="${user.surname}"/>,
+                    <td th:text="${user.email}"/>.
                     <br>
                 </tr>
             </div>

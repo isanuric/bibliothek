@@ -1,8 +1,8 @@
 package com.bib.controller;
 
 
-import com.bib.dao.user.User;
-import com.bib.dao.user.UserRepository;
+import com.bib.dao.user.Members;
+import com.bib.dao.user.MembersRepository;
 import com.bib.service.PasswordService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private MembersRepository membersRepository;
 
     @Autowired
     private PasswordService passwordService;
@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("allUsers", userRepository.findAllExistUsers());
+        model.addAttribute("allUsers", membersRepository.findAllExistUsers());
         return "/admin";
     }
 
@@ -44,12 +44,6 @@ public class UserController {
     public String login() {
         return "/login";
     }
-
-//    @PostMapping("/login")
-//    public String loginPost() {
-//        System.out.println("POST LOGIN");
-//        return "user";
-//    }
 
     @RequestMapping("/user")
     public String user(Model model) {
@@ -70,19 +64,17 @@ public class UserController {
             return "login";
         }
 
-        System.out.println(username + " " + password + " " + email);
-
         if (!passwordService.isPasswordScopeCorrect(model, password)) {
             return "login";
         }
 
-        userRepository.save(new User(username, password, email));
+        membersRepository.save(new Members(username, password, email));
         return "user";
     }
 
     @GetMapping("/user/all")
     public void getAll(Model model) {
-        Collection<User> allExistUsers = userRepository.findAllExistUsers();
+        Collection<Members> allExistUsers = membersRepository.findAllExistUsers();
         model.addAttribute("allUsers", allExistUsers);
     }
 

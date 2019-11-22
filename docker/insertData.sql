@@ -17,3 +17,8 @@ INSERT INTO book (name,autor,isbn)
         ("Der Antichrist – Fluch auf das Christentum","Friedrich Wilhelm Nietzsche", 97856),
         ("Nietzsche contra Wagner","Friedrich Wilhelm Nietzsche", 97857),
         ("Ecce homo – Wie man wird, was man ist","Friedrich Wilhelm Nietzsche", 97858);
+
+INSERT INTO `bibdb`.`book` (`id`, `autore_id`, `name`) VALUES ('1', '1', 'Also sprach Zaratostra');
+INSERT INTO `bibdb`.`book` (`id`, `autore_id`, `name`) VALUES ('2', '1', 'Genialogie des Morals');
+INSERT INTO `bibdb`.`book` (`id`, `autore_id`, `name`) VALUES ('3', '2', 'Sein und Zeit');
+INSERT INTO `bibdb`.`book` (`id`, `autore_id`, `name`) VALUES ('4', '3', 'Kalte Asche');
