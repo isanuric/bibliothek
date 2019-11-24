@@ -7,10 +7,11 @@ import com.bib.dao.book.AutorsRepository;
 import com.bib.dao.book.Book;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,18 +28,27 @@ public class AuthorController {
 
     @GetMapping("/author/books")
     public String findAllBooksBySurname(Model model, @RequestParam String name) {
-        Autor booksOfAutor = autorsRepository.getBooksOfAutor(name).iterator().next();
-        Optional<Autor> byId = autorsRepository.findById(1);
-        logger.debug("b: [{}]", byId);
-        List title = getTitlesByAuthorName(name, booksOfAutor);
-        model.addAttribute("booksOfAutor", title);
+        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
+        model.addAttribute(
+                "booksOfAutor",
+                getBookTitles(autorsRepository.getAuthorAndBooks(name)));
         return "/search";
     }
 
-    private List getTitlesByAuthorName(@RequestParam String name, Autor booksOfAutor) {
+    @GetMapping("/author/books/only_book_names")
+    public String findAllBooksNameBySurname(Model model, @RequestParam String name) {
+        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
+        Set<Object> onlyBooks = autorsRepository.getOnlyBooks(name);
+        logger.info("test02: [{}]", onlyBooks);
+        model.addAttribute("onlyBookNames", onlyBooks);
+        return "/search";
+    }
+
+    private List getBookTitles(Set<Autor> autorSet) {
+        Autor autor = autorSet.iterator().next();
         List title = new ArrayList();
-        String author = String.format("%s %s", name, booksOfAutor.getSurname());
-        for (Book book : booksOfAutor.getBook()) {
+        String author = String.format("%s %s", autor.getName(), autor.getSurname());
+        for (Book book : autor.getBook()) {
             title.add(String.format("%s, %s", book.getName(), author));
         }
         return title;

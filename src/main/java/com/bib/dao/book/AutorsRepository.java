@@ -13,7 +13,10 @@ public interface AutorsRepository extends JpaRepository<Autor, Integer> {
 
     //    @Query(value = "SELECT * FROM autor a INNER JOIN book where a.id=book.autor_id AND a.name = 'Martin'", nativeQuery = true)
     @Query(value = "SELECT * FROM autor a INNER JOIN book WHERE a.id=book.autor_id AND a.name = :name", nativeQuery = true)
-    Set<Autor> getBooksOfAutor(@Param("name") String name);
+    Set<Autor> getAuthorAndBooks(@Param("name") String name);
+
+    @Query(value = "SELECT b.name FROM autor a INNER JOIN book b WHERE a.id=b.autor_id AND a.name = 'Martin'", nativeQuery = true)
+    Set<Object> getOnlyBooks(@Param("name") String name);
 
     @Query(value = "SELECT * FROM autor", nativeQuery = true)
     Collection<Autor> getAllBooks();
