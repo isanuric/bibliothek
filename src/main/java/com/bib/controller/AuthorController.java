@@ -39,20 +39,25 @@ public class AuthorController {
     public String findAllBooksNameBySurname(Model model, @RequestParam String name) {
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
         Set<Object> onlyBooks = autorsRepository.getOnlyBooks(name);
-        logger.info("test02: [{}]", onlyBooks);
         model.addAttribute("onlyBookNames", onlyBooks);
         return "/search";
     }
 
-    private List getBookTitles(Set<Autor> autorSet) {
-        Autor autor = autorSet.iterator().next();
-        List title = new ArrayList();
-        String author = String.format("%s %s", autor.getName(), autor.getSurname());
-        for (Book book : autor.getBook()) {
-            title.add(String.format("%s, %s", book.getName(), author));
-        }
-        return title;
+    @GetMapping("/author/books/author_and_book_names")
+    public String findAllBooksNameAndAuthor(Model model, @RequestParam String name) {
+        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
+        Set<Object> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
+        model.addAttribute("authorAndBookNames", authorAndBooks);
+        return "/search";
     }
+
+    @GetMapping("/author/books/authors")
+    public String findAllAuthors(Model model) {
+        Set<Object> allAuthors = autorsRepository.getAllAuthors();
+        model.addAttribute("allAuthors", allAuthors);
+        return "/search";
+    }
+
 
 //    @GetMapping(value = "/author/books")
 //    public String getAutorByFirstname(Model model, @RequestParam String name) {
@@ -65,4 +70,13 @@ public class AuthorController {
 //        return "/search";
 //    }
 
+    private List getBookTitles(Set<Autor> autorSet) {
+        Autor autor = autorSet.iterator().next();
+        List title = new ArrayList();
+        String author = String.format("%s %s", autor.getName(), autor.getSurname());
+        for (Book book : autor.getBook()) {
+            title.add(String.format("%s, %s", book.getName(), author));
+        }
+        return title;
+    }
 }
