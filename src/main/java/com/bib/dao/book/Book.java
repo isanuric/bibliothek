@@ -45,7 +45,7 @@ public class Book {
     @Column(name = "autor_id")
     public Integer autor_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id", insertable = false, updatable = false)
     private Autor autorMapper;
 

@@ -36,15 +36,15 @@ public class AuthorController {
     }
 
     @GetMapping("/author/books/only_book_names")
-    public String findAllBooksNameBySurname(Model model, @RequestParam String name) {
-        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
-        Set<Object> onlyBooks = autorsRepository.getOnlyBooks(name);
+    public String findBooksNameByAuthorSurname(Model model, @RequestParam String surname) {
+        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
+        Set<Object> onlyBooks = autorsRepository.getBooksBySurname(surname);
         model.addAttribute("onlyBookNames", onlyBooks);
         return "/search";
     }
 
-    @GetMapping("/author/books/author_and_book_names")
-    public String findAllBooksNameAndAuthor(Model model, @RequestParam String name) {
+    @GetMapping("/author/books/author_and_books")
+    public String findAuthorAndHisBooks(Model model, @RequestParam String name) {
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
         Set<Object> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
         model.addAttribute("authorAndBookNames", authorAndBooks);

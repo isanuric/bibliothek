@@ -28,7 +28,7 @@ public class Autor {
 
     private String surname;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "autorMapper")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "autorMapper")
     private List<Book> book;
 
     public Integer getId() {
