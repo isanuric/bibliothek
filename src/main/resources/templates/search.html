@@ -19,13 +19,23 @@
             <div class="w3-container w3-black">
                 Search by Id
             </div>
-            <form class="w3-container" th:action="@{/books}" method="GET">
+            <form class="w3-container" th:action="@{/author/books}" method="GET">
                 <p>
-                    <input class="w3-input" type="text" id="id" name="id">
+                    <input class="w3-input" type="text" id="id" name="surname">
                     <label>Book Name</label></p>
                 <button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>
             </form>
-            <p th:text="${bookById}"></p>
+            <form class="w3-container" th:action="@{/author/books}" method="GET">
+                <p>
+                    <input class="w3-input" type="text" id="id2" name="surname">
+                    <label>Book Name</label></p>
+                <button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>
+            </form>
+            <!--<p th:text="${bookById}"></p>-->
+            <tr th:each="author: ${booksOfAutor}">
+                <td th:text="${author}"/>
+                <br>
+            </tr>
         </div>
 
         <div>
@@ -44,6 +54,36 @@
             </tr>
             </tr>
         </div>
+
+        <form name='f' th:object="${personForm}" method='POST'>
+            <table>
+                <tr>
+                    <td>Select Country:</td>
+                    <td>
+                        <select th:field="*{countryId}">
+                            <option value=""> --</option>
+                            <option th:each="entry : ${mapCountries.entrySet()}"
+                                    th:value="${entry.key}"
+                                    th:utext="${entry.value}">
+                            </option>
+                        </select>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <select>
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="orange">Orange</option>
+            <option value="pear">Pear</option>
+        </select>
+
+        <select th:field="** {percentage}">
+            <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}"
+                    th:selected="${i==75}"></option>
+        </select>
+
     </div>
 </div>
 

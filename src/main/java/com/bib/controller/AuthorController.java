@@ -27,11 +27,11 @@ public class AuthorController {
     private AutorsRepository autorsRepository;
 
     @GetMapping("/author/books")
-    public String findAllBooksBySurname(Model model, @RequestParam String name) {
-        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
+    public String findAllBooksBySurname(Model model, @RequestParam String surname) {
+        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
         model.addAttribute(
                 "booksOfAutor",
-                getBookTitles(autorsRepository.getAuthorAndBooks(name)));
+                getBookTitles(autorsRepository.getAuthorAndBooks(surname)));
         return "/search";
     }
 

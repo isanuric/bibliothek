@@ -23,6 +23,17 @@ public class AuthorControllerTest extends BaseTest {
     MockMvc mockMvc;
 
     @Test
+    public void findAllBooksBySurname() throws Exception {
+        MvcResult resultActions = mockMvc.perform(get("/author/books?surname=Heidegger"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        for (String author : (Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAutor")) {
+            assertTrue("Martin, Friedrisch, Simon".contains(author));
+        }
+    }
+
+    @Test
     public void findBooksNameByAuthorSurname() throws Exception {
         mockMvc.perform(get("/author/books/only_book_names?surname=Heidegger"))
                 .andExpect(status().isOk())

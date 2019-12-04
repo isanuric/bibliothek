@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface AutorsRepository extends JpaRepository<Autor, Integer> {
 
     //    @Query(value = "SELECT * FROM autor a INNER JOIN book where a.id=book.autor_id AND a.name = 'Martin'", nativeQuery = true)
-    @Query(value = "SELECT * FROM autor a INNER JOIN book WHERE a.id=book.autor_id AND a.name = :name", nativeQuery = true)
-    Set<Autor> getAuthorAndBooks(@Param("name") String name);
+    @Query(value = "SELECT * FROM autor a INNER JOIN book WHERE a.id=book.autor_id AND a.surname = :surname", nativeQuery = true)
+    Set<Autor> getAuthorAndBooks(@Param("surname") String surname);
 
     @Query(value = "SELECT b.name FROM autor a INNER JOIN book b WHERE a.id=b.autor_id AND a.surname = :surname", nativeQuery = true)
     Set<Object> getBooksBySurname(@Param("surname") String surname);
