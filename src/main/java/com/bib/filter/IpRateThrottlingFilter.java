@@ -37,7 +37,6 @@ public class IpRateThrottlingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // init bucket registry
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
 
@@ -61,7 +60,6 @@ public class IpRateThrottlingFilter implements Filter {
             filterChain.doFilter(request, response);
         } else {
             System.out.println("- " + bucket.getAvailableTokens());
-            // limit is exceeded
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setStatus(429);
             httpResponse.getWriter().append("Too Many Requests");
