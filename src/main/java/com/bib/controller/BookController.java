@@ -2,8 +2,10 @@ package com.bib.controller;
 
 
 import com.bib.configuration.SecurityConfig;
+import com.bib.dao.book.AutorsRepository;
 import com.bib.dao.book.Book;
 import com.bib.dao.book.BookRepository;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class BookController {
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
+    private AutorsRepository autorsRepository;
+
+    @Autowired
     private BookRepository bookRepository;
 
     @GetMapping("/all")
@@ -34,7 +39,10 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String search() {
+    public String search(Model model) {
+
+        Set<Object> allAuthors = autorsRepository.getAllAuthors();
+        model.addAttribute("allAuthors", allAuthors);
         return "/search";
     }
 

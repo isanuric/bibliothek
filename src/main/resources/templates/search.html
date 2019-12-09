@@ -15,41 +15,64 @@
 
 <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="login">
     <!--<div class="w3-container">-->
-        <!--<div class="w3-card-4">-->
-            <!--<div class="w3-container w3-black">-->
-                <!--Search by Id-->
-            <!--</div>-->
-            <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
-                <!--<p>-->
-                    <!--<input class="w3-input" type="text" id="id" name="surname">-->
-                    <!--<label>Author's Name</label></p>-->
-                <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
-            <!--</form>-->
-            <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
-                <!--<p>-->
-                    <!--<input class="w3-input" type="text" id="id2" name="surname">-->
-                    <!--<label>Book Name</label></p>-->
-                <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
-            <!--</form>-->
-        <!--</div>-->
+    <!--<div class="w3-card-4">-->
+    <!--<div class="w3-container w3-black">-->
+    <!--Search by Id-->
+    <!--</div>-->
+    <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
+    <!--<p>-->
+    <!--<input class="w3-input" type="text" id="id" name="surname">-->
+    <!--<label>Author's Name</label></p>-->
+    <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
+    <!--</form>-->
+    <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
+    <!--<p>-->
+    <!--<input class="w3-input" type="text" id="id2" name="surname">-->
+    <!--<label>Book Name</label></p>-->
+    <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
+    <!--</form>-->
+    <!--</div>-->
     <!--</div>-->
 
+    <!--<tr th:each="author: ${allAuthors}">-->
+        <!--<td th:text="${author}"/>-->
+        <!--<br>-->
+    <!--</tr>-->
 
-        <form th:action="@{/author/books}" method="GET">
-            <input list="authors" name="surname">
+    <!--<form th:action="@{/author/books}" method="GET">-->
+        <!--<input list="authors" name="surname">-->
+        <!--<datalist id="authors">-->
+            <!--<option th:each="author: ${booksOfAutor}">-->
+            <!--<option value=th:text="${author}>-->
+                <!--&lt;!&ndash;<option value="Heidegger">&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="Nietzsche">&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="Beckett">&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="">&ndash;&gt;-->
+        <!--</datalist>-->
+        <!--<input type="submit">-->
+    <!--</form>-->
+
+    <div class="container">
+        <form action="#" th:action="@{/author/books}" method="GET">
+
+            Author Name:
+            <input list="authors" name="surname" />
             <datalist id="authors">
-                <option value="Heidegger">
-                <option value="Nietzsche">
-                <option value="Beckett">
-                <option value="">
-                <option value="">
+                <select>
+                    <option th:each="author: ${booksOfAutor}" th:value=" ${author}">
+                    </option>
+                </select>
             </datalist>
-            <input type="submit">
+            <button type="submit">Search</button>
         </form>
-        <tr th:each="author: ${booksOfAutor}">
-            <td th:text="${author}"/>
-            <br>
-        </tr>
+    </div>
+
+
+
+    <tr th:each="author: ${booksOfAutor}">
+        <td th:text="${author}"/>
+        <br>
+    </tr>
 
 </div>
 

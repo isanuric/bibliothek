@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class IpRateThrottlingFilter implements Filter {
 
     private static final BucketConfiguration configuration = Bucket4j.configurationBuilder()
-            .addLimit(Bandwidth.simple(3, Duration.ofSeconds(4)))
+            .addLimit(Bandwidth.simple(4, Duration.ofSeconds(3)))
             .build();
 
     // cache for storing token buckets, where IP is key.
