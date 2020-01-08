@@ -2,11 +2,13 @@ package com.bib.filter;
 
 
 import com.bib.BaseTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 public class IpRateThrottlingFilterTest extends BaseTest {
 
+    @Ignore
     @Test
     public void ip_throttling() throws InterruptedException {
 
