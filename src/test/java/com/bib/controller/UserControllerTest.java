@@ -4,13 +4,16 @@ import static org.junit.Assert.assertTrue;
 
 import com.bib.BaseTest;
 import java.util.Map;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTest extends BaseTest {
 
     private static final String USER = "1001";
@@ -30,6 +33,7 @@ public class UserControllerTest extends BaseTest {
         });
     }
 
+    @Ignore
     @Test
     public void loginSuccess() {
         LinkedMultiValueMap map = new LinkedMultiValueMap();
@@ -96,6 +100,7 @@ public class UserControllerTest extends BaseTest {
         });
     }
 
+    @Ignore
     @Test
 //    @WithMockUser(username = "user", password = "pass", authorities = "user")
 //    @WithMockUser

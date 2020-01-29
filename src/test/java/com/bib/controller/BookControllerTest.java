@@ -1,8 +1,12 @@
 package com.bib.controller;
 
 import com.bib.BaseTest;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class BookControllerTest extends BaseTest {
 
     @Test
@@ -16,6 +20,7 @@ public class BookControllerTest extends BaseTest {
         });
     }
 
+    @Ignore
     @Test
     public void getAutorByFiresName() {
         webTestClient.get().uri("author/books?name=Martin")

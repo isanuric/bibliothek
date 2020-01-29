@@ -10,18 +10,23 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
 public class AuthorControllerTest extends BaseTest {
 
     @Autowired
     MockMvc mockMvc;
 
+    @Ignore
     @Test
     public void findAllBooksBySurname() throws Exception {
         MvcResult resultActions = mockMvc.perform(get("/author/books?surname=Heidegger"))
