@@ -15,7 +15,7 @@
     <description>Demo project for a library</description>
 
     <properties>
-        <docker.image.prefix>${project.parent.artifactId}</docker.image.prefix>
+<!--        <docker.image.prefix>${project.artifactId}</docker.image.prefix>-->
         <java.version>11</java.version>
     </properties>
 
@@ -132,16 +132,80 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--&lt;!&ndash;                    <imageName>go</imageName>&ndash;&gt;-->
+<!--                    <repository>${docker.image.prefix}/${project.artifactId}</repository>-->
+<!--                    <tag>latest</tag>-->
+<!--                    <buildArgs>-->
+<!--                        <JAR_FILE>${project.artifactId}.jar</JAR_FILE>-->
+<!--                    </buildArgs>-->
+<!--                    <skip>false</skip>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>1.2.1</version>-->
+<!--                <configuration>-->
+<!--                    <forceTags>true</forceTags>-->
+<!--                    <imageTags>-->
+<!--                        <imageTag>${project.version}</imageTag>-->
+<!--                        <imageTag>latest</imageTag>-->
+<!--                    </imageTags>-->
+<!--                    <imageName>AAAAAAAAAexample</imageName>-->
+<!--                    <dockerDirectory>/</dockerDirectory>-->
+<!--                    <resources>-->
+<!--                        <resource>-->
+<!--                            <targetPath>/</targetPath>-->
+<!--                            <directory>${project.build.directory}</directory>-->
+<!--                            <include>${project.build.finalName}.jar</include>-->
+<!--                        </resource>-->
+<!--                    </resources>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--&lt;!&ndash;                <imageName>AAAAAAAAAexample</imageName>&ndash;&gt;-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--                <version>1.4.13</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>default</id>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--&lt;!&ndash;                            <goal>push</goal>&ndash;&gt;-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <repository>spotify/foobar</repository>-->
+<!--                    <tag>${project.version}</tag>-->
+<!--                    <buildArgs>-->
+<!--                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+<!--                    </buildArgs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                    <tag>latest</tag>
-                    <buildArgs>
-                        <JAR_FILE>${project.artifactId}.jar</JAR_FILE>
-                    </buildArgs>
-                    <skip>false</skip>
+                    <repository>go</repository>
+                    <tag>${project.version}</tag>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,6 +1,5 @@
-FROM mysql
+FROM tomcat:9.0-jre8-alpine
 
-ENV MYSQL_DATABASE book_database
-ENV USE book_database
-
-COPY ./docker/ /docker-entrypoint-initdb.d/
+EXPOSE 8095
+#CMD ["catalina.sh", "run"]
+#COPY target/wizard*.war $CATALINA_HOME/webapps/wizard.war
