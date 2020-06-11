@@ -1,90 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>admin</title>
+  <title>admin</title>
 </head>
 
 <body>
 <th:block th:include="/header"></th:block>
 
-<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="search">
-    <h2 class="w3-wide">SEARCH</h2>
-    <p class="w3-opacity"><i>Search page to find a book</i></p>
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1200px">
+  <h2 class="w3-wide">SEARCH</h2>
+  <p class="w3-opacity"><i>Search page to find a book</i></p>
 </div>
 
 
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="login">
-    <!--<div class="w3-container">-->
-    <!--<div class="w3-card-4">-->
-    <!--<div class="w3-container w3-black">-->
-    <!--Search by Id-->
-    <!--</div>-->
-    <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
-    <!--<p>-->
-    <!--<input class="w3-input" type="text" id="id" name="surname">-->
-    <!--<label>Author's Name</label></p>-->
-    <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
-    <!--</form>-->
-    <!--<form class="w3-container" th:action="@{/author/books}" method="GET">-->
-    <!--<p>-->
-    <!--<input class="w3-input" type="text" id="id2" name="surname">-->
-    <!--<label>Book Name</label></p>-->
-    <!--<button class="w3-button w3-black w3-section w3-right" type="submit">SEARCH</button>-->
-    <!--</form>-->
-    <!--</div>-->
-    <!--</div>-->
+<div class="w3-container w3-content w3-padding-64" style="max-width:1200px" id="login">
 
-    <!--<tr th:each="author: ${allAuthors}">-->
-        <!--<td th:text="${author}"/>-->
-        <!--<br>-->
-    <!--</tr>-->
+  <div class="w3-stretch w3-left-align">
+    <form action="#" th:action="@{/author/books}" method="GET">
 
-    <!--<form th:action="@{/author/books}" method="GET">-->
-        <!--<input list="authors" name="surname">-->
-        <!--<datalist id="authors">-->
-            <!--<option th:each="author: ${booksOfAutor}">-->
-            <!--<option value=th:text="${author}>-->
-                <!--&lt;!&ndash;<option value="Heidegger">&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="Nietzsche">&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="Beckett">&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="">&ndash;&gt;-->
-        <!--</datalist>-->
-        <!--<input type="submit">-->
-    <!--</form>-->
-
-    <div class="container">
-        <form action="#" th:action="@{/author/books}" method="GET">
-
-            Author Name:
-            <input list="authors" name="surname" />
-            <datalist id="authors">
-                <select>
-                    <option th:each="author: ${booksOfAutor}" th:value=" ${author}">
-                    </option>
-                </select>
-            </datalist>
+        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1200px" id="search">
+            Author Name: <input list="authors" name="surname"/>
             <button type="submit">Search</button>
-        </form>
-    </div>
+        </div>
+
+      <datalist id="authors">
+        <select>
+          <option th:each="author: ${booksOfAutor}" th:value=" ${author}">
+          </option>
+        </select>
+      </datalist>
+
+    </form>
+  </div>
 
 
-
-    <tr th:each="author: ${booksOfAutor}">
-        <td th:text="${author}"/>
-        <br>
-    </tr>
+  <tr th:each="author: ${booksOfAutor}">
+    <td th:text="${author}"/>
+    <br>
+  </tr>
 
 </div>
 
 
-<!--<div class="w3-row w3-padding-32">-->
-<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="pic">
-    <div class="w3-third">
-        <p>Stadtbibliothek Stuttgart</p>
-        <img th:src="@{/pic/bib.jpg}" class="w3-round w3-margin-bottom" alt="Random Name" style="width:50%">
-    </div>
-</div>
-</div>
 
 </body>
-</html>a
+</html>

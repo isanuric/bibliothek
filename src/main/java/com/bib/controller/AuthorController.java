@@ -35,7 +35,8 @@ public class AuthorController {
 //    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Order")
     public String findAllBooksBySurname(Model model, @RequestParam String surname) {
         if (StringUtils.isEmpty(surname)) {
-            throw new IllegalArgumentException("surname can not be empty.");
+//            throw new IllegalArgumentException("surname can not be empty.");
+            return "/search";
         }
 
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
