@@ -40,7 +40,7 @@ public class AuthorController {
         Optional<List> bookTitles = getBookTitles(autorsRepository.getAuthorAndBooks(surname));
 
         if (bookTitles.isEmpty()) {
-            model.addAttribute("booksOfAutor", "uid not found");
+            model.addAttribute("booksOfAutor", "Autor [" + surname + "] not found.");
             return SEARCH_PAGE;
         }
 
