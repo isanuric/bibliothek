@@ -26,6 +26,7 @@ import reactor.util.StringUtils;
 @Controller
 public class AuthorController {
 
+    private static final String SEARCH_PAGE = "/search";
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
@@ -35,15 +36,14 @@ public class AuthorController {
 //    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Order")
     public String findAllBooksBySurname(Model model, @RequestParam String surname) {
         if (StringUtils.isEmpty(surname)) {
-//            throw new IllegalArgumentException("surname can not be empty.");
-            return "/search";
+            return SEARCH_PAGE;
         }
 
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
         model.addAttribute(
                 "booksOfAutor",
                 getBookTitles(autorsRepository.getAuthorAndBooks(surname)));
-        return "/search";
+        return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/only_book_names")
@@ -51,7 +51,7 @@ public class AuthorController {
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
         Set<Object> onlyBooks = autorsRepository.getBooksBySurname(surname);
         model.addAttribute("onlyBookNames", onlyBooks);
-        return "/search";
+        return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/author_and_books")
@@ -59,14 +59,14 @@ public class AuthorController {
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
         Set<Object> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
         model.addAttribute("authorAndBookNames", authorAndBooks);
-        return "/search";
+        return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/authors")
     public String findAllAuthors(Model model) {
         Set<Object> allAuthors = autorsRepository.getAllAuthors();
         model.addAttribute("allAuthors", allAuthors);
-        return "/search";
+        return SEARCH_PAGE;
     }
 
 
