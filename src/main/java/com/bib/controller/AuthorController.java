@@ -7,6 +7,7 @@ import com.bib.dao.book.AutorsRepository;
 import com.bib.dao.book.Book;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import reactor.util.Assert;
+import reactor.util.ObjectUtils;
 import reactor.util.StringUtils;
 
 
@@ -39,10 +41,15 @@ public class AuthorController {
             return SEARCH_PAGE;
         }
 
+        Optional<List> bookTitles = getBookTitles(autorsRepository.getAuthorAndBooks(surname));
+
+        if (bookTitles.isEmpty()) {
+            model.addAttribute("booksOfAutor", "uid not found");
+            return SEARCH_PAGE;
+        }
+
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
-        model.addAttribute(
-                "booksOfAutor",
-                getBookTitles(autorsRepository.getAuthorAndBooks(surname)));
+        model.addAttribute("booksOfAutor", bookTitles.get());
         return SEARCH_PAGE;
     }
 
@@ -69,7 +76,6 @@ public class AuthorController {
         return SEARCH_PAGE;
     }
 
-
 //    @GetMapping(value = "/author/books")
 //    public String getAutorByFirstname(Model model, @RequestParam String name) {
 //        logger.info("getAutorByFirstname {}", name);
@@ -81,13 +87,18 @@ public class AuthorController {
 //        return "/search";
 //    }
 
-    private List getBookTitles(Set<Autor> autorSet) {
+    private Optional<List> getBookTitles(Set<Autor> autorSet) {
+
+        if (autorSet.isEmpty()) {
+            Optional.empty();
+        }
+
         Autor autor = autorSet.iterator().next();
         List title = new ArrayList();
         String author = String.format("%s %s", autor.getName(), autor.getSurname());
         for (Book book : autor.getBook()) {
             title.add(String.format("%s, %s", book.getName(), author));
         }
-        return title;
+        return Optional.of(title);
     }
 }
