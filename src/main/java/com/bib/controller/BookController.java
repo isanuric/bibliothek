@@ -53,35 +53,28 @@ public class BookController {
         return "/search";
     }
 
-//    @GetMapping("/add")
-//    public String addNewBook(
-//            @RequestParam String name,
-//            @RequestParam String autor,
-//            @RequestParam Long isbn) {
-//        Assert.notNull(name, "Name could not be null.");
-//        Assert.notNull(autor, "Autor could not be null.");
-//        Assert.notNull(isbn, "isbn could not be null.");
-//
-//        bookRepository.save(new Book(name, autor, isbn));
-//        return "/admin";
-//    }
-
     @PostMapping("/add")
     public String addNewBookPost(
-            @RequestParam String name,
-            @RequestParam int id,
-            @RequestParam Long isbn) {
-        Assert.notNull(name, "Name could not be null.");
-        Assert.notNull(isbn, "isbn could not be null.");
+            @RequestParam int authorId,
+            @RequestParam String bookName) {
+        Assert.notNull(authorId, "Autor ID could not be null.");
+        Assert.notNull(bookName, "Name could not be null.");
 
-        bookRepository.save(new Book(id, name));
+        bookRepository.save(new Book( 1, "bookName4"));
         return "/admin";
     }
 
     @DeleteMapping("/delete/{id}")
+//    @GetMapping("/delete/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable int id) {
         Assert.notNull(id, "id could not be null.");
-        bookRepository.deleteById(id);
+        try {
+            bookRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(bookRepository.findById(54).get().getName());
+
         return ResponseEntity.ok().build();
     }
 

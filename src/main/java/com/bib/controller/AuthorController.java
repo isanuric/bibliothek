@@ -24,8 +24,9 @@ import reactor.util.StringUtils;
 @Controller
 public class AuthorController {
 
-    private static final String SEARCH_PAGE = "/search";
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    private static final String SEARCH_PAGE = "/search";
 
     @Autowired
     private AutorsRepository autorsRepository;
