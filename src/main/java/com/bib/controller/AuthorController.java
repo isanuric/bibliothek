@@ -11,17 +11,13 @@ import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import reactor.util.Assert;
-import reactor.util.ObjectUtils;
+import org.thymeleaf.util.SetUtils;
 import reactor.util.StringUtils;
 
 
@@ -89,11 +85,13 @@ public class AuthorController {
 
     private Optional<List> getBookTitles(Set<Autor> autorSet) {
 
-        if (autorSet.isEmpty()) {
-            Optional.empty();
+        if (SetUtils.isEmpty(autorSet)) {
+            logger.info("Autor set is empty.");
+            return Optional.empty();
         }
 
         Autor autor = autorSet.iterator().next();
+
         List title = new ArrayList();
         String author = String.format("%s %s", autor.getName(), autor.getSurname());
         for (Book book : autor.getBook()) {
