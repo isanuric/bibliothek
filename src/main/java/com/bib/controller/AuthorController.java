@@ -52,7 +52,7 @@ public class AuthorController {
         }
 
         logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
-        model.addAttribute("booksOfAutor", bookTitles.get());
+        model.addAttribute("booksOfAuthor", bookTitles.get());
         return SEARCH_PAGE;
     }
 
@@ -78,7 +78,7 @@ public class AuthorController {
         System.out.println("------>  " + listToDisplay);
 
         Set<List> allValuesToDisplay = null;
-        if (listToDisplay.equals("allBooks")) {
+        if ("allBooks".equals(listToDisplay)) {
             model.addAttribute("allAuthors", bookRepository.findAllExistBooks());
         } else {
             model.addAttribute("allAuthors", autorsRepository.getAllAuthorsFullName());

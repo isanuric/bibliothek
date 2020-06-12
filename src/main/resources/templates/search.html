@@ -13,22 +13,16 @@
 
   <form action="#" th:action="@{/author/books}" method="GET">
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1200px" id="search">
-      Author Name: <input list="authors" name="surname"/>
+      Author Name: <input name="surname"/>
       <button type="submit">Search</button>
     </div>
-
-    <datalist id="authors">
-      <select>
-        <option th:each="author: ${booksOfAutor}" th:value=" ${author}">
-        </option>
-      </select>
-    </datalist>
   </form>
 </div>
 
 <div class="w3-container w3-content w3-padding-64" style="max-width:1200px" id="login">
-  <tr th:each="author: ${booksOfAutor}">
-    <td th:text="${author.name}"/><br>
+  <tr th:each="author: ${booksOfAuthor}">
+<!--    <td th:text="${author.name}"/><br>-->
+    <td th:text="${author}"/><br>
   </tr>
 </div>
 

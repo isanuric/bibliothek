@@ -11,7 +11,7 @@ public class BookControllerTest extends BaseTest {
 
     @Test
     public void getBooks() {
-        webTestClient.get().uri("/book/current")
+        webTestClient.get().uri("/book/display-all-books")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody().consumeWith(v -> {

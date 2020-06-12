@@ -80,9 +80,15 @@ public class BookController {
 
     // ~
     // -----------------------------------------------------------------------------------------------------------------
-    @GetMapping("/current")
+    @GetMapping("/display-all-books")
     public String getAlltBooks(Model model) {
         model.addAttribute("books", bookRepository.findAllExistBooks());
         return "/books-all";
+    }
+
+    @GetMapping("/choose")
+    public String choose(Model model) {
+        model.addAttribute("books", bookRepository.findAllExistBooks());
+        return "/books";
     }
 }
