@@ -40,7 +40,7 @@ public class AuthorControllerTest extends BaseTest {
 
     @Test
     public void findBooksNameByAuthorSurname() throws Exception {
-        mockMvc.perform(get("/author/books/only_book_names?surname=Heidegger"))
+        mockMvc.perform(get("/author/books/author-and-books?surname=Heidegger"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("onlyBookNames", CoreMatchers.hasItem("Sein und Zeit")));
     }

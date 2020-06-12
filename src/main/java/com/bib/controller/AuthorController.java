@@ -50,9 +50,9 @@ public class AuthorController {
         return SEARCH_PAGE;
     }
 
-    @GetMapping("/author/books/only_book_names")
+    @GetMapping("/author/books/author-and-books")
     public String findBooksNameByAuthorSurname(Model model, @RequestParam String surname) {
-        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
+        logger.info("Surname: [{}]", autorsRepository.findAll(Sort.by("surname")));
         Set<Object> onlyBooks = autorsRepository.getBooksBySurname(surname);
         model.addAttribute("onlyBookNames", onlyBooks);
         return SEARCH_PAGE;
@@ -68,9 +68,10 @@ public class AuthorController {
 
     @GetMapping("/author/books/authors")
     public String findAllAuthors(Model model) {
-        Set<Object> allAuthors = autorsRepository.getAllAuthors();
+        Set<List> allAuthors = autorsRepository.getAllAuthorsFullName();
+        System.out.println("AAAAAAAAAAAAAAAAAAA {}." + allAuthors);
         model.addAttribute("allAuthors", allAuthors);
-        return SEARCH_PAGE;
+        return "/books";
     }
 
 //    @GetMapping(value = "/author/books")

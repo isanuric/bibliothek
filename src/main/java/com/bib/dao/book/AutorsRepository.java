@@ -2,6 +2,7 @@ package com.bib.dao.book;
 
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,7 @@ public interface AutorsRepository extends JpaRepository<Autor, Integer> {
 
     @Query("SELECT a.name FROM Autor a")
     Set<Object> getAllAuthors();
+
+    @Query("SELECT a.name, a.surname FROM Autor a")
+    Set<List> getAllAuthorsFullName();
 }
