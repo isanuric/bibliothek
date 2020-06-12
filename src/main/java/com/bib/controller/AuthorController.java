@@ -5,10 +5,13 @@ import com.bib.configuration.SecurityConfig;
 import com.bib.dao.book.Autor;
 import com.bib.dao.book.AutorsRepository;
 import com.bib.dao.book.Book;
+import com.bib.dao.book.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class AuthorController {
 
     @Autowired
     private AutorsRepository autorsRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @GetMapping("/author/books")
 //    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Order")
@@ -67,10 +73,17 @@ public class AuthorController {
     }
 
     @GetMapping("/author/books/authors")
-    public String findAllAuthors(Model model) {
-        Set<List> allAuthors = autorsRepository.getAllAuthorsFullName();
-        System.out.println("AAAAAAAAAAAAAAAAAAA {}." + allAuthors);
-        model.addAttribute("allAuthors", allAuthors);
+    public String findAllAuthors(Model model, HttpServletRequest request) {
+        String listToDisplay = request.getParameter("selectedListToDisplay");
+        System.out.println("------>  " + listToDisplay);
+
+        Set<List> allValuesToDisplay = null;
+        if (listToDisplay.equals("allBooks")) {
+            model.addAttribute("allAuthors", bookRepository.findAllExistBooks());
+        } else {
+            model.addAttribute("allAuthors", autorsRepository.getAllAuthorsFullName());
+        }
+
         return "/books";
     }
 

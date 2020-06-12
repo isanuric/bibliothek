@@ -83,6 +83,6 @@ public class BookController {
     @GetMapping("/current")
     public String getAlltBooks(Model model) {
         model.addAttribute("books", bookRepository.findAllExistBooks());
-        return "/books";
+        return "/books-all";
     }
 }
