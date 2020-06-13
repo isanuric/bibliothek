@@ -15,5 +15,4 @@ public interface MembersRepository extends CrudRepository<Members, Integer> {
 
     @Query("SELECT m FROM Members m WHERE m.enabled = 1")
     Collection<Members> findAllExistUsers();
-
 }

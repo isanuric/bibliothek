@@ -16,12 +16,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "members")
 public class Members {
 
-    private int enabled;
-
-    //    @Id
-//    @Column(name = "uid")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer userId;
 
     @Id
 //    @Size(min = 2, max = 30)
@@ -38,6 +32,8 @@ public class Members {
     private String email;
 
     private String password;
+
+    private int enabled;
 
     public Members(String username, String password, String email) {
         this.username = username;
