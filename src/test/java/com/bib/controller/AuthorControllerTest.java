@@ -33,7 +33,7 @@ public class AuthorControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        for (String author : (Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAutor")) {
+        for (String author : (Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAuthor")) {
             assertTrue("Martin, Friedrisch, Simon".contains(author));
         }
     }

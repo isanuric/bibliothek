@@ -47,7 +47,9 @@ public class AuthorController {
         Optional<List> bookTitles = getBookTitles(autorsRepository.getAuthorAndBooks(surname));
 
         if (bookTitles.isEmpty()) {
-            model.addAttribute("booksOfAutor", "Autor [" + surname + "] not found.");
+            String attributeValue = "Author [" + surname + "] not found.";
+            logger.info("{}", attributeValue);
+            model.addAttribute("booksOfAuthor", attributeValue);
             return SEARCH_PAGE;
         }
 
@@ -58,7 +60,8 @@ public class AuthorController {
 
     @GetMapping("/author/books/author-and-books")
     public String findBooksNameByAuthorSurname(Model model, @RequestParam String surname) {
-        logger.info("Surname: [{}]", autorsRepository.findAll(Sort.by("surname")));
+//        logger.info("Surname: [{}]", autorsRepository.findAll(Sort.by("surname")));
+        logger.info("getBooksBySurname: [{}]", autorsRepository.getBooksBySurname(surname));
         Set<Object> onlyBooks = autorsRepository.getBooksBySurname(surname);
         model.addAttribute("onlyBookNames", onlyBooks);
         return SEARCH_PAGE;
@@ -66,7 +69,7 @@ public class AuthorController {
 
     @GetMapping("/author/books/author_and_books")
     public String findAuthorAndHisBooks(Model model, @RequestParam String name) {
-        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
+//        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
         Set<Object> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
         model.addAttribute("authorAndBookNames", authorAndBooks);
         return SEARCH_PAGE;
@@ -78,10 +81,11 @@ public class AuthorController {
 
         Set<List> allValuesToDisplay = null;
         if ("allBooks".equals(listToDisplay)) {
-            model.addAttribute("allAuthors", bookRepository.getAllBooks());
+            allValuesToDisplay = bookRepository.getAllBooks();
         } else {
-            model.addAttribute("allAuthors", autorsRepository.getAllAuthorsFullName());
+            allValuesToDisplay = autorsRepository.getAllAuthorsFullName();
         }
+        model.addAttribute("allAuthors", allValuesToDisplay);
         return "/books";
     }
 

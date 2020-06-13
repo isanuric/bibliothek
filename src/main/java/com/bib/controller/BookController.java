@@ -65,7 +65,6 @@ public class BookController {
     }
 
     @DeleteMapping("/delete/{id}")
-//    @GetMapping("/delete/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable int id) {
         Assert.notNull(id, "id could not be null.");
         try {
@@ -78,8 +77,6 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    // ~
-    // -----------------------------------------------------------------------------------------------------------------
     @GetMapping("/display-all-books")
     public String getAlltBooks(Model model) {
         model.addAttribute("books", bookRepository.findAllExistBooks());
