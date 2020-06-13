@@ -92,7 +92,6 @@ public class UserController {
         return "/user";
     }
 
-
     private String getCurrontUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {

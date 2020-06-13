@@ -22,6 +22,5 @@ public class ToolbarController {
         model.addAttribute("allAuthors", allAuthors);
         return "/search";
     }
-
-
 }
+

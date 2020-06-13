@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,6 @@ public class AuthorController {
     private BookRepository bookRepository;
 
     @GetMapping("/author/books")
-//    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No such Order")
     public String findAllBooksBySurname(Model model, @RequestParam String surname) {
         if (StringUtils.isEmpty(surname)) {
             return SEARCH_PAGE;
@@ -60,17 +58,14 @@ public class AuthorController {
 
     @GetMapping("/author/books/author-and-books")
     public String findBooksNameByAuthorSurname(Model model, @RequestParam String surname) {
-//        logger.info("Surname: [{}]", autorsRepository.findAll(Sort.by("surname")));
         logger.info("getBooksBySurname: [{}]", autorsRepository.getBooksBySurname(surname));
-        Set<Object> onlyBooks = autorsRepository.getBooksBySurname(surname);
-        model.addAttribute("onlyBookNames", onlyBooks);
+        model.addAttribute("onlyBookNames", autorsRepository.getBooksBySurname(surname));
         return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/author_and_books")
     public String findAuthorAndHisBooks(Model model, @RequestParam String name) {
-//        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("name")));
-        Set<Object> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
+        Set<List> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
         model.addAttribute("authorAndBookNames", authorAndBooks);
         return SEARCH_PAGE;
     }
@@ -88,17 +83,6 @@ public class AuthorController {
         model.addAttribute("allAuthors", allValuesToDisplay);
         return "/books";
     }
-
-//    @GetMapping(value = "/author/books")
-//    public String getAutorByFirstname(Model model, @RequestParam String name) {
-//        logger.info("getAutorByFirstname {}", name);
-//        Autor firstFind = autorsRepository.findAutorByFirstname(name).iterator().next();
-////        String name = firstFind.getName();
-////        String surname = firstFind.getSurname();
-////        logger.info("firstname: [{}], lastname: [{}], {}", name, surname, firstFind.getBook().get(0).getName());
-//        model.addAttribute("NameAndSurname",  autorsRepository.findAutorByFirstname(name));
-//        return "/search";
-//    }
 
     private Optional<List> getBookTitles(Set<Autor> autorSet) {
 

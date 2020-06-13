@@ -2,7 +2,7 @@ package com.bib.controller;
 
 import static org.junit.Assert.assertTrue;
 
-import com.bib.BaseTest;
+import com.bib.BibliothekApplicationTests;
 import java.util.Map;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserControllerTest extends BaseTest {
+public class UserControllerTest extends BibliothekApplicationTests {
 
     private static final String USER = "1001";
     private static final String ADMIN = "1000";

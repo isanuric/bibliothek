@@ -18,6 +18,5 @@ public class AuthenticationFailureHandler implements
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) {
         logger.info("authentication info: [{}]", exception.getMessage());
-
     }
 }

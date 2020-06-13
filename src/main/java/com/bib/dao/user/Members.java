@@ -7,21 +7,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "members")
 public class Members {
 
-
     @Id
-//    @Size(min = 2, max = 30)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username")
-    protected String username;
+    private String username;
 
     @Column(name = "name")
     private String name;
@@ -30,9 +30,7 @@ public class Members {
     private String surname;
 
     private String email;
-
     private String password;
-
     private int enabled;
 
     public Members(String username, String password, String email) {

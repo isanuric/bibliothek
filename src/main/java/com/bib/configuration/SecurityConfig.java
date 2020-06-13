@@ -1,11 +1,5 @@
 package com.bib.configuration;
 
-import com.hazelcast.config.CacheSimpleConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
-import io.github.bucket4j.grid.GridBucketState;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,22 +77,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
-    @Bean
-    public IMap<String, GridBucketState>cache() {
-        Config config = new Config();
-        config.setLiteMember(false);
-        CacheSimpleConfig cacheConfig = new CacheSimpleConfig();
-        cacheConfig.setName("buckets");
-        config.addCacheConfig(cacheConfig);
-
-        HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance(config);
-        IMap<String, GridBucketState> map = hazelcastInstance.getMap("my-distributed-map");
-        return map;
-
-//        ICacheManager cacheManager = hazelcastInstance.getCacheManager();
-//        Cache<String, GridBucketState> cache = cacheManager.getCache("buckets");
-//        return cache;
-    }
-
 }

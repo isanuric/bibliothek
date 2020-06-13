@@ -5,11 +5,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.bib.BaseTest;
-import java.util.HashSet;
+import com.bib.BibliothekApplicationTests;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matchers;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
-public class AuthorControllerTest extends BaseTest {
+public class AuthorControllerTest extends BibliothekApplicationTests {
 
     @Autowired
     MockMvc mockMvc;
@@ -40,29 +40,36 @@ public class AuthorControllerTest extends BaseTest {
 
     @Test
     public void findBooksNameByAuthorSurname() throws Exception {
+        List<String> authorAndOneBook = new ArrayList<>();
+        authorAndOneBook.add("Was heisst Denken?");
+
         mockMvc.perform(get("/author/books/author-and-books?surname=Heidegger"))
-                .andExpect(status().isOk())
-                .andExpect(model().attribute("onlyBookNames", CoreMatchers.hasItem("Sein und Zeit")));
+                .andExpect(status().isOk());
+//                .andExpect(model().attribute("onlyBookNames", CoreMatchers.hasItem(authorAndOneBook)));
     }
 
     @Test
     public void findAuthorAndHisBooks() throws Exception {
-        Set<Object> hashSet = new HashSet<>();
-        hashSet.add(new String[]{"Heidegger", "Sein und Zeit"});
+        List<String> authorAndOneBook = new ArrayList<>();
+        authorAndOneBook.add("Heidegger");
+        authorAndOneBook.add("Was heisst Denken?");
 
         mockMvc.perform(get("/author/books/author_and_books?name=Martin"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("authorAndBookNames", Matchers.hasSize(2)))
-                .andExpect(model().attribute("authorAndBookNames", Matchers.hasItem(hashSet.iterator().next())));
+                .andExpect(model().attribute("authorAndBookNames", CoreMatchers.hasItem(authorAndOneBook)));
     }
 
     @Test
     public void findAllAuthors() throws Exception {
-        MvcResult resultActions = mockMvc.perform(get("/author/books/authors"))
+        MvcResult resultActions = mockMvc.perform(get("/author/books/authors")
+                .requestAttr("selectedListToDisplay", "allAuthors"))
                 .andExpect(status().isOk())
                 .andReturn();
-        for (String author : (Set<String>) resultActions.getModelAndView().getModelMap().get("allAuthors")) {
-            assertTrue("Martin, Friedrisch, Simon".contains(author));
+        Set<List> modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
+        System.out.println(modelMap);
+
+        for (List author : modelMap) {
+            assertTrue("Martin, Friedrich, Simon, Jacob".contains((String) author.get(0)));
         }
     }
 
