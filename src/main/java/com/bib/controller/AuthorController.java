@@ -75,15 +75,13 @@ public class AuthorController {
     @GetMapping("/author/books/authors")
     public String findAllAuthors(Model model, HttpServletRequest request) {
         String listToDisplay = request.getParameter("selectedListToDisplay");
-        System.out.println("------>  " + listToDisplay);
 
         Set<List> allValuesToDisplay = null;
         if ("allBooks".equals(listToDisplay)) {
-            model.addAttribute("allAuthors", bookRepository.findAllExistBooks());
+            model.addAttribute("allAuthors", bookRepository.getAllBooks());
         } else {
             model.addAttribute("allAuthors", autorsRepository.getAllAuthorsFullName());
         }
-
         return "/books";
     }
 
