@@ -6,8 +6,10 @@ import com.bib.BibliothekApplicationTests;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 
 public class MembersTest extends BibliothekApplicationTests {
@@ -33,5 +35,26 @@ public class MembersTest extends BibliothekApplicationTests {
                 .filter(p -> p.getName().startsWith("admin"))
                 .filter(p -> p.getEmail().endsWith("gmx.com"))
                 .collect(Collectors.toList()).size() == 1);
+    }
+
+    @Test
+    public void getAnAdmin() {
+        Members userone = membersRepository.findByUsername("userone");
+        assertTrue("one".equals(userone.getSurname()));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void createUser() {
+        String testUser = "userthree";
+        Members newUser = membersRepository.save(new Members(testUser, "pass", "userthree@gmail.com"));
+        assertTrue(newUser != null);
+        assertTrue("userthree@gmail.com".equals(newUser.getEmail()));
+
+        membersRepository.deleteByUsername(testUser);
+
+        Members userAfterDelete = membersRepository.findByUsername(testUser);
+        assertTrue(userAfterDelete == null);
     }
 }

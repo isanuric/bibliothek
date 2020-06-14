@@ -19,8 +19,6 @@ import lombok.Setter;
 public class Members {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "username")
     private String username;
 
     @Column(name = "name")
@@ -36,6 +34,7 @@ public class Members {
     public Members(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.enabled = 1;
     }
 }
