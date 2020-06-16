@@ -55,14 +55,29 @@ public class MembersTest extends BibliothekApplicationTests {
     @Transactional
     @Rollback(false)
     public void createAndDeleteUser() {
-        String testUser = "userfour";
-        Members newUser = membersRepository.save(new Members(testUser, "pass", "userthree@gmail.com"));
+        String testUser = "user-four";
+        Members newUser = membersRepository.save(new Members(testUser, "pass", "user-four@gmail.com"));
         assertTrue(newUser != null);
         assertTrue("userthree@gmail.com".equals(newUser.getEmail()));
 
         membersRepository.deleteByUsername(testUser);
 
-        Members userAfterDelete = membersRepository.findByUsername(testUser);
-        assertTrue(userAfterDelete == null);
+        Members deletedUser = membersRepository.findByUsername(testUser);
+        assertTrue(deletedUser == null);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void deleteUserBySurname() {
+        String testUser = "user-five";
+        Members newUser = membersRepository.save(new Members(testUser, "pass", "Karl", "Marx","user-five@gmail.com"));
+        assertTrue(newUser != null);
+        assertTrue("user-five@gmail.com".equals(newUser.getEmail()));
+
+        membersRepository.deleteBySurname("Marx");
+
+        Members deletedUser = membersRepository.findByUsername(testUser);
+        assertTrue(deletedUser == null);
     }
 }
