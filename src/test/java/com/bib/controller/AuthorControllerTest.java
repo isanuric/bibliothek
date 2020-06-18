@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,26 +69,8 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
         Set<List> modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
         System.out.println(modelMap);
 
-        for (List author : modelMap) {
-            assertTrue("Martin, Friedrich, Simon, Jacob".contains((String) author.get(0)));
-        }
+        modelMap.stream()
+                .map(author -> "Martin, Friedrich, Simon, Jacob, Anton".contains((String) author.get(0)))
+                .forEach(Assert::assertTrue);
     }
-
-//    @Test
-//    public void findAllAuthors() throws Exception {
-//
-//        Autor autor = Mockito.mock(Autor.class);
-//        HashSet<Object> authors = new HashSet<>();
-//        authors.add(autor);
-//
-//        MvcResult resultActions = mockMvc.perform(get("/author/books/authors"))
-//                .andExpect(status().isOk())
-//                .andReturn();
-////                .andExpect(model().attribute("allAuthors", Matchers.hasSize(3)));
-////                .andExpect(model().attribute("allAuthors", Matchers.hasItem(authors.iterator().next())));
-//        Set<Autor> allAuthors = (Set<Autor>) resultActions.getModelAndView().getModelMap().get("allAuthors");
-////        System.out.println("---> " + allAuthors.iterator().next().getBook().iterator().next().getName());
-//        System.out.println("---> " + allAuthors.iterator().next().getBook().get(0).getName());
-////        assertThat()
-//    }
 }
