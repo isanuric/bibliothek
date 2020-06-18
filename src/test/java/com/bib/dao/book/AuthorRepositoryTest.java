@@ -22,8 +22,7 @@ public class AuthorRepositoryTest extends BibliothekApplicationTests {
     public void addNewAuthor() {
         Author newAuthor = authorRepository.save(new Author("Anton", "Chekhov"));
         assertNotNull(newAuthor);
-        assertEquals("Anton", newAuthor.getSurname());
-
+        assertEquals("Chekhov", newAuthor.getSurname());
     }
 
     @Test
@@ -33,7 +32,6 @@ public class AuthorRepositoryTest extends BibliothekApplicationTests {
         Author newAuthor = authorRepository.save(new Author("Franz", "Kafka"));
         assertNotNull(newAuthor);
         Integer id = newAuthor.getId();
-        System.out.println(id);
 
         authorRepository.deleteBySurname("Kafka");
         assertTrue(authorRepository.findById(id).isEmpty());

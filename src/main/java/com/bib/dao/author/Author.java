@@ -23,7 +23,6 @@ import lombok.Setter;
 public class Author {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
