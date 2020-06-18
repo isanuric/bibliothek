@@ -67,10 +67,11 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .andExpect(status().isOk())
                 .andReturn();
         Set<List> modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
-        System.out.println(modelMap);
 
+        int surnameIndex = 1;
         modelMap.stream()
-                .map(author -> "Martin, Friedrich, Simon, Jacob, Anton".contains((String) author.get(0)))
+                .filter(p -> p.get(0).toString().startsWith("F"))
+                .map(author -> "Nietzsche".contains((String) author.get(surnameIndex)))
                 .forEach(Assert::assertTrue);
     }
 }
