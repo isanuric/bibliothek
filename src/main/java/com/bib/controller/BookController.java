@@ -1,8 +1,10 @@
 package com.bib.controller;
 
 
+import static org.springframework.util.Assert.notNull;
+
 import com.bib.configuration.SecurityConfig;
-import com.bib.dao.book.AutorsRepository;
+import com.bib.dao.author.AuthorRepository;
 import com.bib.dao.book.Book;
 import com.bib.dao.book.BookRepository;
 import java.util.Set;
@@ -12,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class BookController {
     private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
-    private AutorsRepository autorsRepository;
+    private AuthorRepository authorRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -41,14 +42,14 @@ public class BookController {
     @GetMapping("/search")
     public String search(Model model) {
 
-        Set<Object> allAuthors = autorsRepository.getAllAuthors();
+        Set<Object> allAuthors = authorRepository.getAllAuthors();
         model.addAttribute("allAuthors", allAuthors);
         return "/search";
     }
 
     @GetMapping("/id")
     public String getByid(Model model, @RequestParam Integer id) {
-        Assert.notNull(id, "id could not be null.");
+        notNull(id, "id could not be null.");
         model.addAttribute("bookById", bookRepository.findById(id));
         return "/search";
     }
@@ -57,8 +58,7 @@ public class BookController {
     public String addNewBookPost(
             @RequestParam int authorId,
             @RequestParam String bookName) {
-        Assert.notNull(authorId, "Autor ID could not be null.");
-        Assert.notNull(bookName, "Name could not be null.");
+        notNull(bookName, "Name could not be null.");
 
         bookRepository.save(new Book( 1, "bookName4"));
         return "/admin";
@@ -66,14 +66,11 @@ public class BookController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable int id) {
-        Assert.notNull(id, "id could not be null.");
         try {
             bookRepository.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(bookRepository.findById(54).get().getName());
-
         return ResponseEntity.ok().build();
     }
 

@@ -1,6 +1,7 @@
 package com.bib.dao.book;
 
 
+import com.bib.dao.author.Author;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,19 +28,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @Column(name = "autor_id")
-    public Integer autor_id;
+    @Column(name = "author_id")
+    public Integer author_id;
 
     @Size(min = 2, max = 30)
     protected String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "autor_id", insertable = false, updatable = false)
-    private Autor autorMapper;
+    @JoinColumn(name = "author_id", insertable = false, updatable = false)
+    private Author authorMapperInBook;
 
     public Book(Integer autor_id, @Size(min = 2, max = 30) String name) {
-        this.autor_id = autor_id;
+        this.author_id = autor_id;
         this.name = name;
     }
 }
-

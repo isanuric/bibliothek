@@ -2,8 +2,8 @@ package com.bib.controller;
 
 
 import com.bib.configuration.SecurityConfig;
-import com.bib.dao.book.Autor;
-import com.bib.dao.book.AutorsRepository;
+import com.bib.dao.author.Author;
+import com.bib.dao.author.AuthorRepository;
 import com.bib.dao.book.Book;
 import com.bib.dao.book.BookRepository;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class AuthorController {
     private static final String SEARCH_PAGE = "/search";
 
     @Autowired
-    private AutorsRepository autorsRepository;
+    private AuthorRepository authorRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -42,7 +42,7 @@ public class AuthorController {
             return SEARCH_PAGE;
         }
 
-        Optional<List> bookTitles = getBookTitles(autorsRepository.getAuthorAndBooks(surname));
+        Optional<List> bookTitles = getBookTitles(authorRepository.getAuthorAndBooks(surname));
 
         if (bookTitles.isEmpty()) {
             String attributeValue = "Author [" + surname + "] not found.";
@@ -51,21 +51,21 @@ public class AuthorController {
             return SEARCH_PAGE;
         }
 
-        logger.info("test: [{}]", autorsRepository.findAll(Sort.by("surname")));
+        logger.info("test: [{}]", authorRepository.findAll(Sort.by("surname")));
         model.addAttribute("booksOfAuthor", bookTitles.get());
         return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/author-and-books")
     public String findBooksNameByAuthorSurname(Model model, @RequestParam String surname) {
-        logger.info("getBooksBySurname: [{}]", autorsRepository.getBooksBySurname(surname));
-        model.addAttribute("onlyBookNames", autorsRepository.getBooksBySurname(surname));
+        logger.info("getBooksBySurname: [{}]", authorRepository.getBooksBySurname(surname));
+        model.addAttribute("onlyBookNames", authorRepository.getBooksBySurname(surname));
         return SEARCH_PAGE;
     }
 
     @GetMapping("/author/books/author_and_books")
     public String findAuthorAndHisBooks(Model model, @RequestParam String name) {
-        Set<List> authorAndBooks = autorsRepository.getAuthorAndBooksDirect(name);
+        Set<List> authorAndBooks = authorRepository.getAuthorAndBooksDirect(name);
         model.addAttribute("authorAndBookNames", authorAndBooks);
         return SEARCH_PAGE;
     }
@@ -74,24 +74,24 @@ public class AuthorController {
     public String findAllAuthors(Model model, HttpServletRequest request) {
         String listToDisplay = request.getParameter("selectedListToDisplay");
 
-        Set<List> allValuesToDisplay = null;
+        Set<List> allValuesToDisplay;
         if ("allBooks".equals(listToDisplay)) {
             allValuesToDisplay = bookRepository.getAllBooks();
         } else {
-            allValuesToDisplay = autorsRepository.getAllAuthorsFullName();
+            allValuesToDisplay = authorRepository.getAllAuthorsFullName();
         }
         model.addAttribute("allAuthors", allValuesToDisplay);
         return "/books";
     }
 
-    private Optional<List> getBookTitles(Set<Autor> autorSet) {
+    private Optional<List> getBookTitles(Set<Author> authorSet) {
 
-        if (SetUtils.isEmpty(autorSet)) {
+        if (SetUtils.isEmpty(authorSet)) {
             logger.info("Autor set is empty.");
             return Optional.empty();
         }
 
-        Autor autor = autorSet.iterator().next();
+        Author autor = authorSet.iterator().next();
 
         List title = new ArrayList();
         String author = String.format("%s %s", autor.getName(), autor.getSurname());

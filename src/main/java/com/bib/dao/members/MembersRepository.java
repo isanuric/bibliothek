@@ -1,4 +1,4 @@
-package com.bib.dao.user;
+package com.bib.dao.members;
 
 
 import java.util.Collection;
@@ -22,9 +22,7 @@ public interface MembersRepository extends CrudRepository<Members, Integer> {
     Members findByUsername(@Param("username") String username);
 
     @Modifying
-//    @Query(value = "delete FROM Members m WHERE m.username=:username", nativeQuery = true)
     void deleteByUsername(@Param("username") String username);
 
     void deleteBySurname(String surname);
 }
-

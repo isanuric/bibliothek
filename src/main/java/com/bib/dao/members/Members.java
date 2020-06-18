@@ -1,4 +1,4 @@
-package com.bib.dao.user;
+package com.bib.dao.members;
 
 
 import javax.persistence.Column;

@@ -1,6 +1,8 @@
-package com.bib.dao.user;
+package com.bib.dao.members;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import com.bib.BibliothekApplicationTests;
 import java.util.Collection;
@@ -25,30 +27,30 @@ public class MembersTest extends BibliothekApplicationTests {
         List<Members> admins = allExistUsers.stream()
                 .filter(p -> p.getName().startsWith("admin"))
                 .collect(Collectors.toList());
-        admins.stream().forEach(System.out::println);
-        assertTrue(admins.size() == 3);
+        admins.forEach(System.out::println);
+        assertEquals(3, admins.size());
     }
 
     @Test
     public void getAllAdminsEmails() {
-        assertTrue( membersRepository.findAllExistUsers().stream()
+        assertEquals(1, membersRepository.findAllExistUsers().stream()
                 .filter(p -> p.getName().startsWith("admin"))
                 .filter(p -> p.getEmail().endsWith("gmx.com"))
-                .collect(Collectors.toList()).size() == 1);
+                .count());
     }
 
     @Test
     public void getAnAdmin() {
         Members userone = membersRepository.findByUsername("userone");
-        assertTrue("one".equals(userone.getSurname()));
+        assertEquals("one", userone.getSurname());
     }
 
     @Test
     public void createUser() {
         String testUser = "userthree";
         Members newUser = membersRepository.save(new Members(testUser, "pass", "userthree@gmail.com"));
-        assertTrue(newUser != null);
-        assertTrue("userthree@gmail.com".equals(newUser.getEmail()));
+        assertNotNull(newUser);
+        assertEquals("userthree@gmail.com", newUser.getEmail());
     }
 
     @Test
@@ -57,13 +59,13 @@ public class MembersTest extends BibliothekApplicationTests {
     public void createAndDeleteUser() {
         String testUser = "user-four";
         Members newUser = membersRepository.save(new Members(testUser, "pass", "user-four@gmail.com"));
-        assertTrue(newUser != null);
-        assertTrue("userthree@gmail.com".equals(newUser.getEmail()));
+        assertNotNull(newUser);
+        assertEquals("userthree@gmail.com", newUser.getEmail());
 
         membersRepository.deleteByUsername(testUser);
 
         Members deletedUser = membersRepository.findByUsername(testUser);
-        assertTrue(deletedUser == null);
+        assertNull(deletedUser);
     }
 
     @Test
@@ -72,12 +74,12 @@ public class MembersTest extends BibliothekApplicationTests {
     public void deleteUserBySurname() {
         String testUser = "user-five";
         Members newUser = membersRepository.save(new Members(testUser, "pass", "Karl", "Marx","user-five@gmail.com"));
-        assertTrue(newUser != null);
-        assertTrue("user-five@gmail.com".equals(newUser.getEmail()));
+        assertNotNull(newUser);
+        assertEquals("user-five@gmail.com", newUser.getEmail());
 
         membersRepository.deleteBySurname("Marx");
 
         Members deletedUser = membersRepository.findByUsername(testUser);
-        assertTrue(deletedUser == null);
+        assertNull(deletedUser);
     }
 }

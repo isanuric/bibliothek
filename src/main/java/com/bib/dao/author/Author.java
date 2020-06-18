@@ -1,5 +1,6 @@
-package com.bib.dao.book;
+package com.bib.dao.author;
 
+import com.bib.dao.book.Book;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,11 +19,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "autor")
-public class Autor {
+@Table(name = "author")
+public class Author {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -31,11 +32,10 @@ public class Autor {
 
     private String surname;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "autorMapper")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "authorMapperInBook")
     private List<Book> book;
 
-    public Autor(int id, String name, String surname) {
-        this.id = id;
+    public Author(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }

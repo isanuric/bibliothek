@@ -1,8 +1,8 @@
 package com.bib.controller;
 
 
-import com.bib.dao.user.Members;
-import com.bib.dao.user.MembersRepository;
+import com.bib.dao.members.Members;
+import com.bib.dao.members.MembersRepository;
 import com.bib.service.PasswordService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
