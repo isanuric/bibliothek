@@ -27,7 +27,6 @@ public class MembersTest extends BibliothekApplicationTests {
         List<Members> admins = allExistUsers.stream()
                 .filter(p -> p.getName().startsWith("admin"))
                 .collect(Collectors.toList());
-        admins.forEach(System.out::println);
         assertEquals(3, admins.size());
     }
 
@@ -79,7 +78,6 @@ public class MembersTest extends BibliothekApplicationTests {
 
         membersRepository.deleteBySurname("Marx");
 
-        Members deletedUser = membersRepository.findByUsername(testUser);
-        assertNull(deletedUser);
+        assertNull(membersRepository.findByUsername(testUser));
     }
 }

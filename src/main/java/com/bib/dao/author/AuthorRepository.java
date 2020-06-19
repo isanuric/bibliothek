@@ -24,9 +24,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     @Query(value = "SELECT * FROM author", nativeQuery = true)
     Collection<Author> getAllBooks();
 
-    @Query(value = "SELECT * FROM author WHERE author.name = :name", nativeQuery = true)
-    Collection<Author> findauthorByFirstname(@Param("name") String name);
-
     @Query("SELECT a.name FROM Author a")
     Set<Object> getAllAuthors();
 

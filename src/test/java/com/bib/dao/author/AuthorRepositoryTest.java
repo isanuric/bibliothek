@@ -34,4 +34,12 @@ public class AuthorRepositoryTest extends BibliothekApplicationTests {
         authorRepository.deleteBySurname("Kafka");
         assertTrue(authorRepository.findById(id).isEmpty());
     }
+
+    @Test
+    public void findAllBooksOfAuthor() {
+        assertTrue(authorRepository.getBooksBySurname("Heidegger")
+                .stream()
+                .map(p -> p.get(0).equals("Was heisst Denken?"))
+                .findFirst().get());
+    }
 }
