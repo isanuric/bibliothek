@@ -68,9 +68,10 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .andReturn();
         Set<List> modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
 
+        int nameIndex = 0;
         int surnameIndex = 1;
         modelMap.stream()
-                .filter(p -> p.get(0).toString().startsWith("F"))
+                .filter(p -> p.get(nameIndex).toString().startsWith("F"))
                 .map(author -> "Nietzsche".contains((String) author.get(surnameIndex)))
                 .forEach(Assert::assertTrue);
     }

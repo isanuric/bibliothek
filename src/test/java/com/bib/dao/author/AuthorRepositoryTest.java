@@ -1,12 +1,10 @@
-package com.bib.dao.book;
+package com.bib.dao.author;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.bib.BibliothekApplicationTests;
-import com.bib.dao.author.Author;
-import com.bib.dao.author.AuthorRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;

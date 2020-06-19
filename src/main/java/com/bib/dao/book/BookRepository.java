@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,5 +21,7 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     @Query("SELECT b.name, b.id FROM Book b")
     Set<List> getAllBooks();
+
+    void deleteByName(@Param("name") String name);
 }
 
