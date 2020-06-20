@@ -26,5 +26,22 @@ public class AlgorithmService {
         return closest;
     }
 
+    /**
+     * Returns the sum of all indexes of toFindChar in text. The index of the first character is 0.
+     */
+    public int sumOfCharacterIndex(String text, String toFindChar) {
+        int index = 0;
+        int result = 0;
+
+        for (char ch : text.toCharArray()) {
+            if (toFindChar.equals(String.valueOf(ch))) {
+                System.err.println(ch);
+                result += index;
+            }
+            index += 1;
+        }
+        return result;
+    }
+
 
 }
