@@ -67,25 +67,25 @@ public class AlgorithmService {
             String[] splittedInputs = mimeInputs.split("\n");
             String[] results = new String[splittedMimesLines.length];
 
-            List<String[]> splittedMimes = new ArrayList<>();
+            List<String[]> standardMimeTypes = new ArrayList<>();
             for (int i = 0; i < splittedMimesLines.length; i++) {
-                splittedMimes.add(splittedMimesLines[i].split(" "));
+                standardMimeTypes.add(splittedMimesLines[i].split(" "));
             }
 
             for (int i = 0; i < splittedInputs.length; i++) {
                 String fileName = splittedInputs[i];
-
-                if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..")) {
+                if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..") || !fileName.contains(".")) {
                     results[i] = "UNKNOWN";
                     continue;
                 }
 
+                String fileExtentin;
                 String[] splitedFile = fileName.split("\\.");
-                String fileExtentin = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
+                fileExtentin = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
 
-                for (int j = 0; j < splittedMimes.size(); j++) {
-                    if (fileExtentin.equalsIgnoreCase(splittedMimes.get(j)[0])) {
-                        results[i] = splittedMimes.get(j)[1];
+                for (int j = 0; j < standardMimeTypes.size(); j++) {
+                    if (fileExtentin.equalsIgnoreCase(standardMimeTypes.get(j)[0])) {
+                        results[i] = standardMimeTypes.get(j)[1];
                         continue;
                     }
                 }

@@ -9997,3 +9997,4 @@ ex222 application/octet-stream
 og222 application/ogg
 pf222 application/pdf
 xhtm222 application/xhtml+xml
+pdf application/pdf

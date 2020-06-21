@@ -1,5 +1,5 @@
-application/EDI-X12
-image/jpeg
+UNKNOWN
+application/pdf
 UNKNOWN
 image/tiff
 image/svg+xml
