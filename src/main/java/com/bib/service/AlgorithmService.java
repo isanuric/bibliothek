@@ -3,8 +3,9 @@ package com.bib.service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -110,13 +111,8 @@ public class AlgorithmService {
     }
 
     private List<String[]> getStandardMimeTypes(String[] splittedMimesLines) {
-        List<String[]> standardMimeTypes = new ArrayList<>();
-        for (int i = 0; i < splittedMimesLines.length; i++) {
-            standardMimeTypes.add(splittedMimesLines[i].split(" "));
-        }
-        return standardMimeTypes;
+        return Arrays.stream(splittedMimesLines)
+                .map(splittedMimesLine -> splittedMimesLine.split(" "))
+                .collect(Collectors.toList());
     }
 }
-
-
-
