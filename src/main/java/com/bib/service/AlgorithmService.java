@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -81,12 +82,7 @@ public class AlgorithmService {
                 String[] splitedFile = fileName.split("\\.");
                 fileExtentin = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
 
-                for (int j = 0; j < standardMimeTypes.size(); j++) {
-                    if (fileExtentin.equalsIgnoreCase(standardMimeTypes.get(j)[0])) {
-                        results[i] = standardMimeTypes.get(j)[1];
-                        continue;
-                    }
-                }
+                makeupFile(results, standardMimeTypes, i, fileExtentin);
 
                 if (results[i] == null) {
                     results[i] = "UNKNOWN";
@@ -98,6 +94,21 @@ public class AlgorithmService {
             e.printStackTrace();
         }
         return new String[0];
+    }
+
+    private void makeupFile(String[] results, List<String[]> standardMimeTypes, int mimeIndex, String fileExtention) {
+        IntStream.range(0, standardMimeTypes.size())
+                .filter(j -> fileExtention.equalsIgnoreCase(standardMimeTypes.get(j)[0]))
+                .forEach(j -> {
+                    results[mimeIndex] = standardMimeTypes.get(j)[1];
+                    return;
+                });
+//        for (int j = 0; j < standardMimeTypes.size(); j++) {
+//            if (fileExtention.equalsIgnoreCase(standardMimeTypes.get(j)[0])) {
+//                results[mimeIndex] = standardMimeTypes.get(j)[1];
+//                continue;
+//            }
+//        }
     }
 
     protected String[] getMimeExpected() throws IOException {
