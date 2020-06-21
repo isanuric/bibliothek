@@ -67,10 +67,7 @@ public class AlgorithmService {
             String[] splittedInputs = mimeInputs.split("\n");
             String[] results = new String[splittedMimesLines.length];
 
-            List<String[]> standardMimeTypes = new ArrayList<>();
-            for (int i = 0; i < splittedMimesLines.length; i++) {
-                standardMimeTypes.add(splittedMimesLines[i].split(" "));
-            }
+            List<String[]> standardMimeTypes = getStandardMimeTypes(splittedMimesLines);
 
             for (int i = 0; i < splittedInputs.length; i++) {
                 String fileName = splittedInputs[i];
@@ -110,6 +107,14 @@ public class AlgorithmService {
     protected String getFileContent(String location) throws IOException {
         File file = resourceLoader.getResource(location).getFile();
         return new String(Files.readAllBytes(file.toPath()));
+    }
+
+    private List<String[]> getStandardMimeTypes(String[] splittedMimesLines) {
+        List<String[]> standardMimeTypes = new ArrayList<>();
+        for (int i = 0; i < splittedMimesLines.length; i++) {
+            standardMimeTypes.add(splittedMimesLines[i].split(" "));
+        }
+        return standardMimeTypes;
     }
 }
 
