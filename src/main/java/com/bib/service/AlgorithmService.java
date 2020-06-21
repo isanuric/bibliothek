@@ -1,9 +1,24 @@
 package com.bib.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AlgorithmService {
+
+    @Value("classpath:types.txt")
+    Resource resourceFile;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     /**
      * Returns the value closest to 0 among input data. If two numbers are equally close to zero, positive integer has
@@ -43,5 +58,60 @@ public class AlgorithmService {
         return result;
     }
 
+    public String[] findMime() {
+        try {
+            String mimeTypes = getFileContent("classpath:mime/types.txt");
+            String mimeInputs = getFileContent("classpath:mime/inputs.txt");
 
+            String[] splittedMimesLines = mimeTypes.split("\n");
+            String[] splittedInputs = mimeInputs.split("\n");
+            String[] results = new String[splittedMimesLines.length];
+
+            List<String[]> splittedMimes = new ArrayList<>();
+            for (int i = 0; i < splittedMimesLines.length; i++) {
+                splittedMimes.add(splittedMimesLines[i].split(" "));
+            }
+
+            for (int i = 0; i < splittedInputs.length; i++) {
+                String fileName = splittedInputs[i];
+
+                if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..")) {
+                    results[i] = "UNKNOWN";
+                    continue;
+                }
+
+                String[] splitedFile = fileName.split("\\.");
+                String fileExtentin = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
+
+                for (int j = 0; j < splittedMimes.size(); j++) {
+                    if (fileExtentin.equalsIgnoreCase(splittedMimes.get(j)[0])) {
+                        results[i] = splittedMimes.get(j)[1];
+                        continue;
+                    }
+                }
+
+                if (results[i] == null) {
+                    results[i] = "UNKNOWN";
+                }
+            }
+            return results;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new String[0];
+    }
+
+    protected String[] getMimeExpected() throws IOException {
+        String fileContent = getFileContent("classpath:mime/expected.txt");
+        return fileContent.split("\n");
+    }
+
+    protected String getFileContent(String location) throws IOException {
+        File file = resourceLoader.getResource(location).getFile();
+        return new String(Files.readAllBytes(file.toPath()));
+    }
 }
+
+
+

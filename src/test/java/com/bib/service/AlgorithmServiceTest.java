@@ -3,6 +3,7 @@ package com.bib.service;
 import static org.junit.Assert.assertEquals;
 
 import com.bib.BibliothekApplicationTests;
+import java.io.IOException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,5 +36,16 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
     @Test
     public void getClosestToValueZero_negativeEqualNegative() {
        assertEquals(-3, algorithmService.getClosestToZero(new int[]{7, 12, 54, -3, -3, -1233, 11, -43, }));
+    }
+
+    @Test
+    public void getMime_success() throws IOException {
+        String[] mimeExpected = algorithmService.getMimeExpected();
+        String[] mimeResult = algorithmService.findMime();
+        assertEquals(mimeResult.length, mimeExpected.length);
+        for (int i = 0; i < mimeExpected.length; i++) {
+            System.out.println(i + ", " + mimeResult[i]);
+            assertEquals(mimeExpected[i], mimeResult[i]);
+        }
     }
 }
