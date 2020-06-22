@@ -97,7 +97,7 @@ public class AlgorithmService {
 //        }
     }
 
-    private String[] getMimeExpected() throws IOException {
+    String[] getMimeExpected() throws IOException {
         String fileContent = getFileContent("classpath:mime/expected.txt");
         return fileContent.split("\n");
     }
