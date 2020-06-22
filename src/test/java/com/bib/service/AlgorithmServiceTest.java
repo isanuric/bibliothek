@@ -41,7 +41,7 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
     @Test
     public void getMime_success() throws IOException {
         String[] mimeExpected = algorithmService.getMimeExpected();
-        String[] mimeResult = algorithmService.findMime();
+        String[] mimeResult = algorithmService.makeupFileNamesWithMimeTypes();
         for (int i = 0; i < mimeExpected.length; i++) {
             System.out.println(i + ". " + mimeExpected[i] + ", result " + mimeResult[i]);
             assertEquals(mimeExpected[i], mimeResult[i]);
