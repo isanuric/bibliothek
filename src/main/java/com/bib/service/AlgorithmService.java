@@ -69,18 +69,16 @@ public class AlgorithmService {
             Hashtable<String, String> mimes = getStandardMimeTypes(splittedMimesLines).stream()
                     .collect(Collectors.toMap(makeup -> makeup[0], makeup -> makeup[1], (a, b) -> b, Hashtable::new));
 
-            for (int i = 0; i < splittedInputs.length; i++) {
-                String fileName = splittedInputs[i];
-                if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..") || !fileName.contains(".")) {
-                    results[i] = "UNKNOWN";
-                    continue;
-                }
-
-                String[] splitedFile = fileName.split("\\.");
-                String fileExtention = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
-
-                results[i] = mimes.containsKey(fileExtention) ? mimes.get(fileExtention) : "UNKNOWN";
+        IntStream.range(0, splittedInputs.length).forEach(i -> {
+            String fileName = splittedInputs[i];
+            if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..") || !fileName.contains(".")) {
+                results[i] = "UNKNOWN";
+                return;
             }
+            String[] splitedFile = fileName.split("\\.");
+            String fileExtention = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
+            results[i] = mimes.containsKey(fileExtention) ? mimes.get(fileExtention) : "UNKNOWN";
+        });
             return results;
     }
 
