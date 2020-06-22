@@ -1,6 +1,5 @@
 package com.bib.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -61,25 +60,44 @@ public class AlgorithmService {
         return result;
     }
 
+    /**
+     * Detects the MIME type of a file based on its name.
+     */
     public String[] makeupFileNamesWithMimeTypes() throws IOException {
-            String[] splittedMimesLines = getFileContent("classpath:mime/types.txt").split("\n");
-            String[] splittedInputs = getFileContent("classpath:mime/inputs.txt").split("\n");
-            String[] results = new String[splittedMimesLines.length];
+        String[] typesLines = getInputContent("classpath:mime/types.txt").split("\n");
+        String[] inputs = getInputContent("classpath:mime/inputs.txt").split("\n");
+        String[] results = new String[typesLines.length];
+        String unknown = "UNKNOWN";
 
-            Hashtable<String, String> mimes = getStandardMimeTypes(splittedMimesLines).stream()
-                    .collect(Collectors.toMap(makeup -> makeup[0], makeup -> makeup[1], (a, b) -> b, Hashtable::new));
-
-        IntStream.range(0, splittedInputs.length).forEach(i -> {
-            String fileName = splittedInputs[i];
+        IntStream.range(0, inputs.length).forEach(i -> {
+            String fileName = inputs[i];
             if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..") || !fileName.contains(".")) {
-                results[i] = "UNKNOWN";
+                results[i] = unknown;
                 return;
             }
-            String[] splitedFile = fileName.split("\\.");
-            String fileExtention = splitedFile[splitedFile.length > 0 ? splitedFile.length - 1 : 0];
-            results[i] = mimes.containsKey(fileExtention) ? mimes.get(fileExtention) : "UNKNOWN";
+
+            Hashtable<String, String> mimes = getStandardMimeTypes(typesLines).stream()
+                    .collect(Collectors.toMap(makeup -> makeup[0], makeup -> makeup[1], (a, b) -> b, Hashtable::new));
+
+            String[] splittedFileName = fileName.split("\\.");
+            String fileExtention = splittedFileName[splittedFileName.length > 0 ? splittedFileName.length - 1 : 0];
+            results[i] = mimes.containsKey(fileExtention) ? mimes.get(fileExtention) : unknown;
         });
-            return results;
+        return results;
+    }
+
+    private List<String[]> getStandardMimeTypes(String[] splittedMimesLines) {
+        return Arrays.stream(splittedMimesLines)
+                .map(splittedMimesLine -> splittedMimesLine.split(" "))
+                .collect(Collectors.toList());
+    }
+
+    String[] getMimeExpected() throws IOException {
+        return getInputContent("classpath:mime/expected.txt").split("\n");
+    }
+
+    private String getInputContent(String path) throws IOException {
+        return new String(Files.readAllBytes(resourceLoader.getResource(path).getFile().toPath()));
     }
 
     private void makeupFile(String[] results, List<String[]> standardMimeTypes, int mimeIndex, String fileExtention) {
@@ -97,19 +115,10 @@ public class AlgorithmService {
 //        }
     }
 
-    String[] getMimeExpected() throws IOException {
-        String fileContent = getFileContent("classpath:mime/expected.txt");
-        return fileContent.split("\n");
-    }
-
-    private String getFileContent(String location) throws IOException {
-        File file = resourceLoader.getResource(location).getFile();
-        return new String(Files.readAllBytes(file.toPath()));
-    }
-
-    private List<String[]> getStandardMimeTypes(String[] splittedMimesLines) {
-        return Arrays.stream(splittedMimesLines)
-                .map(splittedMimesLine -> splittedMimesLine.split(" "))
-                .collect(Collectors.toList());
+    /**
+     * Sorts array using quick sort algorithm.
+     */
+    public int[] quickSort(int[] arr) {
+        return null;
     }
 }

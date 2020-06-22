@@ -40,7 +40,7 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
     }
 
     @Test
-    public void getMime_success() throws IOException {
+    public void mimeType_success() throws IOException {
         String[] mimeExpected = algorithmService.getMimeExpected();
         String[] mimeResult = algorithmService.makeupFileNamesWithMimeTypes();
         IntStream.range(0, mimeExpected.length).forEach(i -> assertEquals(mimeExpected[i], mimeResult[i]));
