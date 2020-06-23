@@ -85,12 +85,12 @@ public class AlgorithmService {
                 .collect(Collectors.toList());
     }
 
-    String[] getMimeExpected() throws IOException {
-        return getInputContent("classpath:mime/expected.txt").split("\n");
-    }
-
     private String getInputContent(String path) throws IOException {
         return new String(Files.readAllBytes(resourceLoader.getResource(path).getFile().toPath()));
+    }
+
+    String[] getMimeExpected() throws IOException {
+        return getInputContent("classpath:mime/expected.txt").split("\n");
     }
 
     private void makeupFile(String[] results, List<String[]> standardMimeTypes, int mimeIndex, String fileExtention) {
@@ -122,7 +122,7 @@ public class AlgorithmService {
             while (arr[lowDynamic] < pivot) {
                 lowDynamic++;
             }
-            // Find first element from the right list that is smaller than pivot
+            // Find first element from the right list that is smaller than pivot.
             while (pivot < arr[highDynamic]) {
                 highDynamic--;
             }
@@ -148,5 +148,5 @@ public class AlgorithmService {
         if (low < highDynamic) quickSort(arr, low, highDynamic);
         if (lowDynamic < high) quickSort(arr, lowDynamic, high);
     }
-
 }
+
