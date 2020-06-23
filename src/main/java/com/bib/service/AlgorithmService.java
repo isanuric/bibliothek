@@ -44,19 +44,12 @@ public class AlgorithmService {
     }
 
     /**
-     * Returns the sum of all indexes of toFindChar in text. The index of the first character is 0.
+     * Returns the sum of all indexes of element in text. The index of the first character is 0.
      */
-    public int sumOfCharacterIndex(String text, String toFindChar) {
-        int index = 0;
+    public int sumOfCharacterIndex(String text, String element) {
         int result = 0;
-
-        for (char ch : text.toCharArray()) {
-            if (toFindChar.equals(String.valueOf(ch))) {
-                System.err.println(ch);
-                result += index;
-            }
-            index += 1;
-        }
+        char[] charArray = text.toCharArray();
+        result += IntStream.range(0, charArray.length).filter(j -> element.equals(String.valueOf(charArray[j]))).sum();
         return result;
     }
 
@@ -118,7 +111,42 @@ public class AlgorithmService {
     /**
      * Sorts array using quick sort algorithm.
      */
-    public int[] quickSort(int[] arr) {
-        return null;
+    public void quickSort(int[] arr, int low, int high) {
+        int lowDynamic = low;
+        int highDynamic = high;
+        int pivot = arr[low + (high - low) / 2];
+
+        // Divide into two lists
+        while (lowDynamic <= highDynamic) {
+            // Find first element from the left list that is bigger than pivot.
+            while (arr[lowDynamic] < pivot) {
+                lowDynamic++;
+            }
+            // Find first element from the right list that is smaller than pivot
+            while (pivot < arr[highDynamic]) {
+                highDynamic--;
+            }
+
+            // Exchange founded values from left and right
+            if (lowDynamic <= highDynamic) {
+                exchange(arr, lowDynamic, highDynamic);
+                // Update lowDynamic and highDynamic for recursive call.
+                lowDynamic++;
+                highDynamic--;
+            }
+        }
+        callQuicksortRecursive(arr, low, high, lowDynamic, highDynamic);
     }
+
+    private void exchange(int[] numbers, int i, int j) {
+        int temp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = temp;
+    }
+
+    private void callQuicksortRecursive(int[] arr, int low, int high, int lowDynamic, int highDynamic) {
+        if (low < highDynamic) quickSort(arr, low, highDynamic);
+        if (lowDynamic < high) quickSort(arr, lowDynamic, high);
+    }
+
 }
