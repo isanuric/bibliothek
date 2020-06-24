@@ -49,12 +49,12 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Test
     public void quickSort() {
-        int[] toBeSorted = {9, 6, 7, 4, 2, 5, 1, 3, 0, 8};
+        int[] toBeSorted = {9, 6, 7, 4, 2, 5, 1, 3, 0, 8, 32, 76, 98, 34, 876, 5, 1, 398, 78, 27, 85, 39, 20, 45, 2876};
         System.out.println(Arrays.toString(toBeSorted));
         algorithmService.quickSort(toBeSorted, 0, toBeSorted.length - 1);
 
         System.out.println(Arrays.toString(toBeSorted));
-        int[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] expected = {0, 1, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 20, 27, 32, 34, 39, 45, 76, 78, 85, 98, 398, 876, 2876};
         assertEquals(Arrays.toString(expected), Arrays.toString(toBeSorted));
     }
 

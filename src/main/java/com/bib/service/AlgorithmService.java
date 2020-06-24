@@ -13,6 +13,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+/**
+ * Some algorithm implementations as experiment.
+ */
 @Service
 public class AlgorithmService {
 
@@ -147,6 +150,16 @@ public class AlgorithmService {
     private void callQuicksortRecursive(int[] arr, int low, int high, int lowDynamic, int highDynamic) {
         if (low < highDynamic) quickSort(arr, low, highDynamic);
         if (lowDynamic < high) quickSort(arr, lowDynamic, high);
+    }
+
+    /**
+     * Rectangle Partition
+     */
+    public void calculateRectangles() {
+        int[] xAxis = new int[] {2, 3, 5};
+        int[] yAxis = new int[] {3, 2};
+        int result = Arrays.stream(xAxis).sum();
+
     }
 }
 
