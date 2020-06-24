@@ -65,4 +65,9 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         System.out.println(n);
 
     }
+
+    @Test
+    public void calculateRectangles() {
+        algorithmService.calculateRectangles();
+    }
 }

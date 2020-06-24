@@ -159,7 +159,7 @@ public class AlgorithmService {
         int[] xAxis = new int[] {2, 3, 5};
         int[] yAxis = new int[] {3, 2};
         int result = Arrays.stream(xAxis).sum();
-
+        System.out.println(result);
     }
 }
 
