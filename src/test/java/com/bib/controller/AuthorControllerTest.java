@@ -1,6 +1,5 @@
 package com.bib.controller;
 
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,9 +30,9 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        for (String author : (Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAuthor")) {
-            assertTrue("Martin, Friedrisch, Simon".contains(author));
-        }
+        ((Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAuthor")).stream()
+                .map("Martin, Friedrich, Simon"::contains)
+                .forEach(Assert::assertTrue);
     }
 
     @Test
@@ -63,7 +62,7 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .requestAttr("selectedListToDisplay", "allAuthors"))
                 .andExpect(status().isOk())
                 .andReturn();
-        Set<List> modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
+        var modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
 
         int nameIndex = 0;
         int surnameIndex = 1;

@@ -153,13 +153,40 @@ public class AlgorithmService {
     }
 
     /**
-     * Rectangle Partition
+     * Rectangle counter.
      */
     public void calculateRectangles() {
-        int[] xAxis = new int[] {2, 3, 5};
-        int[] yAxis = new int[] {3, 2};
+        int[] xAxis = new int[]{2, 5, 10};
+        int[] yAxis = new int[]{3, 5};
         int result = Arrays.stream(xAxis).sum();
-        System.out.println(result);
+
+        int countRectangle = 0;
+        for (int i = 0; i < xAxis.length; i++) {
+
+            for (int j = 0; j < yAxis.length; j++) {
+                if (xAxis[i] == yAxis[j]) {
+                    countRectangle++;
+                }
+            }
+
+            for (int j = 0; j < yAxis.length - 1; j++) {
+                if (xAxis[i] == yAxis[j + 1] - yAxis[j]) {
+                    countRectangle++;
+                }
+            }
+        }
+
+        for (int i = 0; i < xAxis.length - 1; i++) {
+
+            int xDifference = xAxis[i + 1] - xAxis[i];
+
+            for (int j = 0; j < yAxis.length - 1; j++) {
+                if (xDifference == yAxis[j + 1] - yAxis[j]) {
+                    countRectangle++;
+                }
+            }
+        }
+        System.err.println(countRectangle);
     }
 }
 
