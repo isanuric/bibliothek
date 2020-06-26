@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Autowired

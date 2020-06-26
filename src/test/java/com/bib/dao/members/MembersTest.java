@@ -49,7 +49,7 @@ public class MembersTest extends BibliothekApplicationTests {
         String testUser = "userthree";
         Members newUser = membersRepository.save(new Members(testUser, "pass", "userthree@gmail.com"));
         assertNotNull(newUser);
-        assertEquals("userthree@gmail.com", newUser.getEmail());
+        assertEquals(testUser + "@gmail.com", newUser.getEmail());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class MembersTest extends BibliothekApplicationTests {
         String testUser = "user-four";
         Members newUser = membersRepository.save(new Members(testUser, "pass", "user-four@gmail.com"));
         assertNotNull(newUser);
-        assertEquals("userthree@gmail.com", newUser.getEmail());
+        assertEquals(testUser + "@gmail.com", newUser.getEmail());
 
         membersRepository.deleteByUsername(testUser);
 
