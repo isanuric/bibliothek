@@ -155,9 +155,8 @@ public class AlgorithmService {
     /**
      * Rectangle counter.
      */
-    public void calculateRectangles() {
-        int[] xAxis = new int[]{2, 5, 10};
-        int[] yAxis = new int[]{3, 5};
+    public int calculateRectangles(int[] xAxis, int[] yAxis) {
+
         int result = Arrays.stream(xAxis).sum();
 
         int countRectangle = 0;
@@ -180,13 +179,14 @@ public class AlgorithmService {
 
             int xDifference = xAxis[i + 1] - xAxis[i];
 
-            for (int j = 0; j < yAxis.length - 1; j++) {
-                if (xDifference == yAxis[j + 1] - yAxis[j]) {
+            for (int j = 0; j < yAxis.length; j++) {
+                if (xDifference == yAxis[j]) {
                     countRectangle++;
                 }
             }
         }
         System.err.println(countRectangle);
+        return countRectangle;
     }
 }
 

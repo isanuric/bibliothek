@@ -66,7 +66,12 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
     }
 
     @Test
-    public void calculateRectangles() {
-        algorithmService.calculateRectangles();
+    public void calculateRectangles_Simple() {
+        assertEquals(4, algorithmService.calculateRectangles(new int[]{2, 5, 10}, new int[]{3, 5}));
+    }
+
+    @Test
+    public void calculateRectangles_Square() {
+        assertEquals(14, algorithmService.calculateRectangles(new int[]{3, 6, 9}, new int[]{3, 6, 9}));
     }
 }
