@@ -1,6 +1,9 @@
 package com.bib.service;
 
+import static java.util.stream.IntStream.range;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -52,7 +55,7 @@ public class AlgorithmService {
     public int sumOfCharacterIndex(String text, String element) {
         int result = 0;
         char[] charArray = text.toCharArray();
-        result += IntStream.range(0, charArray.length).filter(j -> element.equals(String.valueOf(charArray[j]))).sum();
+        result += range(0, charArray.length).filter(j -> element.equals(String.valueOf(charArray[j]))).sum();
         return result;
     }
 
@@ -65,7 +68,7 @@ public class AlgorithmService {
         String[] results = new String[typesLines.length];
         String unknown = "UNKNOWN";
 
-        IntStream.range(0, inputs.length).forEach(i -> {
+        range(0, inputs.length).forEach(i -> {
             String fileName = inputs[i];
             if (fileName == "." || fileName.endsWith(".") || fileName.endsWith("..") || !fileName.contains(".")) {
                 results[i] = unknown;
@@ -97,7 +100,7 @@ public class AlgorithmService {
     }
 
     private void makeupFile(String[] results, List<String[]> standardMimeTypes, int mimeIndex, String fileExtention) {
-        IntStream.range(0, standardMimeTypes.size())
+        range(0, standardMimeTypes.size())
                 .filter(j -> fileExtention.equalsIgnoreCase(standardMimeTypes.get(j)[0]))
                 .forEach(j -> {
                     results[mimeIndex] = standardMimeTypes.get(j)[1];
@@ -148,8 +151,12 @@ public class AlgorithmService {
     }
 
     private void callQuicksortRecursive(int[] arr, int low, int high, int lowDynamic, int highDynamic) {
-        if (low < highDynamic) quickSort(arr, low, highDynamic);
-        if (lowDynamic < high) quickSort(arr, lowDynamic, high);
+        if (low < highDynamic) {
+            quickSort(arr, low, highDynamic);
+        }
+        if (lowDynamic < high) {
+            quickSort(arr, lowDynamic, high);
+        }
     }
 
     /**
@@ -161,18 +168,9 @@ public class AlgorithmService {
 
         int countRectangle = 0;
         for (int i = 0; i < xAxis.length; i++) {
-
-            for (int j = 0; j < yAxis.length; j++) {
-                if (xAxis[i] == yAxis[j]) {
-                    countRectangle++;
-                }
-            }
-
-            for (int j = 0; j < yAxis.length - 1; j++) {
-                if (xAxis[i] == yAxis[j + 1] - yAxis[j]) {
-                    countRectangle++;
-                }
-            }
+            var xAxiValue = xAxis[i];
+            countRectangle += range(0, xAxis.length).filter(j -> xAxiValue == yAxis[j]).count();
+            countRectangle += range(0, xAxis.length - 1).filter(j -> xAxiValue == yAxis[j + 1] - yAxis[j]).count();
         }
 
         for (int i = 0; i < xAxis.length - 1; i++) {
@@ -181,6 +179,12 @@ public class AlgorithmService {
 
             for (int j = 0; j < yAxis.length; j++) {
                 if (xDifference == yAxis[j]) {
+                    countRectangle++;
+                }
+            }
+            for (int j = 0; j < yAxis.length - 1; j++) {
+                int yDifference = yAxis[i + 1] - yAxis[i];
+                if (xDifference == yDifference) {
                     countRectangle++;
                 }
             }
