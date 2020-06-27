@@ -3,13 +3,11 @@ package com.bib.service;
 import static java.util.stream.IntStream.range;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -165,30 +163,30 @@ public class AlgorithmService {
     public int calculateRectangles(int[] xAxis, int[] yAxis) {
 
         int result = Arrays.stream(xAxis).sum();
+        //  0, 3, 6, 9, 12
+        //  3,  ,  ,  ,  ,
+        //  6,  ,  ,  ,  ,
+        //  9,  ,  ,  ,  ,
+        // 12,  ,  ,  ,  ,
 
+        System.out.println(Arrays.toString(xAxis));
+        System.out.println(Arrays.toString(yAxis));
         int countRectangle = 0;
-        for (int i = 0; i < xAxis.length; i++) {
-            var xAxiValue = xAxis[i];
-            countRectangle += range(0, yAxis.length).filter(j -> xAxiValue == yAxis[j]).count();
-            countRectangle += range(0, yAxis.length - 1).filter(j -> xAxiValue == yAxis[j + 1] - yAxis[j]).count();
-
-//            int finalI = i;
-//            countRectangle += range(0, yAxis.length - 1).filter(j -> finalI == 0).filter(j -> xAxiValue == yAxis[j]).count();
-//            countRectangle += range(0, yAxis.length - 1).filter(j -> finalI == 0).filter(j -> xAxiValue == yAxis[j + 1] - yAxis[j]).count();
-        }
 
         for (int i = 0; i < xAxis.length - 1; i++) {
             int xDifference = xAxis[i + 1] - xAxis[i];
-            countRectangle += range(0, yAxis.length).filter(j -> xDifference == yAxis[j]).count(); // 6 7
-            countRectangle += range(0, yAxis.length - 1).filter(j -> xDifference == yAxis[j + 1] - yAxis[j]).count();// 8 9 10 11
+            countRectangle += range(0, yAxis.length - 1).filter(j -> xDifference == yAxis[j + 1] - yAxis[j]).count();
+            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[0]).count();
         }
 
         for (int i = 0; i < xAxis.length - 2; i++) {
             int xDifference = xAxis[i + 2] - xAxis[i];
-            var xAxiValue = xAxis[i];
-//            countRectangle += range(0, yAxis.length).filter(j -> xDifference == yAxis[j]).count(); // 6 7
-            countRectangle += range(0, yAxis.length - 2).filter(j -> xAxiValue == yAxis[j + 2] - yAxis[j]).count();// 8 9 10 11
-            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[j]).count();// 8 9 10 11
+            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[j]).count();
+        }
+
+        for (int i = 0; i < xAxis.length - 3; i++) {
+            int xDifference = xAxis[i + 3] - xAxis[i];
+            countRectangle += range(0, yAxis.length - 3).filter(j -> xDifference == yAxis[j + 3] - yAxis[j]).count();
         }
 
         System.err.println(countRectangle);
