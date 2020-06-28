@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -42,7 +43,6 @@ public class AlgorithmService {
                     closest = Math.abs(currentValue);
                 }
             }
-
         }
         return closest;
     }
@@ -163,7 +163,7 @@ public class AlgorithmService {
     public int calculateRectangles(int[] xAxis, int[] yAxis) {
         int countRectangle = 0;
         for (int i = 1; i < xAxis.length; i++) {
-            for (int j = 1; j < xAxis.length - i; j++) {
+            for (int j = 0; j < xAxis.length - i; j++) {
                 int xDifference = xAxis[j + i] - xAxis[j];
 
                 // Go through y axis
@@ -196,6 +196,38 @@ public class AlgorithmService {
             }
         }
         return countRectangle;
+    }
+
+    /**
+     * Enigma encryption.
+     */
+    public String enigmaEncode(String plaintext, int startingNumber) {
+        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("(?!^)(?=.)");
+        String[] text = plaintext.split("(?!^)(?=.)");
+        String[] textAfterShift = new String[text.length];
+
+        IntStream.range(0, text.length)
+                .forEach(i -> range(0, alphabet.length)
+                .filter(j -> text[i].equals(alphabet[j]))
+                .forEach(j -> textAfterShift[i] = alphabet[i + j + startingNumber]));
+
+        System.out.println(Arrays.toString(textAfterShift));
+        return "";
+    }
+
+    private String enigmaEncodeLegacy(String plaintext, int startingNumber) {
+        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("(?!^)(?=.)");
+        String[] text = plaintext.split("(?!^)(?=.)");
+        String[] textAfterShift = new String[text.length];
+        for (int i = 0; i < text.length; i++) {
+            for (int j = 0; j < alphabet.length; j++) {
+                if (text[i].equals(alphabet[j])) {
+                    textAfterShift[i] = alphabet[i + j + startingNumber];
+                    continue;
+                }
+            }
+        }
+        return "";
     }
 }
 
