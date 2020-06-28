@@ -77,6 +77,15 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Test
     public void calculateRectangles_SquareLength5() {
-        assertEquals(14, algorithmService.calculateRectangles(new int[]{0, 3, 6, 9, 12}, new int[]{0, 3, 6, 9, 12}));
+        assertEquals(30, algorithmService.calculateRectangles(new int[]{0, 3, 6, 9, 12}, new int[]{0, 3, 6, 9, 12}));
+    }
+
+    @Test
+    public void calculateRectangles_Big() {
+        int[] xAxis = new int[]{0, 11, 25, 26, 29, 30, 40, 44, 56, 65, 71, 87, 98, 100, 108, 130, 149, 153, 161, 173,
+                179, 200};
+        int[] yAxis = new int[]{0, 1, 11, 16, 17, 19, 37, 38, 53, 65, 69, 100};
+        int sum = Arrays.stream(xAxis).sum();
+        assertEquals(123, algorithmService.calculateRectangles(xAxis, yAxis));
     }
 }

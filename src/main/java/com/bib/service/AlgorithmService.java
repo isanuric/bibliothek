@@ -161,33 +161,69 @@ public class AlgorithmService {
      * Rectangle counter.
      */
     public int calculateRectangles(int[] xAxis, int[] yAxis) {
-
-        int result = Arrays.stream(xAxis).sum();
         //  0, 3, 6, 9, 12
         //  3,  ,  ,  ,  ,
         //  6,  ,  ,  ,  ,
         //  9,  ,  ,  ,  ,
         // 12,  ,  ,  ,  ,
 
-        System.out.println(Arrays.toString(xAxis));
+        System.out.println(Arrays.toString(xAxis) + ", length: " + xAxis.length);
         System.out.println(Arrays.toString(yAxis));
         int countRectangle = 0;
 
-        for (int i = 0; i < xAxis.length - 1; i++) {
-            int xDifference = xAxis[i + 1] - xAxis[i];
-            countRectangle += range(0, yAxis.length - 1).filter(j -> xDifference == yAxis[j + 1] - yAxis[j]).count();
-            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[0]).count();
+        for (int z = 1; z < xAxis.length; z++) {
+//            System.out.println("z " + z + ", countRectangle " + countRectangle);
+
+            for (int i = 0; i < xAxis.length - z; i++) {
+                int xDifference = xAxis[i + z] - xAxis[i];
+
+                // Go throw y axis
+                for (int yVertical = 0; yVertical < yAxis.length; yVertical++) {
+
+                    int xIndex = i;
+                    int yIndex = yVertical;
+                    countRectangle += range(0, yAxis.length - yIndex)
+//                            .filter(j -> xAxis[xIndex] != yAxis[yIndex])
+                            .filter(j -> xDifference == yAxis[j + yIndex] - yAxis[j]).count();
+                    System.out.println("z " + z + ", xIndex " + xIndex + ", xDifference " + xDifference + ", yIndex "
+                            + yAxis[yIndex] + ", count " + countRectangle);
+                }
+                System.out.println();
+            }
+//            for (int i = 0; i < xAxis.length - z; i++) {
+//                int xDifference = xAxis[i + z] - xAxis[i];
+//                for (int zy = 0; zy < yAxis.length; zy++) {
+//                    int finalZy = zy;
+//                    int finalI = i;
+//                    countRectangle += range(0, yAxis.length - zy)
+//                            .filter(j -> xAxis[finalI] != yAxis[j])
+//                            .filter(j -> xDifference == yAxis[j + finalZy] - yAxis[j])
+//                            .count();
+//                }
+
+//                if (z == 1) {
+//                    int xDifferenced = xAxis[i + 1] - xAxis[i];
+//                    countRectangle += range(0, yAxis.length - 2)
+//                            .filter(j -> xAxis[finalI] != yAxis[j])
+//                            .filter(j -> xDifferenced == yAxis[j + 2] - yAxis[0]).count();
+//                }
         }
 
-        for (int i = 0; i < xAxis.length - 2; i++) {
-            int xDifference = xAxis[i + 2] - xAxis[i];
-            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[j]).count();
-        }
+//        for (int i = 0; i < xAxis.length - 1; i++) {
+//            int xDifference = xAxis[i + 1] - xAxis[i];
+//            countRectangle += range(0, yAxis.length - 1).filter(j -> xDifference == yAxis[j + 1] - yAxis[j]).count();
+//            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[0]).count();
+//        }
 
-        for (int i = 0; i < xAxis.length - 3; i++) {
-            int xDifference = xAxis[i + 3] - xAxis[i];
-            countRectangle += range(0, yAxis.length - 3).filter(j -> xDifference == yAxis[j + 3] - yAxis[j]).count();
-        }
+//        for (int i = 0; i < xAxis.length - 2; i++) {
+//            int xDifference = xAxis[i + 2] - xAxis[i];
+//            countRectangle += range(0, yAxis.length - 2).filter(j -> xDifference == yAxis[j + 2] - yAxis[j]).count();
+//        }
+//
+//        for (int i = 0; i < xAxis.length - 3; i++) {
+//            int xDifference = xAxis[i + 3] - xAxis[i];
+//            countRectangle += range(0, yAxis.length - 3).filter(j -> xDifference == yAxis[j + 3] - yAxis[j]).count();
+//        }
 
         System.err.println(countRectangle);
         return countRectangle;
