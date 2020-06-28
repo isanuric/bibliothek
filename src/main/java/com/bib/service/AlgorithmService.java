@@ -163,10 +163,10 @@ public class AlgorithmService {
     public int calculateRectangles(int[] xAxis, int[] yAxis) {
         int countRectangle = 0;
         for (int i = 1; i < xAxis.length; i++) {
-            for (int j = 0; j < xAxis.length - i; j++) {
+            for (int j = 1; j < xAxis.length - i; j++) {
                 int xDifference = xAxis[j + i] - xAxis[j];
 
-                // Go throw y axis
+                // Go through y axis
                 countRectangle += range(0, yAxis.length).map(yIndex -> (int) range(0, yAxis.length - yIndex)
                         .filter(z -> xDifference == yAxis[z + yIndex] - yAxis[z]).count()).sum();
             }
