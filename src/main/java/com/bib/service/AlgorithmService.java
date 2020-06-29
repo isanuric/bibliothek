@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -26,6 +25,9 @@ public class AlgorithmService {
 
     @Autowired
     ResourceLoader resourceLoader;
+
+    private static final String CLOSETOGETHER_REGEX = "(?!^)(?=.)";
+    private static final String[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(CLOSETOGETHER_REGEX);
 
     /**
      * Returns the value closest to 0 among input data. If two numbers are equally close to zero, positive integer has
@@ -165,16 +167,17 @@ public class AlgorithmService {
         for (int i = 1; i < xAxis.length; i++) {
             for (int j = 0; j < xAxis.length - i; j++) {
                 int xDifference = xAxis[j + i] - xAxis[j];
-
                 // Go through y axis
-                countRectangle += range(0, yAxis.length).map(yIndex -> (int) range(0, yAxis.length - yIndex)
-                        .filter(z -> xDifference == yAxis[z + yIndex] - yAxis[z]).count()).sum();
+                countRectangle += range(0, yAxis.length)
+                        .map(yIndex -> (int) range(0, yAxis.length - yIndex)
+                                .filter(z -> xDifference == yAxis[z + yIndex] - yAxis[z]).count())
+                        .sum();
             }
         }
         return countRectangle;
     }
 
-    public int calculateRectanglesLegacy(int[] xAxis, int[] yAxis) {
+    private int calculateRectanglesSlow(int[] xAxis, int[] yAxis) {
         //  0, 3, 6, 9, 12
         //  3,  ,  ,  ,  ,
         //  6,  ,  ,  ,  ,
@@ -201,23 +204,37 @@ public class AlgorithmService {
     /**
      * Enigma encryption.
      */
-    public String enigmaEncode(String plaintext, int startingNumber) {
-        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("(?!^)(?=.)");
-        String[] text = plaintext.split("(?!^)(?=.)");
+    public String enigmaEncode(String plaintext, int startingNumber, String[][] rotors) {
+        String[] text = plaintext.split(CLOSETOGETHER_REGEX);
         String[] textAfterShift = new String[text.length];
 
-        IntStream.range(0, text.length)
-                .forEach(i -> range(0, alphabet.length)
-                .filter(j -> text[i].equals(alphabet[j]))
-                .forEach(j -> textAfterShift[i] = alphabet[i + j + startingNumber]));
+        range(0, text.length)
+                .forEach(i -> range(0, ALPHABET.length)
+                        .filter(j -> text[i].equals(ALPHABET[j]))
+                        .forEach(j -> textAfterShift[i] = ALPHABET[i + j + startingNumber]));
 
         System.out.println(Arrays.toString(textAfterShift));
+
+        String[] rotorOne = "BDFHJLCPRTXVZNYEIWGAKMUSQO".split(CLOSETOGETHER_REGEX);
+        String[] textAfterRotoring = new String[text.length];
+        rotate(textAfterShift, rotorOne, textAfterRotoring);
+
         return "";
     }
 
-    private String enigmaEncodeLegacy(String plaintext, int startingNumber) {
-        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("(?!^)(?=.)");
-        String[] text = plaintext.split("(?!^)(?=.)");
+    private void rotate(String[] text, String[] rotor, String[] textAfterRotor) {
+        range(0, text.length)
+                .forEach(i -> range(0, ALPHABET.length)
+                        .filter(j -> text[i].equals(ALPHABET[j]))
+                        .forEach(j -> textAfterRotor[i] = rotor[j]));
+        System.out.println(Arrays.toString(textAfterRotor));
+
+//        rotor(textAfterRotor,)
+    }
+
+    private String enigmaEncodeSlow(String plaintext, int startingNumber) {
+        String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(CLOSETOGETHER_REGEX);
+        String[] text = plaintext.split(CLOSETOGETHER_REGEX);
         String[] textAfterShift = new String[text.length];
         for (int i = 0; i < text.length; i++) {
             for (int j = 0; j < alphabet.length; j++) {
