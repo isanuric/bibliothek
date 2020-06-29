@@ -118,12 +118,10 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Test
     public void enigmaEncode() {
-        String[][] rotors = new String[3][];
-        var noDistanceRegex = "(?!^)(?=.)";
-        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO".split(noDistanceRegex);
-        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE".split(noDistanceRegex);
-        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ".split(noDistanceRegex);
-
-        algorithmService.enigmaEncode("AAA", 4, rotors);
+        String[] rotors = new String[3];
+        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+        assertEquals("KQF", algorithmService.enigmaEncode("AAA", 4, rotors));
     }
 }

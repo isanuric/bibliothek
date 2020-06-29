@@ -141,7 +141,7 @@ public class AlgorithmService {
                 highDynamic--;
             }
         }
-        callQuicksortRecursive(arr, low, high, lowDynamic, highDynamic);
+        callQuickSortRecursive(arr, low, high, lowDynamic, highDynamic);
     }
 
     private void exchange(int[] numbers, int i, int j) {
@@ -150,7 +150,7 @@ public class AlgorithmService {
         numbers[j] = temp;
     }
 
-    private void callQuicksortRecursive(int[] arr, int low, int high, int lowDynamic, int highDynamic) {
+    private void callQuickSortRecursive(int[] arr, int low, int high, int lowDynamic, int highDynamic) {
         if (low < highDynamic) {
             quickSort(arr, low, highDynamic);
         }
@@ -204,32 +204,31 @@ public class AlgorithmService {
     /**
      * Enigma encryption.
      */
-    public String enigmaEncode(String plaintext, int startingNumber, String[][] rotors) {
+    public String enigmaEncode(String plaintext, int startingNumber, String[] rotors) {
         String[] text = plaintext.split(CLOSETOGETHER_REGEX);
-        String[] textAfterShift = new String[text.length];
+        String[] textToRotate = new String[text.length];
+        String[][] rotorsSplit = new String[3][];
 
+        range(0, rotors.length).forEach(j -> rotorsSplit[j] = rotors[j].split(CLOSETOGETHER_REGEX));
         range(0, text.length)
                 .forEach(i -> range(0, ALPHABET.length)
                         .filter(j -> text[i].equals(ALPHABET[j]))
-                        .forEach(j -> textAfterShift[i] = ALPHABET[i + j + startingNumber]));
-
-        System.out.println(Arrays.toString(textAfterShift));
-
-        String[] rotorOne = "BDFHJLCPRTXVZNYEIWGAKMUSQO".split(CLOSETOGETHER_REGEX);
-        String[] textAfterRotoring = new String[text.length];
-        rotate(textAfterShift, rotorOne, textAfterRotoring);
-
-        return "";
+                        .forEach(j -> textToRotate[i] = ALPHABET[i + j + startingNumber]));
+        return String.join("", rotate(textToRotate, rotorsSplit, 0));
     }
 
-    private void rotate(String[] text, String[] rotor, String[] textAfterRotor) {
+    private String[] rotate(String[] text, String[][] rotors, int count) {
+        if (count == rotors.length) {
+            return text;
+        }
+        String[] textAfterRotor = new String[text.length];
+        int finalCount = count;
         range(0, text.length)
                 .forEach(i -> range(0, ALPHABET.length)
                         .filter(j -> text[i].equals(ALPHABET[j]))
-                        .forEach(j -> textAfterRotor[i] = rotor[j]));
-        System.out.println(Arrays.toString(textAfterRotor));
-
-//        rotor(textAfterRotor,)
+                        .forEach(j -> textAfterRotor[i] = rotors[finalCount][j]));
+        count++;
+        return rotate(textAfterRotor, rotors, count++);
     }
 
     private String enigmaEncodeSlow(String plaintext, int startingNumber) {
