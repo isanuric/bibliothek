@@ -118,38 +118,33 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Test
     public void enigmaEncode() {
-        String[] rotors = new String[3];
-        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
-        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
-        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
-        assertEquals("KQF", algorithmService.enigmaEncode("AAA", 4, rotors));
+        assertEquals("KQF", algorithmService.enigmaEncode("AAA", 4, getRotors()));
     }
 
     @Test
     public void enigmaEncode_2() {
-        String[] rotors = new String[3];
-        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
-        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
-        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
-        assertEquals("ALWAURKQEQQWLRAWZHUYKVN", algorithmService.enigmaEncode("WEATHERREPORTWINDYTODAY", 7, rotors));
+        String[] rotors = getRotors();
+        assertEquals("ALWAURKQEQQWLRAWZHUYKVN", algorithmService.enigmaEncode("WEATHERREPORTWINDYTODAY", 7, getRotors()));
     }
 
     @Test
     public void enigmaEncode_3() {
-        String[] rotors = new String[3];
-        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
-        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
-        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
-        assertEquals("PQSACVVTOISXFXCIAMQEM", algorithmService.enigmaEncode("EVERYONEISWELCOMEHERE", 9, rotors));
+        String[] rotors = getRotors();
+        assertEquals("PQSACVVTOISXFXCIAMQEM", algorithmService.enigmaEncode("EVERYONEISWELCOMEHERE", 9, getRotors()));
     }
 
     @Test
     public void enigmaEncode_4() {
+        String[] rotors = getRotors();
+        assertEquals("PQSACVVTOISXFXCIAMQEMDZIXFJJSTQIENEFQXVZYV", algorithmService.enigmaEncode("EVERYONEISWELCOMEHEREEVERYONEISWELCOMEHERE", 9, getRotors()));
+    }
+
+    private String[] getRotors() {
         String[] rotors = new String[3];
         rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
         rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
         rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
-        assertEquals("PQSACVVTOISXFXCIAMQEMDZIXFJJSTQIENEFQXVZYV", algorithmService.enigmaEncode("EVERYONEISWELCOMEHEREEVERYONEISWELCOMEHERE", 9, rotors));
+        return rotors;
     }
 }
 
