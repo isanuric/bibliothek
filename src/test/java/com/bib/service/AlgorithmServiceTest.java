@@ -133,4 +133,26 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
         assertEquals("ALWAURKQEQQWLRAWZHUYKVN", algorithmService.enigmaEncode("WEATHERREPORTWINDYTODAY", 7, rotors));
     }
+
+    @Test
+    public void enigmaEncode_3() {
+        String[] rotors = new String[3];
+        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+        assertEquals("PQSACVVTOISXFXCIAMQEM", algorithmService.enigmaEncode("EVERYONEISWELCOMEHERE", 9, rotors));
+    }
+
+    @Test
+    public void enigmaEncode_4() {
+        String[] rotors = new String[3];
+        rotors[0] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+        rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+        assertEquals("PQSACVVTOISXFXCIAMQEMDZIXFJJSTQIENEFQXVZYV", algorithmService.enigmaEncode("EVERYONEISWELCOMEHEREEVERYONEISWELCOMEHERE", 9, rotors));
+    }
 }
+
+
+
+
