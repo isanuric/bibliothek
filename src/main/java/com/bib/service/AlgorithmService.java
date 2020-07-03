@@ -205,16 +205,25 @@ public class AlgorithmService {
      * Enigma encryption.
      */
     public String enigmaEncode(String plaintext, int startingNumber, String[] rotors) {
-        String[] text = plaintext.split(CLOSETOGETHER_REGEX);
-        String[] textToRotate = new String[text.length];
-        String[][] rotorsSplit = new String[3][];
+        String[] plain = plaintext.split(CLOSETOGETHER_REGEX);
+        String[] shiftedPlain = new String[plain.length];
+        String[][] rotorsSplited = new String[3][];
 
-        range(0, rotors.length).forEach(j -> rotorsSplit[j] = rotors[j].split(CLOSETOGETHER_REGEX));
-        range(0, text.length)
-                .forEach(i -> range(0, ALPHABET.length)
-                        .filter(j -> text[i].equals(ALPHABET[j]))
-                        .forEach(j -> textToRotate[i] = ALPHABET[i + j + startingNumber]));
-        return String.join("", rotate(textToRotate, rotorsSplit, 0));
+        range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
+
+        for (int i = 0; i < plain.length; i++) {
+            int finalIndex = i;
+             range(0, ALPHABET.length)
+                            .filter(j -> plain[finalIndex].equals(ALPHABET[j]))
+                            .forEach(j -> {
+                                var index = finalIndex + j + startingNumber;
+                                while (index >= 26) {
+                                    index = index - 26;
+                                }
+                                shiftedPlain[finalIndex] = ALPHABET[index];
+                            });
+        }
+        return String.join("", rotate(shiftedPlain, rotorsSplited, 0));
     }
 
     private String[] rotate(String[] text, String[][] rotors, int count) {
