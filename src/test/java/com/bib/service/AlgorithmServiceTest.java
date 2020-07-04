@@ -178,7 +178,6 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         assertEquals(42, algorithmService.calculateRectangles(xAxis, yAxis));
     }
 
-
     @Test
     public void enigmaEncode() {
         assertEquals("KQF", algorithmService.enigmaEncode("AAA", 4, getRotors()));
@@ -246,8 +245,8 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
     public void enigmaDecode_2() {
         assertEquals(
                 "THEQUICKBROWNFOXJUMPSOVERALAZYSPHINXOFBLACKQUARTZ",
-                algorithmService
-                        .enigmaDecode("XPCXAUPHYQALKJMGKRWPGYHFTKRFFFNOUTZCABUAEHQLGXREZ", 5, getReversRotors()));
+                algorithmService.enigmaDecode(
+                        "XPCXAUPHYQALKJMGKRWPGYHFTKRFFFNOUTZCABUAEHQLGXREZ", 5, getReversRotors()));
     }
 
     @Test
@@ -264,7 +263,7 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
                         + "KVPDGRVKEPGIEXNBWCHLGFMXJEJKBZWPKEDVHLUWCTNUSKBRHGBZCWAZDRBKWTMLGUCONLUZZDVEOKQXLYRXAGCFTKOCIRPJEYTMK"
                         + "JQQJPAYOQAUAWTLIODLNIXORHEDBIPBRZYRMYYXABKVCRYYHJNFMTOCVXAWFVLKEVYSERNNJNEKSBEDSILXMDQGADYAMAELCBLIAS"
                         + "GNEAIYPCZZQCAGJIBHWEOIRIRQMNUEOHADDGNCUDSSMGWYTLZESSGNVXEOLWVIIVUDEKIDUDYDZIBQGQJDIZANBSNCUUTFIDUGMZNYX";
-        assertEquals(expected, algorithmService.enigmaDecode(chifertext, 7, getRotors()));
+        assertEquals(expected, algorithmService.enigmaDecode(chifertext, 7, getReversRotors()));
     }
 
     private String[] getReversRotors() {

@@ -205,24 +205,22 @@ public class AlgorithmService {
      * Enigma encryption.
      */
     public String enigmaEncode(String plaintext, int startingNumber, String[] rotors) {
-        String[][] rotorsSplited = new String[3][];
-        range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
-
+        var rotorsSplited = splitRotors(rotors);
         String[] plain = plaintext.split(CLOSETOGETHER_REGEX);
-        String[] shiftedPlain = new String[plain.length];
-        for (int i = 0; i < plain.length; i++) {
-            int finalIndex = i;
-             range(0, ALPHABET.length)
-                            .filter(j -> plain[finalIndex].equals(ALPHABET[j]))
-                            .forEach(j -> {
-                                var index = finalIndex + j + startingNumber;
-                                while (index >= 26) {
-                                    index = index - 26;
-                                }
-                                shiftedPlain[finalIndex] = ALPHABET[index];
-                            });
-        }
+        String[] shiftedPlain = shiftText(plain, startingNumber);
         return String.join("", rotate(shiftedPlain, rotorsSplited, 0));
+    }
+
+    private String[] shiftText(String[] plain, int startingNumber) {
+        String[] shiftedPlain = new String[plain.length];
+        range(0, plain.length).forEach(i -> range(0, ALPHABET.length)
+                .filter(j -> plain[i].equals(ALPHABET[j]))
+                .forEach(j -> {
+                    var index = i + j + startingNumber;
+                    while (index >= 26) index = index - 26;
+                    shiftedPlain[i] = ALPHABET[index];
+                }));
+        return shiftedPlain;
     }
 
     private String[] rotate(String[] text, String[][] rotors, int count) {
@@ -239,11 +237,26 @@ public class AlgorithmService {
     }
 
     public String enigmaDecode(String chiferText, int startingNumber, String[] rotors) {
-        String[][] rotorsSplited = new String[3][];
-        range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
-
         var chifer = chiferText.split(CLOSETOGETHER_REGEX);
-        var rotate = rotateRevers(chifer, rotorsSplited, 0);
+        var rotate = rotateRevers(chifer, rotors, 0);
+        return String.join("", reversShiftText(chifer, rotate, startingNumber));
+    }
+
+    private String[] rotateRevers(String[] text, String[] rotors, int count) {
+        if (count == rotors.length) {
+            return text;
+        }
+        var rotorsSplited = splitRotors(rotors);
+        String[] textAfterRotor = new String[text.length];
+        int finalCount = count;
+        range(0, text.length).forEach(i -> range(0, ALPHABET.length)
+                .filter(j -> text[i].equals(rotorsSplited[finalCount][j]))
+                .forEach(j -> textAfterRotor[i] = ALPHABET[j]));
+        count++;
+        return rotateRevers(textAfterRotor, rotors, count++);
+    }
+
+    private String[] reversShiftText(String[] chifer, String[] rotate, int startingNumber) {
         var plain = new String[chifer.length];
         range(0, chifer.length).forEach(i -> range(0, ALPHABET.length)
                 .filter(j -> rotate[i].equals(ALPHABET[j]))
@@ -252,25 +265,12 @@ public class AlgorithmService {
                     while (index < 0) index = index + 26;
                     plain[i] = ALPHABET[index];
                 }));
-        return String.join("", plain);
+        return plain;
     }
 
-
-    private String[] rotateRevers(String[] text, String[][] rotors, int count) {
-        if (count == rotors.length) {
-            return text;
-        }
-        String[] textAfterRotor = new String[text.length];
-        int finalCount = count;
-        range(0, text.length)
-                .forEach(i -> range(0, ALPHABET.length)
-                        .filter(j -> text[i].equals(rotors[finalCount][j]))
-                        .forEach(j -> {
-                            textAfterRotor[i] = ALPHABET[j];
-                        }
-                        ));
-        count++;
-        return rotateRevers(textAfterRotor, rotors, count++);
+    private String[][] splitRotors(String[] rotors) {
+        String[][] rotorsSplited = new String[3][];
+        range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
+        return rotorsSplited;
     }
 }
-
