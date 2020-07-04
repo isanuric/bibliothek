@@ -116,6 +116,7 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         assertEquals(42, algorithmService.calculateRectangles(xAxis, yAxis));
     }
 
+
     @Test
     public void enigmaEncode() {
         assertEquals("KQF", algorithmService.enigmaEncode("AAA", 4, getRotors()));
@@ -123,20 +124,23 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
 
     @Test
     public void enigmaEncode_2() {
-        String[] rotors = getRotors();
-        assertEquals("ALWAURKQEQQWLRAWZHUYKVN", algorithmService.enigmaEncode("WEATHERREPORTWINDYTODAY", 7, getRotors()));
+        assertEquals(
+                "ALWAURKQEQQWLRAWZHUYKVN",
+                algorithmService.enigmaEncode("WEATHERREPORTWINDYTODAY", 7, getRotors()));
     }
 
     @Test
     public void enigmaEncode_3() {
-        String[] rotors = getRotors();
-        assertEquals("PQSACVVTOISXFXCIAMQEM", algorithmService.enigmaEncode("EVERYONEISWELCOMEHERE", 9, getRotors()));
+        assertEquals(
+                "PQSACVVTOISXFXCIAMQEM",
+                algorithmService.enigmaEncode("EVERYONEISWELCOMEHERE", 9, getRotors()));
     }
 
     @Test
     public void enigmaEncode_4() {
-        String[] rotors = getRotors();
-        assertEquals("PQSACVVTOISXFXCIAMQEMDZIXFJJSTQIENEFQXVZYV", algorithmService.enigmaEncode("EVERYONEISWELCOMEHEREEVERYONEISWELCOMEHERE", 9, getRotors()));
+        assertEquals(
+                "PQSACVVTOISXFXCIAMQEMDZIXFJJSTQIENEFQXVZYV",
+                algorithmService.enigmaEncode("EVERYONEISWELCOMEHEREEVERYONEISWELCOMEHERE", 9, getRotors()));
     }
 
     private String[] getRotors() {
@@ -146,6 +150,28 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         rotors[2] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
         return rotors;
     }
+
+    @Test
+    public void enigmaDecode() {
+        assertEquals("AAA", algorithmService.enigmaDecode("KQF", 4, getReversRotors()));
+    }
+
+    @Test
+    public void enigmaDecode_1() {
+        assertEquals(
+                "EVERYONEISWELCOMEHERE",
+                algorithmService.enigmaDecode("PQSACVVTOISXFXCIAMQEM", 9, getReversRotors()));
+    }
+
+    private String[] getReversRotors() {
+        String[] rotors = new String[3];
+        rotors[0] = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+        rotors[1] = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+        rotors[2] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+        return rotors;
+    }
+
+
 }
 
 
