@@ -231,12 +231,9 @@ public class AlgorithmService {
         }
         String[] textAfterRotor = new String[text.length];
         int finalCount = count;
-        range(0, text.length)
-                .forEach(i -> range(0, ALPHABET.length)
-                        .filter(j -> text[i].equals(ALPHABET[j]))
-                        .forEach(j -> textAfterRotor[i] = rotors[finalCount][j]));
-        System.out.printf("testAfterRotor: %s%n", Arrays.toString(textAfterRotor));
-
+        range(0, text.length).forEach(i -> range(0, ALPHABET.length)
+                .filter(j -> text[i].equals(ALPHABET[j]))
+                .forEach(j -> textAfterRotor[i] = rotors[finalCount][j]));
         count++;
         return rotate(textAfterRotor, rotors, count++);
     }
@@ -245,24 +242,16 @@ public class AlgorithmService {
         String[][] rotorsSplited = new String[3][];
         range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
 
-        String[] chifer = chiferText.split(CLOSETOGETHER_REGEX);
+        var chifer = chiferText.split(CLOSETOGETHER_REGEX);
         var rotate = rotateRevers(chifer, rotorsSplited, 0);
-        System.out.printf("chifer %s, rotate %s%n", Arrays.toString(chifer), Arrays.toString(rotate));
-
-
-        String[] plain = new String[chifer.length];
-        for (int i = 0; i < chifer.length; i++) {
-            int finalIndex = i;
-            range(0, ALPHABET.length)
-                    .filter(j -> rotate[finalIndex].equals(ALPHABET[j]))
-                    .forEach(j -> {
-                        var index = j - finalIndex - startingNumber;
-                        while (index < 0) {
-                            index = index + 26;
-                        }
-                        plain[finalIndex] = ALPHABET[index];
-                    });
-        }
+        var plain = new String[chifer.length];
+        range(0, chifer.length).forEach(i -> range(0, ALPHABET.length)
+                .filter(j -> rotate[i].equals(ALPHABET[j]))
+                .forEach(j -> {
+                    var index = j - i - startingNumber;
+                    while (index < 0) index = index + 26;
+                    plain[i] = ALPHABET[index];
+                }));
         return String.join("", plain);
     }
 
@@ -278,11 +267,8 @@ public class AlgorithmService {
                         .filter(j -> text[i].equals(rotors[finalCount][j]))
                         .forEach(j -> {
                             textAfterRotor[i] = ALPHABET[j];
-                            System.out.printf("i %s, ALPHABET[j]: %s%n", i, ALPHABET[j]);
                         }
                         ));
-        System.out.printf("\ntestAfterRotor: %s%n", Arrays.toString(textAfterRotor));
-
         count++;
         return rotateRevers(textAfterRotor, rotors, count++);
     }
