@@ -217,7 +217,9 @@ public class AlgorithmService {
                 .filter(j -> plain[i].equals(ALPHABET[j]))
                 .forEach(j -> {
                     var index = i + j + startingNumber;
-                    while (index >= 26) index = index - 26;
+                    while (index >= 26) {
+                        index = index - 26;
+                    }
                     shiftedPlain[i] = ALPHABET[index];
                 }));
         return shiftedPlain;
@@ -262,7 +264,9 @@ public class AlgorithmService {
                 .filter(j -> rotate[i].equals(ALPHABET[j]))
                 .forEach(j -> {
                     var index = j - i - startingNumber;
-                    while (index < 0) index = index + 26;
+                    while (index < 0) {
+                        index = index + 26;
+                    }
                     plain[i] = ALPHABET[index];
                 }));
         return plain;
@@ -272,5 +276,228 @@ public class AlgorithmService {
         String[][] rotorsSplited = new String[3][];
         range(0, rotors.length).forEach(j -> rotorsSplited[j] = rotors[j].split(CLOSETOGETHER_REGEX));
         return rotorsSplited;
+    }
+
+    /**
+     * Find dark spots in a matrix of candles
+     */
+//    public int findDarkSpots(String[][] lines, int N, int L) {
+//        int[][] matrix = new int[N][N];
+//        int[][] lights = new int[N][1];
+//        range(0, lines.length).forEach(i -> range(0, lines[i].length).forEach(j -> {
+//            if ("X".equals(lines[i][j])) {
+//                matrix[i][j] = (i + 1) * 10 + j;
+//            } else {
+////                matrix[i][j] = L;
+//                lights[i][0] = j;
+//            }
+//        }));
+//        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrix[i])));
+//        System.out.println();
+//
+//        for (int j = 0; j < matrix.length; j++) {
+//
+//            for (int k = 0; k < lights.length; k++) {
+//
+////                if (Math.abs(j - lights[k][0]) < 2) {
+//                if (Math.abs(j - k) < 2 && lights[j][0] == 1) {
+//                    System.out.printf("i%s, l%s, j - lights[k][0]:%s%n", j, k, j - lights[k][0]);
+////                    System.out.printf("i%s, l%s, %s%n", j, k, matrix[j][k]);
+//                }
+//            }
+//            System.out.println();
+//
+//        }
+//
+////        range(0, matrix.length)
+////                .forEach(i -> range(0, lights.length)
+////                        .filter(k -> Math.abs(i - lights[k][0]) < 3)
+//////                .filter(j -> lights[i][0] == 1)
+////                        .forEach(l -> System.out.printf("i%s, l%s, %s%n", i, l, matrix[i][0])
+////                        ));
+//
+////        int[][] matrixIndexSum = new int[N][N];
+////        range(0, matrixIndexSum.length).forEach(i -> range(0, matrixIndexSum[i].length).forEach(j -> {
+////            matrixIndexSum[i][j] = Math.abs( j - 1 );
+////        }));
+////        range(0, matrixIndexSum.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrixIndexSum[i])));
+////        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrixIndexSum[i])));
+//
+////        range(0, lights.length).forEach(i -> System.out.printf("- i%s, %s%n", i, Arrays.toString(lights[i])));
+////
+////        range(0, lights.length).forEach(i -> range(0 , matrix[i].length).forEach(j -> {
+////                if (Math.abs(lights[i][0] - i) < 2) {
+////                    System.out.printf("i:%s j%s, %s, dif:%s, %s%n", i, j, lights[i][0], Math.abs(lights[i][0] - i), matrix[i][j]);
+////                }
+////        }));
+//
+////        range(0, matrix.length).forEach(i -> {
+////            for (int j = 0; j < matrix[i].length; j++) {
+////                if (matrix[i][j] == 3) {
+////
+////                    int v = L;
+////                    int tmp = j;
+////                    while (j < N - 1) {
+////                        j++;
+////                        if (v != 0) {
+////                            v--;
+////                        }
+////                        matrix[i][j] = v;
+////                    }
+////
+//////                    v = L;
+//////                    j = tmp;
+//////                    while (j > 0) {
+//////                        j--;
+//////                        if (v != 0) {
+//////                            v--;
+//////                        }
+//////                        matrix[i][j] = v;
+//////                    }
+////                }
+////            }
+////        });
+//
+//        System.out.println();
+//        range(0, matrix.length).forEach(i -> System.out.printf("matrix: %s%n", Arrays.toString(matrix[i])));
+//
+//        return 0;
+//    }
+    public int findDarkSpots(String[][] lines, int N, int L) {
+        int[][] matrix = new int[N][N];
+        int[][] lights = new int[N][1];
+        range(0, lines.length).forEach(i -> range(0, lines[i].length).forEach(j -> {
+            if ("X".equals(lines[i][j])) {
+                matrix[i][j] = -1;
+            } else {
+                matrix[i][j] = L;
+            }
+        }));
+//        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrix[i])));
+//        System.out.println();
+
+//        range(0, 2).forEach(j -> findDarkSpots(matrix, 0, j, 2));
+//        testfinddark(matrix);
+
+        range(0, 5).forEach(k -> {
+            go1(matrix, 0, k, 2);
+            go2(matrix, k, 0, 2);
+            go3(matrix, 0, 0, 2);
+            go4(matrix, k, 4, 2);
+        });
+
+        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrix[i])));
+        System.out.println("-----------");
+        range(0, 5).forEach(k -> {
+            horizontal(matrix, 0, k, 2);
+            System.out.println();
+        });
+
+        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrix[i])));
+
+        return 0;
+    }
+
+    public void testfinddark(int[][] matrix) {
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+
+                if (matrix[i][j] == -1 || matrix[i][j] == 3) {
+                    if (matrix[i][j] != 3) {
+                        if (matrix[i + 1][j] != 3) {
+                            int power = 3;
+                            decreaseCellValue(matrix, i, j, power);
+
+                        } else {
+                            matrix[i][j] = 2;
+                        }
+                    } else {
+                        int power = 3;
+                        decreaseCellValue(matrix, i, j, power);
+                    }
+                }
+            }
+        }
+
+        range(0, matrix.length).forEach(i -> System.out.printf("%s%n", Arrays.toString(matrix[i])));
+    }
+
+    private void decreaseCellValue(int[][] matrix, int i, int j, int power) {
+        if (power < 0) {
+            return;
+        }
+        matrix[i][j] = power;
+        decreaseCellValue(matrix, i + 1, j, power - 1);
+    }
+
+    private void go1(int[][] matrix, int i, int j, int power) {
+        if (i > 3 || j > 3) {
+            return;
+        }
+
+        if (matrix[i][j] != 3 && matrix[i + 1][j] == 3) {
+            matrix[i][j] = power;
+        } else if (matrix[i][j] == 3) {
+            matrix[i + 1][j] = power;
+        }
+
+        go1(matrix, i + 1, j, power);
+    }
+
+    private void go2(int[][] matrix, int i, int j, int power) {
+        if (i > 3 || j > 3) {
+            return;
+        }
+
+        if (matrix[i][j] != 3 && matrix[i][j + 1] == 3) {
+            matrix[i][j] = power;
+        } else if (matrix[i][j] == 3) {
+            matrix[i][j + 1] = power;
+        }
+
+        go2(matrix, i, j + 1, power);
+    }
+
+    private void go3(int[][] matrix, int i, int j, int power) {
+        if (i > 3 || j > 3) {
+            return;
+        }
+
+        if (matrix[i][j] != 3 && matrix[i + 1][j + 1] == 3) {
+            matrix[i][j] = power;
+        } else if (matrix[i][j] == 3) {
+            matrix[i + 1][j + 1] = power;
+        }
+
+        go3(matrix, i + 1, j + 1, power);
+    }
+
+    private void go4(int[][] matrix, int i, int j, int power) {
+        if (i > 3 || j < 1) {
+            return;
+        }
+
+        if (matrix[i][j] != 3 && matrix[i + 1][j - 1] == 3) {
+            matrix[i][j] = power;
+        } else if (matrix[i][j] == 3) {
+            matrix[i + 1][j - 1] = power;
+        }
+
+        go4(matrix, i, j - 1, power);
+        System.out.println();
+    }
+
+    private void horizontal(int[][] matrix, int i, int j, int power) {
+        if (i > 3 || j > 4) {
+            return;
+        }
+
+        if (matrix[i + 1][j] == -1 ) {
+            System.out.printf("i: %s, j: %s, power:%s%n", i, j, power);
+
+            matrix[i][j] = power;
+            horizontal(matrix, i + 1, j, power - 1);
+        }
     }
 }

@@ -273,5 +273,16 @@ public class AlgorithmServiceTest extends BibliothekApplicationTests {
         rotors[2] = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
         return rotors;
     }
+
+    @Test
+    public void findDarkSpots() {
+        String[][] lines =  new String[][]{
+                "X X X X X".split(" "),
+                "X C X X X".split(" "),
+                "X X X X X".split(" "),
+                "X X X X X".split(" "),
+                "X X X X X".split(" "),};
+        algorithmService.findDarkSpots(lines, 5, 3);
+    }
 }
 
