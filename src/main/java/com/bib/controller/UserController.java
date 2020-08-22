@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+@Controller("/user")
 public class UserController {
 
     @Autowired
@@ -24,35 +24,14 @@ public class UserController {
     @Autowired
     private PasswordService passwordService;
 
-    @GetMapping({"/", "/home"})
-    public String home() {
-        return "/home";
-    }
 
-    @GetMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("allUsers", membersRepository.findAllExistUsers());
-        return "/admin";
-    }
-
-    @GetMapping("/about")
-    public String about() {
-        return "/about";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "/login";
-    }
-
-    @RequestMapping("/user")
+    @RequestMapping()
     public String user(Model model) {
-        System.out.println(getCurrontUser());
-        model.addAttribute("user", getCurrontUser());
+        model.addAttribute("user", getCurrentUser());
         return "user";
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public String add(
             Model model,
             @RequestParam String username,
@@ -72,18 +51,13 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/user/all")
+    @GetMapping("/all")
     public void getAll(Model model) {
         Collection<Members> allExistUsers = membersRepository.findAllExistUsers();
         model.addAttribute("allUsers", allExistUsers);
     }
 
-    @GetMapping("/403")
-    public String error403() {
-        return "/error/403";
-    }
-
-    @PostMapping("/user/change-password")
+    @PostMapping("/change-password")
     public String changePasswordPost(
             @RequestParam("password-old") String passworOld,
             @RequestParam("password-new") String passwordNew) {
@@ -92,7 +66,7 @@ public class UserController {
         return "/user";
     }
 
-    private String getCurrontUser() {
+    private String getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
