@@ -21,9 +21,14 @@ public class BookRepositoryTest extends BibliothekApplicationTests {
     }
 
     @Test
+    public void getAllBooksSortById() {
+        assertTrue(bookRepository.findAllBooksSortById().size() > 30);
+    }
+
+    @Test
     public void createBook() {
         String testBookName = "Test Book I";
-        Book testBookI = bookRepository.save(new Book(1, testBookName));
+        Book testBookI = bookRepository.save(new Book(202, testBookName));
 
         assertNotNull(testBookI);
         assertEquals(testBookName, testBookI.getName());
@@ -33,7 +38,7 @@ public class BookRepositoryTest extends BibliothekApplicationTests {
     @Transactional
     public void deleteBook() {
         String testBookName = "Test Book II";
-        Book testBook = bookRepository.save(new Book(1, "Test Book II"));
+        Book testBook = bookRepository.save(new Book(202, "Test Book II"));
         Integer bookId = testBook.getId();
 
         bookRepository.deleteByName(testBookName);

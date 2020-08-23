@@ -1,5 +1,6 @@
 package com.bib.controller;
 
+import static java.util.Objects.requireNonNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,7 +31,7 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        ((Set<String>) resultActions.getModelAndView().getModelMap().get("booksOfAuthor")).stream()
+        ((Set<String>) requireNonNull(resultActions.getModelAndView()).getModelMap().get("booksOfAuthor")).stream()
                 .map("Martin, Friedrich, Simon"::contains)
                 .forEach(Assert::assertTrue);
     }
@@ -48,10 +49,10 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
     @Test
     public void findAuthorAndHisBooks() throws Exception {
         List<String> authorAndOneBook = new ArrayList<>();
-        authorAndOneBook.add("Heidegger");
-        authorAndOneBook.add("Was heisst Denken?");
+        authorAndOneBook.add("IMMOY");
+        authorAndOneBook.add("Kalte Asche");
 
-        mockMvc.perform(get("/author/books/author_and_books?name=Martin"))
+        mockMvc.perform(get("/author/books/author_and_books?name=Author-IMMOY"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("authorAndBookNames", CoreMatchers.hasItem(authorAndOneBook)));
     }
@@ -62,13 +63,13 @@ public class AuthorControllerTest extends BibliothekApplicationTests {
                 .requestAttr("selectedListToDisplay", "allAuthors"))
                 .andExpect(status().isOk())
                 .andReturn();
-        var modelMap = (Set<List>) resultActions.getModelAndView().getModelMap().get("allAuthors");
+        var modelMap = (Set<List<String>>) requireNonNull(resultActions.getModelAndView()).getModelMap().get("allAuthors");
 
         int nameIndex = 0;
         int surnameIndex = 1;
         modelMap.stream()
-                .filter(p -> p.get(nameIndex).toString().startsWith("F"))
-                .map(author -> "Nietzsche".contains((String) author.get(surnameIndex)))
+                .filter(p -> p.get(nameIndex).startsWith("F"))
+                .map(author -> "Nietzsche".contains(author.get(surnameIndex)))
                 .forEach(Assert::assertTrue);
     }
 }

@@ -1,14 +1,15 @@
 package com.bib.dao.members;
 
+import static java.util.stream.IntStream.range;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.bib.BibliothekApplicationTests;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.transaction.Transactional;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -19,28 +20,40 @@ public class MembersTest extends BibliothekApplicationTests {
     @Autowired
     private MembersRepository membersRepository;
 
+    @Ignore
     @Test
-    public void getAllAdmins() {
-        Collection<Members> allExistUsers = membersRepository.findAllExistUsers();
-        System.out.println(allExistUsers);
-
-        List<Members> admins = allExistUsers.stream()
-                .filter(p -> p.getName().startsWith("admin"))
-                .collect(Collectors.toList());
-        assertEquals(3, admins.size());
+    public void createRandomAdmins() {
+        range(1, 20).forEach( i -> {
+            final var random = RandomStringUtils.random(5, true, false).toUpperCase();
+            final var username = "admin-" + random;
+            membersRepository.save(new Members(
+                    username,
+                    "pass-" + random,
+                    "name-" + random,
+                    random,
+                    username + "@gmail.com"));
+        });
     }
 
     @Test
-    public void getAllAdminsEmails() {
-        assertEquals(1, membersRepository.findAllExistUsers().stream()
-                .filter(p -> p.getName().startsWith("admin"))
-                .filter(p -> p.getEmail().endsWith("gmx.com"))
-                .count());
+    public void getAdmins() {
+        final var numberOfadmins = membersRepository.findAllExistUsers().stream()
+                .filter(p -> p.getUsername().startsWith("admin"))
+                .count();
+        assertTrue(numberOfadmins > 10);
+    }
+
+    @Test
+    public void getAdminsEmails() {
+        assertTrue( membersRepository.findAllExistUsers().stream()
+                .filter(p -> p.getUsername().startsWith("admin"))
+                .filter(p -> p.getEmail().endsWith("gmail.com"))
+                .count() > 10);
     }
 
     @Test
     public void getAnAdmin() {
-        Members userone = membersRepository.findByUsername("userone");
+        Members userone = membersRepository.findByUsername("adminOne");
         assertEquals("one", userone.getSurname());
     }
 
@@ -57,12 +70,12 @@ public class MembersTest extends BibliothekApplicationTests {
     @Rollback(false)
     public void createAndDeleteUser() {
         String testUser = "user-four";
-        Members newUser = membersRepository.save(new Members(testUser, "pass", "user-four@gmail.com"));
+        final var newMember = new Members(testUser, "pass", "test", "tester", "user-four@gmail.com");
+        Members newUser = membersRepository.save(newMember);
         assertNotNull(newUser);
         assertEquals(testUser + "@gmail.com", newUser.getEmail());
 
         membersRepository.deleteByUsername(testUser);
-
         Members deletedUser = membersRepository.findByUsername(testUser);
         assertNull(deletedUser);
     }

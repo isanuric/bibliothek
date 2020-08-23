@@ -37,7 +37,6 @@ public class Members {
         this.enabled = 1;
     }
 
-
     public Members(String username, String password, String name, String surname, String email) {
         this.username = username;
         this.password = password;

@@ -15,10 +15,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MembersRepository extends CrudRepository<Members, Integer> {
 
-    @Query("SELECT m FROM Members m WHERE m.enabled = 1")
+    @Query(value = "SELECT m FROM Members m")
     Collection<Members> findAllExistUsers();
 
-    @Query(value = "SELECT * FROM Members m WHERE m.username = :username", nativeQuery = true)
+//    @Query(value = "SELECT m FROM Members m WHERE m.username = :username", nativeQuery = true)
+//    @Query(value = "SELECT * FROM Members m WHERE m.username = :username")
     Members findByUsername(@Param("username") String username);
 
     @Modifying

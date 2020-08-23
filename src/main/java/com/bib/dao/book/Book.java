@@ -24,7 +24,6 @@ import lombok.Setter;
 public class Book {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 

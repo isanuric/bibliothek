@@ -76,13 +76,13 @@ public class BookController {
 
     @GetMapping("/display-all-books")
     public String getAlltBooks(Model model) {
-        model.addAttribute("books", bookRepository.findAllExistBooks());
+        model.addAttribute("books", bookRepository.findAllBooksSortById());
         return "/books-all";
     }
 
     @GetMapping("/choose")
     public String choose(Model model) {
-        model.addAttribute("books", bookRepository.findAllExistBooks());
+        model.addAttribute("books", bookRepository.findAllBooksSortById());
         return "/books";
     }
 }
