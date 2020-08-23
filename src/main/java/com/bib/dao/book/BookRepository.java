@@ -24,4 +24,3 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     void deleteByName(@Param("name") String name);
 }
-

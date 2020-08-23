@@ -22,7 +22,13 @@
 
 
 # MySql
-You can update and customise the tables in /docker directory.
+
+#### Run MySql as Docker:
+
+`docker run -e MYSQL_ROOT_PASSWORD=fdske4rwHFDGtrzr71e53 --name mysql-1 -d -p=3306:3306 mysql`
+
+#### Tables:
+You can update and customise tables that are located in `/docker` directory.
 
 # Deployment
 
