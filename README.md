@@ -1,8 +1,4 @@
 
-# Branches
-* **Branch master**: used in-memory authentication
-* **Branch jdbc-authentication**: used jdbc authentication and Mysql in docker
-
 # Scope
 * Spring Boot
 * Spring Security
@@ -15,16 +11,11 @@
 # Quick Start
 
 ### Docker
-*  docker build -t mysql01 .  
-*  docker run --name db -p 4306:3306 -d mysql01
-
-
-* Clone repository
-* $ chmod +x run-docker.bash  
-* $ ./run-docker.bash -> (this command runs MySQL Database in Docker)
-* $ mvn clean install
-* $ mvn spring-boot:run
-* http://localhost:8888/
+* `$ chmod +x docker-run.bash`
+* `$ ./docker-run.bash`
+* `$ mvn clean install`
+* `$ mvn spring-boot:run`
+* http://localhost:8090/
 
 
 # MySql

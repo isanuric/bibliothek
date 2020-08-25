@@ -1,5 +1,9 @@
-FROM tomcat:9.0-jre8-alpine
+FROM mysql:latest
 
-EXPOSE 8095
-#CMD ["catalina.sh", "run"]
-#COPY target/wizard*.war $CATALINA_HOME/webapps/wizard.war
+ENV MYSQL_ROOT_PASSWORD fdske4rwHFDGtrzr71e53
+ENV MYSQL_DATABASE bibdb
+#ENV MYSQL_CONTAINER_NAME=mysql-7
+
+ADD /docker/scripts-all.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306
