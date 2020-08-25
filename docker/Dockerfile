@@ -1,6 +1,9 @@
-FROM mysql
+FROM mysql:latest
 
-ENV MYSQL_DATABASE book_database
-ENV USE book_database
+ENV MYSQL_ROOT_PASSWORD fdske4rwHFDGtrzr71e53
+ENV MYSQL_DATABASE bibdb
+#ENV MYSQL_CONTAINER_NAME=mysql-7
 
-COPY ./docker/ /docker-entrypoint-initdb.d/
+ADD scripts-all.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306

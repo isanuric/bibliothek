@@ -25,10 +25,16 @@
 
 #### Run MySql as Docker:
 
+
+* MySql root password: fdske4rwHFDGtrzr71e53
+* Port: 3306
+* Host: 0.0.0.0    
+* Database: bibdb
+
 `docker run -e MYSQL_ROOT_PASSWORD=fdske4rwHFDGtrzr71e53 --name mysql-1 -d -p=3306:3306 mysql`
 
 #### Tables:
-You can update and customise tables that are located in `/docker` directory.
+You can update and customise tables that are located in `/docker/scripts-all.sql`.
 
 # Deployment
 
