@@ -13,6 +13,12 @@
 
 
 # Quick Start
+
+### Docker
+*  docker build -t mysql01 .  
+*  docker run --name db -p 4306:3306 -d mysql01
+
+
 * Clone repository
 * $ chmod +x run-docker.bash  
 * $ ./run-docker.bash -> (this command runs MySQL Database in Docker)
