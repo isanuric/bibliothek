@@ -1,9 +1,8 @@
-FROM mysql:latest
+FROM java:8
 
-ENV MYSQL_ROOT_PASSWORD fdske4rwHFDGtrzr71e53
-ENV MYSQL_DATABASE bibdb
-#ENV MYSQL_CONTAINER_NAME=mysql-7
+EXPOSE 8090
 
-ADD /docker/scripts-all.sql /docker-entrypoint-initdb.d
+ADD target/bibliothek-0.0.1-SNAPSHOT.jar bibliothek.jar
 
-EXPOSE 3306
+# Run
+ENTRYPOINT ["java", "-jar", "bibliothek.jar"]
